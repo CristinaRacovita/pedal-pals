@@ -1,2 +1,2 @@
-# pedal-pals
+# Pedal Pals
 SOA Project
