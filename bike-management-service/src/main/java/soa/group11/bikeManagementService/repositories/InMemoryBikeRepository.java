@@ -23,4 +23,9 @@ public class InMemoryBikeRepository implements BikeRepository {
     public List<Bike> getBikesByUserId(int userId) {
         return bikes.stream().filter(bike -> bike.getUserId() == userId).toList();
     }
+
+    @Override
+    public void save(Bike bike) {
+        this.bikes.add(bike);
+    }
 }

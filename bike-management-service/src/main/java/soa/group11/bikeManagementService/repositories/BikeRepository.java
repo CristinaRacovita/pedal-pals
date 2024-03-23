@@ -9,4 +9,6 @@ import soa.group11.bikeManagementService.entities.Bike;
 
 public interface BikeRepository extends Repository<Bike, UUID> {
     List<Bike> getBikesByUserId(int userId);
+
+    void save(Bike toBike);
 }
