@@ -17,11 +17,22 @@ public class Subscription {
     private int userId;
     private int numberOfGears;
     private String brand;
+    private Boolean isTownBike;
 
-    public Subscription(BigInteger id, int userId, int numberOfGears, String brand){
+    public Subscription() {}
+
+    public Subscription(BigInteger id, int userId, int numberOfGears, String brand, Boolean isTownBike){
         this.brand = brand;
         this.id = id;
         this.numberOfGears = numberOfGears;
         this.userId = userId;
+        this.isTownBike = isTownBike;
+    }
+
+    public Subscription(int userId, int numberOfGears, String brand, Boolean isTownBike){
+        this.brand = brand;
+        this.numberOfGears = numberOfGears;
+        this.userId = userId;
+        this.isTownBike = isTownBike;
     }
 }

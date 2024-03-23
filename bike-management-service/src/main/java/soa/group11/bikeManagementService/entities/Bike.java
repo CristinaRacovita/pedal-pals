@@ -11,7 +11,6 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import soa.group11.bikeManagementService.enums.Color;
-import soa.group11.bikeManagementService.enums.Material;
 
 @Getter
 @Setter
@@ -23,23 +22,16 @@ public class Bike {
 
     private double weight;
 
-    private double frameSize;
-
     private double wheelSize;
 
     private int numberOfGears;
 
     private String breakType;
 
-    private String suspensionType;
-
     private String brand;
 
     @Enumerated(EnumType.STRING)
     private Color color;
-
-    @Enumerated(EnumType.STRING)
-    private Material material;
 
     private List<Accessory> accessories;
 

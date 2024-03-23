@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import soa.group11.bikeManagementService.enums.BikeEType;
+import soa.group11.bikeManagementService.enums.BikeVariety;
 import soa.group11.bikeManagementService.enums.SuitableRoad;
 
 @Getter
@@ -19,7 +19,7 @@ public class BikeType {
     private int Id;
 
     @Enumerated(EnumType.ORDINAL)
-    private BikeEType type;
+    private BikeVariety type;
 
     @Enumerated(EnumType.ORDINAL)
     private SuitableRoad suitability;
