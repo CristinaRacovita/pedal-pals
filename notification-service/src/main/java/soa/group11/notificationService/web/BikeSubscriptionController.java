@@ -7,16 +7,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import soa.group11.notificationService.entities.Subscription;
-import soa.group11.notificationService.services.SubscriptionService;
+import soa.group11.notificationService.entities.BikeSubscription;
+import soa.group11.notificationService.services.BikeSubscriptionService;
 
 @RestController
-public class SubscriptionController {
+public class BikeSubscriptionController {
     @Autowired
-    private SubscriptionService subscriptionService;
+    private BikeSubscriptionService subscriptionService;
 
     @GetMapping("/notification/{userId}")
-    public List<Subscription> getSubscriptionsByUserId(@PathVariable(value="userId") int userId) {
+    public List<BikeSubscription> getSubscriptionsByUserId(@PathVariable(value="userId") int userId) {
         return subscriptionService.getSubscriptionsByUserId(userId);
     }
 }

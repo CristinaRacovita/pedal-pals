@@ -11,25 +11,15 @@ import lombok.Getter;
 @Document(collection = "bike_subscriptions")
 @Getter
 @Setter
-public class Subscription {
-    @Id
-    private BigInteger  id;
+public class BikeSubscription {
     private int userId;
     private int numberOfGears;
     private String brand;
     private Boolean isTownBike;
 
-    public Subscription() {}
+    public BikeSubscription() {}
 
-    public Subscription(BigInteger id, int userId, int numberOfGears, String brand, Boolean isTownBike){
-        this.brand = brand;
-        this.id = id;
-        this.numberOfGears = numberOfGears;
-        this.userId = userId;
-        this.isTownBike = isTownBike;
-    }
-
-    public Subscription(int userId, int numberOfGears, String brand, Boolean isTownBike){
+    public BikeSubscription(int userId, int numberOfGears, String brand, Boolean isTownBike){
         this.brand = brand;
         this.numberOfGears = numberOfGears;
         this.userId = userId;
