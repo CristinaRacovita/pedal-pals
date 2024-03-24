@@ -24,8 +24,13 @@ public class FeedbackService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteFeedback(String id){
-        this.feedbackRepository.deleteById(id);
+    public boolean deleteFeedback(String id){
+        if (this.feedbackRepository.existsById(id)) {
+            this.feedbackRepository.deleteById(id);
+            return true;
+        }
+
+        return false;
     }
 
     public FeedbackDto updateFeedback(String id, FeedbackDto feedbackDto) throws Exception{
