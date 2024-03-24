@@ -39,9 +39,8 @@ public class FeedbackService {
         Feedback feedback = this.feedbackRepository.findById(id).orElse(null);
 
         if (feedback != null){
-            feedback.setBikeId(feedbackDto.getBikeId());
+            // only the review and the number of stars can be updated
             feedback.setNumberOfStars(feedbackDto.getNumberOfStars());
-            feedback.setReviewerId(feedbackDto.getReviewerId());
             feedback.setReview(feedbackDto.getReview());
             
             feedbackRepository.save(feedback);
