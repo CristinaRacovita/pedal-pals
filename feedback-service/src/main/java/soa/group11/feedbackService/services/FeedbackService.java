@@ -28,8 +28,27 @@ public class FeedbackService {
         this.feedbackRepository.deleteById(id);
     }
 
+    public FeedbackDto updateFeedback(String id, FeedbackDto feedbackDto) throws Exception{
+        // make sure the object matches the path variable
+        feedbackDto.setId(id);
+        Feedback feedback = this.feedbackRepository.findById(id).orElse(null);
+
+        if (feedback != null){
+            feedback.setBikeId(feedbackDto.getBikeId());
+            feedback.setNumberOfStars(feedbackDto.getNumberOfStars());
+            feedback.setReviewerId(feedbackDto.getReviewerId());
+            feedback.setReview(feedbackDto.getReview());
+            
+            feedbackRepository.save(feedback);
+
+            return toFeedbackDto(feedback);
+        }else{
+            throw new Exception("Feedback with ID " + id + " not found");
+        }
+    }
+
     private FeedbackDto toFeedbackDto(Feedback feedback) {
-        return new FeedbackDto(feedback.getId(), feedback.getBikeId(), feedback.getReviewerId(), feedback.getNumberOfStars());
+        return new FeedbackDto(feedback.getId(), feedback.getBikeId(), feedback.getReviewerId(), feedback.getNumberOfStars(), feedback.getReview());
     }
 
     public void addFeedback(FeedbackDto feedbackDto){
