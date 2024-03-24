@@ -24,8 +24,20 @@ public class FeedbackService {
                 .collect(Collectors.toList());
     }
 
+    public void deleteFeedback(String id){
+        this.feedbackRepository.deleteById(id);
+    }
+
     private FeedbackDto toFeedbackDto(Feedback feedback) {
-        return new FeedbackDto(feedback.getBikeId(), feedback.getReviewerId(), feedback.getNumberOfStars());
+        return new FeedbackDto(feedback.getId(), feedback.getBikeId(), feedback.getReviewerId(), feedback.getNumberOfStars());
+    }
+
+    public void addFeedback(FeedbackDto feedbackDto){
+        feedbackRepository.save(toFeedback(feedbackDto));
+    }
+
+    private Feedback toFeedback(FeedbackDto feedbackDto){
+        return new Feedback(feedbackDto.getBikeId(), feedbackDto.getReviewerId(), feedbackDto.getNumberOfStars(), feedbackDto.getReview());
     }
 
 }
