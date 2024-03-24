@@ -8,33 +8,28 @@ import org.springframework.stereotype.Service;
 
 import soa.group11.bikeManagementService.entities.Bike;
 import soa.group11.bikeManagementService.entities.BikeType;
-import soa.group11.bikeManagementService.enums.SuitableRoad;
 import soa.group11.bikeManagementService.models.BikeDto;
 import soa.group11.bikeManagementService.repositories.BikeRepository;
 
 @Service
 public class BikeService {
-
-    private final BikeRepository bikeRepository;
-
     @Autowired
-    public BikeService(BikeRepository bikeRepository) {
-        this.bikeRepository = bikeRepository;
-    }
+    private BikeRepository bikeRepository;
 
     public List<BikeDto> getBikesByUserId(int userId) {
-        return bikeRepository.getBikesByUserId(userId).stream().map(bike->ToBikeDto(bike)).collect(Collectors.toList());
+        return bikeRepository.findByUserId(userId).stream().map(bike -> ToBikeDto(bike)).collect(Collectors.toList());
     }
 
     public void addBike(BikeDto bikeDto) {
         bikeRepository.save(ToBike(bikeDto));
     }
 
-    private BikeDto ToBikeDto(Bike bike){
-        return new BikeDto(bike.getBrand(), bike.getBikeType().getSuitability().equals(SuitableRoad.TOWN));
+    private BikeDto ToBikeDto(Bike bike) {
+        return new BikeDto(bike.getBrand(), bike.getBikeType().getSuitability().equals("CITY"));
     }
 
-    private Bike ToBike(BikeDto bike){
-        return new Bike(bike.getUserId(), bike.getBrand(), new BikeType(bike.getIsTownBike() ? SuitableRoad.TOWN : SuitableRoad.MOUNTAIN));
+    private Bike ToBike(BikeDto bike) {
+        return new Bike(bike.getUserId(), bike.getBrand(),
+                new BikeType(bike.getIsTownBike() ? "CITY" : "MOUNTAIN"));
     }
 }

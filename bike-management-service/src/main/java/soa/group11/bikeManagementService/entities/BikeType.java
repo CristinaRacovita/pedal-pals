@@ -1,30 +1,18 @@
 package soa.group11.bikeManagementService.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import soa.group11.bikeManagementService.enums.BikeVariety;
-import soa.group11.bikeManagementService.enums.SuitableRoad;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "BikeType")
 public class BikeType {
-    @Id
-    private int Id;
+    private String type;
 
-    @Enumerated(EnumType.ORDINAL)
-    private BikeVariety type;
+    private String suitability;
 
-    @Enumerated(EnumType.ORDINAL)
-    private SuitableRoad suitability;
+    public BikeType() {}
 
-    public BikeType(SuitableRoad suitability) {
+    public BikeType(String suitability) {
         this.suitability = suitability;
     }
 }

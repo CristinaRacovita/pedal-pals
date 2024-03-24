@@ -1,20 +1,26 @@
 package soa.group11.bikeManagementService.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "BikeAccessory")
+@Document(collection = "accessories")
 public class Accessory {
     @Id
-    private int Id;
+    private String Id;
 
     private String name;
 
     private String brand;
+
+    public Accessory() {}
+
+    public Accessory(String name, String brand) {
+        this.name = name;
+        this.brand = brand;
+    }
 }

@@ -2,9 +2,6 @@ package soa.group11.notificationService.entities;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.math.BigInteger;
-
-import org.springframework.data.annotation.Id;
 import lombok.Setter;
 import lombok.Getter;
 

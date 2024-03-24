@@ -18,7 +18,7 @@ public class BikeController {
     @Autowired private BikeService bikeService;
     @Autowired private NotificationProducer notificationProducer;
 
-    @GetMapping("/{userId}")
+    @GetMapping("/bikes/{userId}")
     public List<BikeDto> getBikesForUser(@PathVariable(value="userId") int userId) {
         return bikeService.getBikesByUserId(userId);
     }

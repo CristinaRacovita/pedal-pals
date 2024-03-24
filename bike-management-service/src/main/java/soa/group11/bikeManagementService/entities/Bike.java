@@ -3,22 +3,19 @@ package soa.group11.bikeManagementService.entities;
 import java.util.List;
 import java.util.UUID;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import lombok.Getter;
 import lombok.Setter;
-import soa.group11.bikeManagementService.enums.Color;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "Bike")
+@Document(collection = "bikes")
 public class Bike {
     @Id
-    private UUID id;
+    private String id;
 
     private double weight;
 
@@ -30,14 +27,16 @@ public class Bike {
 
     private String brand;
 
-    @Enumerated(EnumType.STRING)
-    private Color color;
-
-    private List<Accessory> accessories;
+    private String color;
 
     private int userId;
 
     private BikeType bikeType;
+
+    @DBRef
+    private List<Accessory> accessories;
+
+    public Bike() {}
 
     public Bike(int userId, String brand, BikeType bikeType) {
         this.userId = userId;

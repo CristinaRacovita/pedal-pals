@@ -1,14 +1,13 @@
 package soa.group11.bikeManagementService.repositories;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
-import org.springframework.data.repository.Repository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import soa.group11.bikeManagementService.entities.Bike;
 
-public interface BikeRepository extends Repository<Bike, UUID> {
-    List<Bike> getBikesByUserId(int userId);
-
-    void save(Bike toBike);
+public interface BikeRepository extends MongoRepository<Bike, String> {
+    List<Bike> findByUserId(int userId);
+    Optional<Bike> findById(String id);
 }
