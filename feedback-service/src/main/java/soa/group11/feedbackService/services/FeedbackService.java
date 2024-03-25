@@ -24,7 +24,12 @@ public class FeedbackService {
                 .collect(Collectors.toList());
     }
 
-    public boolean deleteFeedback(String id){
+    public List<FeedbackDto> getFeedbacksByBikeId(String bikeId) {
+        return feedbackRepository.findFeedbacksByBikeId(bikeId).stream().map(feedback -> toFeedbackDto(feedback))
+                .collect(Collectors.toList());
+    }
+
+    public boolean deleteFeedback(String id) {
         if (this.feedbackRepository.existsById(id)) {
             this.feedbackRepository.deleteById(id);
             return true;
@@ -33,34 +38,36 @@ public class FeedbackService {
         return false;
     }
 
-    public FeedbackDto updateFeedback(String id, FeedbackDto feedbackDto) throws Exception{
+    public FeedbackDto updateFeedback(String id, FeedbackDto feedbackDto) throws Exception {
         // make sure the object matches the path variable
         feedbackDto.setId(id);
         Feedback feedback = this.feedbackRepository.findById(id).orElse(null);
 
-        if (feedback != null){
+        if (feedback != null) {
             // only the review and the number of stars can be updated
             feedback.setNumberOfStars(feedbackDto.getNumberOfStars());
             feedback.setReview(feedbackDto.getReview());
-            
+
             feedbackRepository.save(feedback);
 
             return toFeedbackDto(feedback);
-        }else{
+        } else {
             throw new Exception("Feedback with ID " + id + " not found");
         }
     }
 
     private FeedbackDto toFeedbackDto(Feedback feedback) {
-        return new FeedbackDto(feedback.getId(), feedback.getBikeId(), feedback.getReviewerId(), feedback.getNumberOfStars(), feedback.getReview());
+        return new FeedbackDto(feedback.getId(), feedback.getBikeId(), feedback.getReviewerId(),
+                feedback.getNumberOfStars(), feedback.getReview());
     }
 
-    public void addFeedback(FeedbackDto feedbackDto){
+    public void addFeedback(FeedbackDto feedbackDto) {
         feedbackRepository.save(toFeedback(feedbackDto));
     }
 
-    private Feedback toFeedback(FeedbackDto feedbackDto){
-        return new Feedback(feedbackDto.getBikeId(), feedbackDto.getReviewerId(), feedbackDto.getNumberOfStars(), feedbackDto.getReview());
+    private Feedback toFeedback(FeedbackDto feedbackDto) {
+        return new Feedback(feedbackDto.getBikeId(), feedbackDto.getReviewerId(), feedbackDto.getNumberOfStars(),
+                feedbackDto.getReview());
     }
 
 }

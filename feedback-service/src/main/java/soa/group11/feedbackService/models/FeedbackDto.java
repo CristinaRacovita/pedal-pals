@@ -1,7 +1,5 @@
 package soa.group11.feedbackService.models;
 
-
-
 import org.springframework.validation.annotation.Validated;
 
 import jakarta.validation.constraints.Max;
@@ -25,7 +23,7 @@ public class FeedbackDto {
     @Max(5)
     private int numberOfStars;
     private String review = "";
-    
+
     public FeedbackDto(String id, String bikeId, String reviewerId, int numberOfStars, String review) {
         this.id = id;
         this.bikeId = bikeId;

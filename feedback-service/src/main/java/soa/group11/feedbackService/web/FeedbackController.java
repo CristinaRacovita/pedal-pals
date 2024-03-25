@@ -18,7 +18,6 @@ import jakarta.validation.Valid;
 import soa.group11.feedbackService.models.FeedbackDto;
 import soa.group11.feedbackService.services.FeedbackService;
 
-
 @RestController
 @Validated
 public class FeedbackController {
@@ -30,30 +29,41 @@ public class FeedbackController {
         return feedbackService.getAllFeedbacks();
     }
 
+
+    @GetMapping("/feedbacks/{bikeId}")
+    public ResponseEntity<List<FeedbackDto>> getFeedbacksByBikeId(@PathVariable String bikeId){
+        List<FeedbackDto> feedbacks =  feedbackService.getFeedbacksByBikeId(bikeId);
+
+        if (feedbacks.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+          }
+          return new ResponseEntity<>(feedbacks, HttpStatus.OK);
+    }
+
+
     @PostMapping("/feedback")
-    public void addFeedback(@Valid @RequestBody FeedbackDto feedbackDto){
+    public void addFeedback(@Valid @RequestBody FeedbackDto feedbackDto) {
         feedbackService.addFeedback(feedbackDto);
     }
 
     @DeleteMapping("/feedback/{id}")
-    public ResponseEntity<Void> deleteFeedback(@PathVariable String id){
-        if (feedbackService.deleteFeedback(id) == true){
+    public ResponseEntity<Void> deleteFeedback(@PathVariable String id) {
+        if (feedbackService.deleteFeedback(id) == true) {
             return ResponseEntity.noContent().build();
-        }
-        else{
+        } else {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
 
-
     @PutMapping("/feedback/{id}")
-    public ResponseEntity<FeedbackDto> updateFeedback(@PathVariable String id, @RequestBody @Valid FeedbackDto feedbackDto){
+    public ResponseEntity<FeedbackDto> updateFeedback(@PathVariable String id,
+            @RequestBody @Valid FeedbackDto feedbackDto) {
         try {
             FeedbackDto updatedFeedbackDto = feedbackService.updateFeedback(id, feedbackDto);
             return ResponseEntity.ok(updatedFeedbackDto);
         } catch (Exception e) {
-             System.out.println("On exception");
-             return new ResponseEntity(HttpStatus.NOT_FOUND);
+            System.out.println("On exception");
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
 }
