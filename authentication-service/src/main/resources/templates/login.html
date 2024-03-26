@@ -1,0 +1,104 @@
+<html>
+
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+</head>
+
+
+<body>
+    <div class="login-container">
+        <div class="image-container">
+            <img class="image" th:src="@{/PedalPals.png}" />
+        </div>
+
+        <div class="login-form">
+            <div class="form">
+                <h1 class="title">PedalPals</h1>
+                <form class="form" th:object="${user}" id="form">
+                    <label for="username">Username</label>
+                    <input required th:field="*{username}" type="text" name="username" placeholder="Your username.." id="username">
+    
+                    <label class="password" for="password">Password</label>
+                    <input required  type="password" th:field="*{password}" name="password" placeholder="Your password..">
+    
+                    <button type="submit" class="button">Log in</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<style>
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: #34263d;
+    }
+
+    .image {
+        width: 400px;
+    }
+
+    .login-form {
+        font-family: 'Roboto';
+        padding:35px;
+        padding-bottom: 70px;
+        background-color: #f2eff4;
+        border-radius: 20px;
+        margin-left: 100px;
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    input,
+    select {
+        padding: 12px 20px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        width: 300px;
+        background-color: white;
+    }
+
+    input:focus-visible {
+        outline: none;
+    }
+
+    .title {
+        text-align: center;
+    }
+
+    .password {
+        margin-top: 15px;
+    }
+
+    .button {
+        outline: none;
+        background-color: #34263d;
+        color: white;
+        border-radius: 15px;
+        width: fit-content;
+        padding: 12px 20px;
+        cursor: pointer;
+        font-weight: bold;
+        margin-top: 30px;
+        font-size: small;
+    }
+
+    .button:hover {
+        opacity: 70%;
+    }
+</style>
+
+<script>
+document.getElementById("form").action = "http://localhost:8082/bikes/1/" + document.getElementById("username").value;
+</script>

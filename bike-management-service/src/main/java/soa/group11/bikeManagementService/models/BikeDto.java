@@ -23,4 +23,10 @@ public class BikeDto {
         this.brand = brand;
         this.isTownBike = isTownBike;
     }
+
+    public BikeDto(String brand, int numberOfGears, Boolean isTownBike){
+        this.brand = brand;
+        this.isTownBike = isTownBike;
+        this.numberOfGears = numberOfGears;
+    }
 }

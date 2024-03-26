@@ -1,7 +1,5 @@
 package soa.group11.bikeManagementService.models;
 
-import java.util.UUID;
-
 import lombok.Getter;
 import lombok.Setter;
 

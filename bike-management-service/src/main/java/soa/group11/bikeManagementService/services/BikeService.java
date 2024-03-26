@@ -25,7 +25,7 @@ public class BikeService {
     }
 
     private BikeDto ToBikeDto(Bike bike) {
-        return new BikeDto(bike.getBrand(), bike.getBikeType().getSuitability().equals("CITY"));
+        return new BikeDto(bike.getBrand(), bike.getNumberOfGears(), bike.getBikeType().getSuitability().equals("CITY"));
     }
 
     private Bike ToBike(BikeDto bike) {
