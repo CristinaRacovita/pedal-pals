@@ -31,8 +31,8 @@ public class FeedbackController {
 
 
     @GetMapping("/feedbacks/{bikeId}")
-    public ResponseEntity<List<FeedbackDto>> getFeedbacksByBikeId(@PathVariable String bikeId){
-        List<FeedbackDto> feedbacks =  feedbackService.getFeedbacksByBikeId(bikeId);
+    public ResponseEntity<List<FeedbackDto>> getFeedbacksByBikeIds(@PathVariable List<String> bikeId){
+        List<FeedbackDto> feedbacks =  feedbackService.getFeedbacksByBikeIds(bikeId);
 
         if (feedbacks.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

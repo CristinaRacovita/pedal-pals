@@ -13,4 +13,6 @@ import soa.group11.feedbackService.entities.Feedback;
 public interface FeedbackRepository extends MongoRepository<Feedback, String> {
     @Query(value="{ 'bikeId' : ?0 }")
     List<Feedback> findFeedbacksByBikeId(String bikeId);
+
+    List<Feedback> findByBikeIdIn(List<String> bikeIds);
 }

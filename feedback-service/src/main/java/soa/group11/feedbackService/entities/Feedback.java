@@ -18,7 +18,7 @@ public class Feedback {
     private String reviewerId;
     private int numberOfStars;
     private String review;
-
+    
     public Feedback(String bikeId, String reviewerId, int numberOfStars, String review) {
         this.bikeId = bikeId;
         this.reviewerId = reviewerId;

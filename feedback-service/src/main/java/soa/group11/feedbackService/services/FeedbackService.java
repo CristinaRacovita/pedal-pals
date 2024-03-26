@@ -24,8 +24,8 @@ public class FeedbackService {
                 .collect(Collectors.toList());
     }
 
-    public List<FeedbackDto> getFeedbacksByBikeId(String bikeId) {
-        return feedbackRepository.findFeedbacksByBikeId(bikeId).stream().map(feedback -> toFeedbackDto(feedback))
+    public List<FeedbackDto> getFeedbacksByBikeIds(List<String> bikeId) {
+        return feedbackRepository.findByBikeIdIn(bikeId).stream().map(feedback -> toFeedbackDto(feedback))
                 .collect(Collectors.toList());
     }
 
