@@ -29,17 +29,15 @@ public class FeedbackController {
         return feedbackService.getAllFeedbacks();
     }
 
-
     @GetMapping("/feedbacks/{bikeId}")
-    public ResponseEntity<List<FeedbackDto>> getFeedbacksByBikeIds(@PathVariable List<String> bikeId){
-        List<FeedbackDto> feedbacks =  feedbackService.getFeedbacksByBikeIds(bikeId);
+    public ResponseEntity<List<FeedbackDto>> getFeedbacksByBikeIds(@PathVariable List<String> bikeId) {
+        List<FeedbackDto> feedbacks = feedbackService.getFeedbacksByBikeIds(bikeId);
 
         if (feedbacks.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-          }
-          return new ResponseEntity<>(feedbacks, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(feedbacks, HttpStatus.OK);
     }
-
 
     @PostMapping("/feedback")
     public void addFeedback(@Valid @RequestBody FeedbackDto feedbackDto) {
