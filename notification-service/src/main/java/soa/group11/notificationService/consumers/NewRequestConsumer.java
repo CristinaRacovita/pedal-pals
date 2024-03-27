@@ -1,12 +1,13 @@
-package main.java.soa.group11.notificationService.consumers;
+package soa.group11.notificationService.consumers;
 
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import main.java.soa.group11.notificationService.models.BikeRequest;
+import soa.group11.notificationService.models.BikeRequest;
 
 
 @Component
@@ -20,9 +21,10 @@ public class NewRequestConsumer {
             
             BikeRequest bikeRequest = objectMapper.readValue(requestJson, BikeRequest.class);
 
-            System.console().printf("User %s has received the following bike request\n %s", bikeRequest.getBikeOwnerId(), bikeRequest.toString());
+            System.out.println(bikeRequest.toString());
         }catch(JsonProcessingException e){
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println("Error");
         }
     }
 }

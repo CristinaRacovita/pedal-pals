@@ -1,4 +1,4 @@
-package main.java.soa.group11.notificationService.models;
+package soa.group11.notificationService.models;
 
 import lombok.Setter;
 import lombok.Getter;
@@ -9,19 +9,24 @@ public class BikeRequest{
     private String bikeOwnerId;
     private String bikeRequesterId;
     private String bikeId;
+    private String status;
 
     public BikeRequest() {
     }
 
-    public BikeRequest(String bikeOwnerId, String bikeRequesterId, String bikeId) {
+    public BikeRequest(String bikeOwnerId, String bikeRequesterId, String bikeId, String status) {
         this.bikeOwnerId = bikeOwnerId;
         this.bikeRequesterId = bikeRequesterId;
         this.bikeId = bikeId;
+        this.status = status;
     }
 
     @Override
     public String toString() {
-        return "BikeRequest [bikeOwnerId=" + bikeOwnerId + ", bikeRequesterId=" + bikeRequesterId + ", bikeId=" + bikeId
-                + "]";
+        if (status.equals("cancelled")){
+            return "Requester " + bikeRequesterId + " cancels the request for bike " + bikeId + " owned by " + bikeOwnerId;
+        }else{
+            return "Bike owner " + bikeOwnerId + " received a request from " + bikeRequesterId + " for bike " + bikeId;
+        }
     }
 }
