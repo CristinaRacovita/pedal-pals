@@ -18,12 +18,16 @@ import jakarta.validation.Valid;
 import soa.group11.rentalRequestService.services.BikeRequestService;
 
 import soa.group11.rentalRequestService.models.BikeRequestDto;
+import soa.group11.rentalRequestService.producers.BikeRequestProducer;
 
 @Validated
 @RestController
 public class BikeRequestController {
     @Autowired
     private BikeRequestService bikeRequestService;
+
+    @Autowired
+    private BikeRequestProducer bikeRequestProducer;
 
     @GetMapping("/requests")
     public ResponseEntity<List<BikeRequestDto>> getRequestsByRequesterId(
@@ -41,18 +45,25 @@ public class BikeRequestController {
     @PostMapping("/request")
     public void addBikeRequest(@RequestBody @Valid BikeRequestDto bikeRequestDto) {
         bikeRequestService.addBikeRequest(bikeRequestDto);
+        bikeRequestProducer.sendRequest(bikeRequestDto);
     }
 
     @PatchMapping("/request/{id}")
     public ResponseEntity<BikeRequestDto> cancelRequest(@PathVariable String id,
             @RequestBody BikeRequestDto bikeRequestDto) {
-        if (!bikeRequestDto.getStatus().equals("cancelled")){
+        if (!bikeRequestDto.getStatus().equals("cancelled")) {
             System.out.println(bikeRequestDto.getStatus());
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         try {
             BikeRequestDto updatedBikeRequestDto = bikeRequestService.cancelRequest(id, bikeRequestDto);
-            return ResponseEntity.ok(updatedBikeRequestDto);
+
+            if (updatedBikeRequestDto == null) {
+                return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            } else {
+                bikeRequestProducer.sendRequest(updatedBikeRequestDto);
+                return ResponseEntity.ok(updatedBikeRequestDto);
+            }
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }

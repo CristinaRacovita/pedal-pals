@@ -47,11 +47,16 @@ public class BikeRequestService {
 
         if (bikeRequest != null) {
             // only the status can be updated
-            bikeRequest.setStatus(bikeRequestDto.getStatus());
 
-            bikeRequestRepository.save(bikeRequest);
+            if (!bikeRequest.getStatus().equals("cancelled")){
+                bikeRequest.setStatus(bikeRequestDto.getStatus());
 
-            return toBikeRequestDto(bikeRequest);
+                bikeRequestRepository.save(bikeRequest);
+    
+                return toBikeRequestDto(bikeRequest);
+            }else{
+                return null;
+            }
         } else {
             throw new Exception("Bike request with ID " + id + " not found");
         }
