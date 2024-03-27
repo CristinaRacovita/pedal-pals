@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -21,6 +22,9 @@ public class NotificationConsumer {
     public void receiveMessage(String bikeJson) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
+            // ignore unknown fields
+            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
             BikeSubscription bikeSubscription = objectMapper.readValue(bikeJson, BikeSubscription.class);
             List<BikeSubscription> subscriptions = subscriptionRepository.getSubscriptionsLike(bikeSubscription.getBrand(), bikeSubscription.getNumberOfGears());
             
