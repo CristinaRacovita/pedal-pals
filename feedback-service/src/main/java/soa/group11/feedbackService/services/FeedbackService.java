@@ -56,13 +56,13 @@ public class FeedbackService {
         }
     }
 
+    public void addFeedback(FeedbackDto feedbackDto) {
+        feedbackRepository.save(toFeedback(feedbackDto));
+    }
+
     private FeedbackDto toFeedbackDto(Feedback feedback) {
         return new FeedbackDto(feedback.getId(), feedback.getBikeId(), feedback.getReviewerId(),
                 feedback.getNumberOfStars(), feedback.getReview());
-    }
-
-    public void addFeedback(FeedbackDto feedbackDto) {
-        feedbackRepository.save(toFeedback(feedbackDto));
     }
 
     private Feedback toFeedback(FeedbackDto feedbackDto) {

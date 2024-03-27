@@ -60,7 +60,6 @@ public class FeedbackController {
             FeedbackDto updatedFeedbackDto = feedbackService.updateFeedback(id, feedbackDto);
             return ResponseEntity.ok(updatedFeedbackDto);
         } catch (Exception e) {
-            System.out.println("On exception");
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
