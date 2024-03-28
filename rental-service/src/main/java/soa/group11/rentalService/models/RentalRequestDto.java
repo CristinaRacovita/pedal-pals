@@ -1,4 +1,4 @@
-package soa.group11.rentalRequestService.models;
+package soa.group11.rentalService.models;
 
 import org.springframework.validation.annotation.Validated;
 
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @Validated
 @NoArgsConstructor
-public class BikeRequestDto {
+public class RentalRequestDto {
     private String id;
     @NotNull
     private String bikeOwnerId;
@@ -21,7 +21,7 @@ public class BikeRequestDto {
     private String bikeId;
     private String status;
 
-    public BikeRequestDto(String id, String bikeOwnerId, String bikeRequesterId, String bikeId, String status) {
+    public RentalRequestDto(String id, String bikeOwnerId, String bikeRequesterId, String bikeId, String status) {
         this.id = id;
         this.bikeOwnerId = bikeOwnerId;
         this.bikeRequesterId = bikeRequesterId;
@@ -29,7 +29,7 @@ public class BikeRequestDto {
         this.status = status;
     }
 
-    public BikeRequestDto(String bikeOwnerId, String bikeRequesterId, String bikeId, String status) {
+    public RentalRequestDto(String bikeOwnerId, String bikeRequesterId, String bikeId, String status) {
         this.bikeOwnerId = bikeOwnerId;
         this.bikeRequesterId = bikeRequesterId;
         this.bikeId = bikeId;

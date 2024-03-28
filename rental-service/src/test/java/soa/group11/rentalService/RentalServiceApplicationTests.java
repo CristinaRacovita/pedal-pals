@@ -1,10 +1,10 @@
-package soa.group11.rentalRequestService;
+package soa.group11.rentalService;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RentalRequestServiceApplicationTests {
+class RentalServiceApplicationTests {
 
 	@Test
 	void contextLoads() {

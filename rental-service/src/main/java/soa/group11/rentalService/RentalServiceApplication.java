@@ -1,4 +1,4 @@
-package soa.group11.rentalRequestService;
+package soa.group11.rentalService;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,10 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 @SpringBootApplication
 @EnableMongoRepositories
-public class RentalRequestServiceApplication {
+public class RentalServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RentalRequestServiceApplication.class, args);
+		SpringApplication.run(RentalServiceApplication.class, args);
 	}
 
 }
