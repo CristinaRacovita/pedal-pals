@@ -1,0 +1,9 @@
+<html>
+    <body>
+        <h1>Bikes</h1>
+        <h2 th:text="${role}"></h2>
+        <div th:each="bike: ${bikes}">
+            <b th:text="${bike.brand}"></b> --- <small th:text="${bike.numberOfGears}"></small>
+        </div>
+    </body>
+</html>
