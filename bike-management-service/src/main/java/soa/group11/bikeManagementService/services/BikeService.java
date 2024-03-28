@@ -1,7 +1,8 @@
 package soa.group11.bikeManagementService.services;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.Exchanger;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,42 +25,52 @@ public class BikeService {
         List<BikeDto> bikeDtos = bikeRepository.findByUserId(userId).stream().map(bike -> ToBikeDto(bike))
                 .collect(Collectors.toList());
 
-        addFeedbacks(bikeDtos);
-        return bikeDtos;
+        return getBikesWithFeedback(bikeDtos);
     }
 
     public void addBike(BikeDto bikeDto) {
-        bikeRepository.save(ToBike(bikeDto));
-    }
-
-    private void addFeedbacks(List<BikeDto> bikeDtos) {
-        // get feedbacks
-        String bikeIds = "";
-
-        for (BikeDto bikeDto : bikeDtos) {
-            bikeIds += bikeDto.getId();
-            bikeIds += ",";
+        Bike bike = ToBike(bikeDto);
+        if(bike == null){
+            return;
         }
 
+        bikeRepository.save(bike);
+    }
+
+    private List<BikeDto> getBikesWithFeedback(List<BikeDto> bikeDtos) {
+        StringBuilder bikeIdsBuilder = new StringBuilder();
+
+        for (BikeDto bikeDto : bikeDtos) {
+            bikeIdsBuilder.append(bikeDto.getId()).append(",");
+        }
+
+        String bikeIds = bikeIdsBuilder.toString();
         try {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<FeedbackDto[]> response = restTemplate.getForEntity(
-                    "http://localhost:8081/feedbacks/" + bikeIds,
-                    FeedbackDto[].class);
+                    "http://localhost:8081/feedbacks/" + bikeIds, FeedbackDto[].class);
 
             FeedbackDto[] feedbackDtos = response.getBody();
 
-            // set feedbacks
-            for (FeedbackDto feedbackDto : feedbackDtos) {
-                for (BikeDto bikeDto : bikeDtos)
-                    if (bikeDto.getId().equals(feedbackDto.getBikeId())) {
-                        bikeDto.getFeedbacks().add(feedbackDto);
-                    }
+            if (feedbackDtos == null) {
+                return bikeDtos;
+            }
+
+            Map<String, List<FeedbackDto>> bikeIdToFeedbacks = Arrays.stream(feedbackDtos)
+                    .collect(Collectors.groupingBy(FeedbackDto::getBikeId));
+
+            for (BikeDto bikeDto : bikeDtos) {
+                List<FeedbackDto> bikeFeedbacks = bikeIdToFeedbacks.get(bikeDto.getId());
+                if (bikeFeedbacks != null) {
+                    bikeDto.getFeedbacks().addAll(bikeFeedbacks);
+                }
             }
 
         } catch (Exception e) {
-            System.out.println("Feedbacks not found!");
+            System.out.println("Feedbacks not found! --- " + e.getMessage());
         }
+
+        return bikeDtos;
     }
 
     private BikeDto ToBikeDto(Bike bike) {

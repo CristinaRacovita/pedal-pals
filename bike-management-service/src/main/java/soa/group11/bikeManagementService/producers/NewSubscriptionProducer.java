@@ -15,10 +15,10 @@ public class NewSubscriptionProducer {
     @Autowired
     private JmsTemplate jmsTemplate;
 
-    @Value("${queue.new-subscription}") 
+    @Value("${queue.new-subscription}")
     private String newSubscriptionQueue;
 
-    public void sendMessage(BikeDto bike) { 
+    public void sendMessage(BikeDto bike) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             String bikeJson = mapper.writeValueAsString(bike);
@@ -26,6 +26,6 @@ public class NewSubscriptionProducer {
 
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-        }  
-    } 
+        }
+    }
 }

@@ -35,7 +35,8 @@ public class Bike {
     @DBRef
     private List<Accessory> accessories;
 
-    public Bike() {}
+    public Bike() {
+    }
 
     public Bike(int userId, String brand, BikeType bikeType) {
         this.userId = userId;

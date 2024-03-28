@@ -10,7 +10,8 @@ public class BikeType {
 
     private String suitability;
 
-    public BikeType() {}
+    public BikeType() {
+    }
 
     public BikeType(String suitability) {
         this.suitability = suitability;

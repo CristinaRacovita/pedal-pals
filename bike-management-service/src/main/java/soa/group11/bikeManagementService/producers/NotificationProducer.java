@@ -15,10 +15,10 @@ public class NotificationProducer {
     @Autowired
     private JmsTemplate jmsTemplate;
 
-    @Value("${queue.notification}") 
+    @Value("${queue.notification}")
     private String notificationQueue;
 
-    public void sendMessage(BikeDto bike) { 
+    public void sendMessage(BikeDto bike) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             String bikeJson = mapper.writeValueAsString(bike);
@@ -26,6 +26,6 @@ public class NotificationProducer {
 
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-        }  
-    } 
+        }
+    }
 }

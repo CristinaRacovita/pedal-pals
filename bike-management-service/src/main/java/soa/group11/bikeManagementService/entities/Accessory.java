@@ -17,7 +17,8 @@ public class Accessory {
 
     private String brand;
 
-    public Accessory() {}
+    public Accessory() {
+    }
 
     public Accessory(String name, String brand) {
         this.name = name;

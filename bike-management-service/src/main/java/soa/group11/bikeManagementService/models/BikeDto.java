@@ -16,26 +16,27 @@ public class BikeDto {
     private int numberOfGears;
     private List<FeedbackDto> feedbacks = new ArrayList<>();
 
-    public BikeDto() {}
+    public BikeDto() {
+    }
 
-    public BikeDto(String brand, int numberOfGears, int userId){
+    public BikeDto(String brand, int numberOfGears, int userId) {
         this.brand = brand;
         this.numberOfGears = numberOfGears;
         this.userId = userId;
     }
 
-    public BikeDto(String brand, Boolean isTownBike){
+    public BikeDto(String brand, Boolean isTownBike) {
         this.brand = brand;
         this.isTownBike = isTownBike;
     }
 
-    public BikeDto(String brand, int numberOfGears, Boolean isTownBike){
+    public BikeDto(String brand, int numberOfGears, Boolean isTownBike) {
         this.brand = brand;
         this.isTownBike = isTownBike;
         this.numberOfGears = numberOfGears;
-   }
-   
-    public BikeDto(String id, int userId, String brand, Boolean isTownBike){
+    }
+
+    public BikeDto(String id, int userId, String brand, Boolean isTownBike) {
         this.id = id;
         this.userId = userId;
         this.brand = brand;

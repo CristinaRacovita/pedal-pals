@@ -12,7 +12,8 @@ import soa.group11.bikeManagementService.producers.NewSubscriptionProducer;
 @RestController
 @EnableMongoRepositories
 public class BikeSubscriptionController {
-    @Autowired private NewSubscriptionProducer newSubscriptionProducer;
+    @Autowired
+    private NewSubscriptionProducer newSubscriptionProducer;
 
     @PostMapping("/bike-subscription")
     public void createNewBikeSubscription(@RequestBody BikeDto bike) {
