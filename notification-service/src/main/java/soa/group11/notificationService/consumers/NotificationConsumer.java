@@ -14,20 +14,20 @@ import soa.group11.notificationService.entities.BikeSubscription;
 import soa.group11.notificationService.repositories.BikeSubscriptionRepository;
 
 @Component
-public class NotificationConsumer {    
+public class NotificationConsumer {
     @Autowired
     private BikeSubscriptionRepository subscriptionRepository;
-    
+
     @JmsListener(destination = "${queue.notification}")
     public void receiveMessage(String bikeJson) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            // ignore unknown fields
             objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
             BikeSubscription bikeSubscription = objectMapper.readValue(bikeJson, BikeSubscription.class);
-            List<BikeSubscription> subscriptions = subscriptionRepository.getSubscriptionsLike(bikeSubscription.getBrand(), bikeSubscription.getNumberOfGears());
-            
+            List<BikeSubscription> subscriptions = subscriptionRepository
+                    .getSubscriptionsLike(bikeSubscription.getBrand(), bikeSubscription.getNumberOfGears());
+
             for (BikeSubscription subscription : subscriptions) {
                 System.console().printf("User %d should be notified!!! \n", subscription.getUserId());
             }

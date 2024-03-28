@@ -38,6 +38,7 @@ public class BikeRequestController {
         if (requests.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
         return new ResponseEntity<>(requests, HttpStatus.OK);
     }
 
@@ -52,19 +53,22 @@ public class BikeRequestController {
             @RequestBody RentalRequestDto bikeRequestDto) {
         if (!bikeRequestDto.getStatus().equals("cancelled")) {
             System.out.println(bikeRequestDto.getStatus());
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<RentalRequestDto>(HttpStatus.BAD_REQUEST);
         }
+
         try {
             RentalRequestDto updatedBikeRequestDto = bikeRequestService.cancelRequest(id, bikeRequestDto);
 
             if (updatedBikeRequestDto == null) {
-                return new ResponseEntity(HttpStatus.BAD_REQUEST);
-            } else {
-                bikeRequestProducer.sendRequest(updatedBikeRequestDto);
-                return ResponseEntity.ok(updatedBikeRequestDto);
+                return new ResponseEntity<RentalRequestDto>(HttpStatus.BAD_REQUEST);
             }
+        
+            bikeRequestProducer.sendRequest(updatedBikeRequestDto);
+            return ResponseEntity.ok(updatedBikeRequestDto);
+
         } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            System.out.println(e.getMessage());
+            return new ResponseEntity<RentalRequestDto>(HttpStatus.NOT_FOUND);
         }
     }
 }

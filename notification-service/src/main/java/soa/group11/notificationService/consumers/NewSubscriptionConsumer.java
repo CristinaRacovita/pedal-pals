@@ -11,10 +11,10 @@ import soa.group11.notificationService.entities.BikeSubscription;
 import soa.group11.notificationService.repositories.BikeSubscriptionRepository;
 
 @Component
-public class NewSubscriptionConsumer {    
+public class NewSubscriptionConsumer {
     @Autowired
     private BikeSubscriptionRepository subscriptionRepository;
-    
+
     @JmsListener(destination = "${queue.new-subscription}")
     public void receiveMessage(String bikeJson) {
         try {

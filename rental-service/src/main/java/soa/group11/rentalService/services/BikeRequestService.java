@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import soa.group11.rentalService.entities.RentalRequest;
@@ -15,20 +16,16 @@ public class BikeRequestService {
     @Autowired
     private RentalRequestRepository rentalRequestRepository;
 
-
     public List<RentalRequestDto> getRequests(String bikeId, String requesterId) {
         List<RentalRequest> rentalRequests;
 
-        if (bikeId != null && requesterId != null){
+        if (bikeId != null && requesterId != null) {
             rentalRequests = rentalRequestRepository.findAllByBikeIdAndBikeRequesterId(bikeId, requesterId);
-        } else if (bikeId == null && requesterId == null) {
-            rentalRequests = rentalRequestRepository.findAll();
+        } else if (bikeId == null) {
+            rentalRequests = requesterId == null ? rentalRequestRepository.findAll()
+                    : rentalRequestRepository.findAllByRequesterId(requesterId);
         } else {
-            if (bikeId == null) {
-                rentalRequests = rentalRequestRepository.findAllByRequesterId(requesterId);
-            } else {
-                rentalRequests = rentalRequestRepository.findAllByBikeId(bikeId);
-            }
+            rentalRequests = rentalRequestRepository.findAllByBikeId(bikeId);
         }
 
         return rentalRequests.stream().map(rentalRequest -> toRentalRequestDto(rentalRequest))
@@ -41,29 +38,27 @@ public class BikeRequestService {
     }
 
     public RentalRequestDto cancelRequest(String id, RentalRequestDto rentalRequestDto) throws Exception {
-        // make sure the object matches the path variable
         rentalRequestDto.setId(id);
         RentalRequest rentalRequest = this.rentalRequestRepository.findById(id).orElse(null);
 
-        if (rentalRequest != null) {
-            // only the status can be updated
-
-            if (!rentalRequest.getStatus().equals("cancelled")){
-                rentalRequest.setStatus(rentalRequestDto.getStatus());
-
-                rentalRequestRepository.save(rentalRequest);
-    
-                return toRentalRequestDto(rentalRequest);
-            }else{
-                return null;
-            }
-        } else {
-            throw new Exception("Bike request with ID " + id + " not found");
+        if (rentalRequest == null) {
+            throw new NotFoundException();
         }
+
+        if (!rentalRequest.getStatus().equals("cancelled")) {
+            rentalRequest.setStatus(rentalRequestDto.getStatus());
+
+            rentalRequestRepository.save(rentalRequest);
+
+            return toRentalRequestDto(rentalRequest);
+        }
+
+        return null;
     }
 
     public RentalRequestDto toRentalRequestDto(RentalRequest rentalRequest) {
-        return new RentalRequestDto(rentalRequest.getId(), rentalRequest.getBikeOwnerId(), rentalRequest.getBikeRequesterId(),
+        return new RentalRequestDto(rentalRequest.getId(), rentalRequest.getBikeOwnerId(),
+                rentalRequest.getBikeRequesterId(),
                 rentalRequest.getBikeId(), rentalRequest.getStatus());
     }
 

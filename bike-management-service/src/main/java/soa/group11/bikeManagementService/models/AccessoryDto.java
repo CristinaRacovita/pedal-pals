@@ -12,7 +12,8 @@ public class AccessoryDto {
 
     private String bikeId;
 
-    public AccessoryDto() {}
+    public AccessoryDto() {
+    }
 
     public AccessoryDto(String name, String brand, String bikeId) {
         this.name = name;

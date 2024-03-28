@@ -11,8 +11,10 @@ import soa.group11.bikeManagementService.services.BikeService;
 
 @RestController
 public class BikeController {
-    @Autowired private BikeService bikeService;
-    @Autowired private NotificationProducer notificationProducer;
+    @Autowired
+    private BikeService bikeService;
+    @Autowired
+    private NotificationProducer notificationProducer;
 
     @PostMapping("/bike")
     public void addNewBike(@RequestBody BikeDto bike) {

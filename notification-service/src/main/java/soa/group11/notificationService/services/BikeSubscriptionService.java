@@ -13,7 +13,7 @@ public class BikeSubscriptionService {
     @Autowired
     private BikeSubscriptionRepository subscriptionRepository;
 
-     public List<BikeSubscription> getSubscriptionsByUserId(int userId) {
+    public List<BikeSubscription> getSubscriptionsByUserId(int userId) {
         List<BikeSubscription> subscriptions = subscriptionRepository.findByUserId(userId);
         return subscriptions;
     }

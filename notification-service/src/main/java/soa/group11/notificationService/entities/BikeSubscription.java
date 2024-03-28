@@ -14,9 +14,10 @@ public class BikeSubscription {
     private String brand;
     private Boolean isTownBike;
 
-    public BikeSubscription() {}
+    public BikeSubscription() {
+    }
 
-    public BikeSubscription(int userId, int numberOfGears, String brand, Boolean isTownBike){
+    public BikeSubscription(int userId, int numberOfGears, String brand, Boolean isTownBike) {
         this.brand = brand;
         this.numberOfGears = numberOfGears;
         this.userId = userId;

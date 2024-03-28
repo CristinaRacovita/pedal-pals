@@ -9,5 +9,6 @@ import soa.group11.bikeManagementService.entities.Bike;
 
 public interface BikeRepository extends MongoRepository<Bike, String> {
     List<Bike> findByUserId(int userId);
+
     Optional<Bike> findById(String id);
 }

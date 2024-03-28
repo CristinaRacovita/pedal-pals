@@ -22,18 +22,28 @@ public class AccessoryService {
 
     public void addAccessoryForBike(AccessoryDto accessoryDto) {
         Optional<Bike> bike = bikeRepository.findById(accessoryDto.getBikeId());
-        if (bike.isPresent()) {
-            Accessory accessory = toAccessory(accessoryDto);
-            this.accessoryRepository.save(accessory);
-            if(bike.get().getAccessories() == null){
-                bike.get().setAccessories(new ArrayList<Accessory>());
-            }
-
-            bike.get().getAccessories().add(accessory);
-            bikeRepository.save(bike.get());
-        } else {
+        if (!bike.isPresent()) {
             System.out.println("Bike not found with id: " + accessoryDto.getBikeId());
+            return;
         }
+
+        Accessory accessory = toAccessory(accessoryDto);
+        if(accessory == null){
+            return;
+        }
+
+        this.accessoryRepository.save(accessory);
+        if (bike.get().getAccessories() == null) {
+            bike.get().setAccessories(new ArrayList<Accessory>());
+        }
+
+        bike.get().getAccessories().add(accessory);
+        Bike bikeToStore = bike.get();
+        if(bikeToStore == null) {
+            return;
+        }
+        
+        bikeRepository.save(bikeToStore);
 
     }
 

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import soa.group11.feedbackService.entities.Feedback;
@@ -19,41 +20,39 @@ public class FeedbackService {
         this.feedbackRepository = feedbackRepository;
     }
 
-    public List<FeedbackDto> getAllFeedbacks() {
+    public List<FeedbackDto> getAllFeedback() {
         return feedbackRepository.findAll().stream().map(feedback -> toFeedbackDto(feedback))
                 .collect(Collectors.toList());
     }
 
-    public List<FeedbackDto> getFeedbacksByBikeIds(List<String> bikeId) {
+    public List<FeedbackDto> getFeedbackByBikeIds(List<String> bikeId) {
         return feedbackRepository.findByBikeIdIn(bikeId).stream().map(feedback -> toFeedbackDto(feedback))
                 .collect(Collectors.toList());
     }
 
     public boolean deleteFeedback(String id) {
-        if (this.feedbackRepository.existsById(id)) {
-            this.feedbackRepository.deleteById(id);
-            return true;
+        if (!this.feedbackRepository.existsById(id)) {
+            return false;
         }
 
-        return false;
+        this.feedbackRepository.deleteById(id);
+        return true;
     }
 
-    public FeedbackDto updateFeedback(String id, FeedbackDto feedbackDto) throws Exception {
-        // make sure the object matches the path variable
+    public FeedbackDto updateFeedback(String id, FeedbackDto feedbackDto) throws NotFoundException {
         feedbackDto.setId(id);
         Feedback feedback = this.feedbackRepository.findById(id).orElse(null);
 
-        if (feedback != null) {
-            // only the review and the number of stars can be updated
-            feedback.setNumberOfStars(feedbackDto.getNumberOfStars());
-            feedback.setReview(feedbackDto.getReview());
-
-            feedbackRepository.save(feedback);
-
-            return toFeedbackDto(feedback);
-        } else {
-            throw new Exception("Feedback with ID " + id + " not found");
+        if (feedback == null) {
+            throw new NotFoundException();
         }
+
+        feedback.setNumberOfStars(feedbackDto.getNumberOfStars());
+        feedback.setReview(feedbackDto.getReview());
+
+        feedbackRepository.save(feedback);
+
+        return toFeedbackDto(feedback);
     }
 
     public void addFeedback(FeedbackDto feedbackDto) {
