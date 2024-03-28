@@ -3,6 +3,8 @@ package soa.group11.rentalService.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,24 +14,30 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import soa.group11.rentalService.models.RentalApprovalDto;
 import soa.group11.rentalService.producers.RentalApprovalProducer;
-import soa.group11.rentalService.services.BikeApprovalService;
+import soa.group11.rentalService.services.RentalApprovalService;
 
 @Validated
 @RestController
-public class BikeApprovalController {
+public class RentalApprovalController {
     @Autowired
-    private BikeApprovalService bikeApprovalService;
+    private RentalApprovalService rentalApprovalService;
 
     @Autowired
     private RentalApprovalProducer rentalApprovalProducer;
 
     @GetMapping("/approvals")
     public List<RentalApprovalDto> getApprovalStatuses() {
-        return bikeApprovalService.getApprovalStatuses();
+        return rentalApprovalService.getApprovalStatuses();
     }
 
     @PostMapping("/approve")
-    public void handleRequest(@RequestBody @Valid RentalApprovalDto rentalApprovalDto) {
-        bikeApprovalService.addApprovalStatus(rentalApprovalDto);
+    public ResponseEntity handleRequest(@RequestBody @Valid RentalApprovalDto rentalApprovalDto) {
+        boolean success = rentalApprovalService.addApprovalStatus(rentalApprovalDto);
+
+        if (success == false)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        rentalApprovalProducer.sendApprovalStatus(rentalApprovalDto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

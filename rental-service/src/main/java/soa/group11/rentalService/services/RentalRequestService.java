@@ -12,7 +12,7 @@ import soa.group11.rentalService.models.RentalRequestDto;
 import soa.group11.rentalService.repositories.RentalRequestRepository;
 
 @Service
-public class BikeRequestService {
+public class RentalRequestService {
     @Autowired
     private RentalRequestRepository rentalRequestRepository;
 

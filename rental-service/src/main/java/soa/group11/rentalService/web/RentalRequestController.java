@@ -17,23 +17,23 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import soa.group11.rentalService.models.RentalRequestDto;
 import soa.group11.rentalService.producers.RentalRequestProducer;
-import soa.group11.rentalService.services.BikeRequestService;
+import soa.group11.rentalService.services.RentalRequestService;
 
 @Validated
 @RestController
-public class BikeRequestController {
+public class RentalRequestController {
     @Autowired
-    private BikeRequestService bikeRequestService;
+    private RentalRequestService rentalRequestService;
 
     @Autowired
-    private RentalRequestProducer bikeRequestProducer;
+    private RentalRequestProducer rentalRequestProducer;
 
     @GetMapping("/requests")
     public ResponseEntity<List<RentalRequestDto>> getRequests(
             @RequestParam(value = "bikeId", required = false) String bikeId,
             @RequestParam(value = "requesterId", required = false) String requesterId) {
 
-        List<RentalRequestDto> requests = bikeRequestService.getRequests(bikeId, requesterId);
+        List<RentalRequestDto> requests = rentalRequestService.getRequests(bikeId, requesterId);
 
         if (requests.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -43,28 +43,28 @@ public class BikeRequestController {
     }
 
     @PostMapping("/request")
-    public void addBikeRequest(@RequestBody @Valid RentalRequestDto bikeRequestDto) {
-        bikeRequestService.addRentalRequest(bikeRequestDto);
-        bikeRequestProducer.sendRequest(bikeRequestDto);
+    public void addRentalRequest(@RequestBody @Valid RentalRequestDto rentalRequestDto) {
+        rentalRequestService.addRentalRequest(rentalRequestDto);
+        rentalRequestProducer.sendRequest(rentalRequestDto);
     }
 
     @PatchMapping("/request/{id}")
     public ResponseEntity<RentalRequestDto> cancelRequest(@PathVariable String id,
-            @RequestBody RentalRequestDto bikeRequestDto) {
-        if (!bikeRequestDto.getStatus().equals("cancelled")) {
-            System.out.println(bikeRequestDto.getStatus());
+            @RequestBody RentalRequestDto rentalRequestDto) {
+        if (!rentalRequestDto.getStatus().equals("cancelled")) {
+            System.out.println(rentalRequestDto.getStatus());
             return new ResponseEntity<RentalRequestDto>(HttpStatus.BAD_REQUEST);
         }
 
         try {
-            RentalRequestDto updatedBikeRequestDto = bikeRequestService.cancelRequest(id, bikeRequestDto);
+            RentalRequestDto updatedRentalRequestDto = rentalRequestService.cancelRequest(id, rentalRequestDto);
 
-            if (updatedBikeRequestDto == null) {
+            if (updatedRentalRequestDto == null) {
                 return new ResponseEntity<RentalRequestDto>(HttpStatus.BAD_REQUEST);
             }
         
-            bikeRequestProducer.sendRequest(updatedBikeRequestDto);
-            return ResponseEntity.ok(updatedBikeRequestDto);
+            rentalRequestProducer.sendRequest(updatedRentalRequestDto);
+            return ResponseEntity.ok(updatedRentalRequestDto);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
