@@ -33,7 +33,6 @@ public class BikeDto {
         this.brand = brand;
         this.isTownBike = isTownBike;
         this.numberOfGears = numberOfGears;
-   
    }
    
     public BikeDto(String id, int userId, String brand, Boolean isTownBike){
