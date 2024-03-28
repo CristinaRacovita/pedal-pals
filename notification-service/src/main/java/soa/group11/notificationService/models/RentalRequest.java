@@ -5,16 +5,16 @@ import lombok.Getter;
 
 @Getter
 @Setter
-public class BikeRequest{
+public class RentalRequest{
     private String bikeOwnerId;
     private String bikeRequesterId;
     private String bikeId;
     private String status;
 
-    public BikeRequest() {
+    public RentalRequest() {
     }
 
-    public BikeRequest(String bikeOwnerId, String bikeRequesterId, String bikeId, String status) {
+    public RentalRequest(String bikeOwnerId, String bikeRequesterId, String bikeId, String status) {
         this.bikeOwnerId = bikeOwnerId;
         this.bikeRequesterId = bikeRequesterId;
         this.bikeId = bikeId;
