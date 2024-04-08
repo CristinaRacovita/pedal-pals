@@ -1,5 +1,7 @@
 package soa.group11.feedbackService.entities;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,12 +20,14 @@ public class Feedback {
     private String reviewerId;
     private int numberOfStars;
     private String review;
+    private Date reviewDate;
 
     public Feedback(String bikeId, String reviewerId, int numberOfStars, String review) {
         this.bikeId = bikeId;
         this.reviewerId = reviewerId;
         this.numberOfStars = numberOfStars;
         this.review = review;
+        this.reviewDate = new Date();
     }
 
     public Feedback(String id, String bikeId, String reviewerId, int numberOfStars, String review) {

@@ -61,7 +61,7 @@ public class FeedbackService {
 
     private FeedbackDto toFeedbackDto(Feedback feedback) {
         return new FeedbackDto(feedback.getId(), feedback.getBikeId(), feedback.getReviewerId(),
-                feedback.getNumberOfStars(), feedback.getReview());
+                feedback.getNumberOfStars(), feedback.getReview(), feedback.getReviewDate());
     }
 
     private Feedback toFeedback(FeedbackDto feedbackDto) {
