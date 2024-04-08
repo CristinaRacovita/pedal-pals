@@ -16,23 +16,26 @@ import lombok.Setter;
 public class Feedback {
     @Id
     private String id;
+    private String title;
     private String bikeId;
     private String reviewerId;
     private int numberOfStars;
     private String review;
-    private Date reviewDate;
+    private Date date;
 
-    public Feedback(String bikeId, String reviewerId, int numberOfStars, String review) {
+    public Feedback(String bikeId, String title, String reviewerId, int numberOfStars, String review) {
         this.bikeId = bikeId;
+        this.title = title;
         this.reviewerId = reviewerId;
         this.numberOfStars = numberOfStars;
         this.review = review;
-        this.reviewDate = new Date();
+        this.date = new Date();
     }
 
-    public Feedback(String id, String bikeId, String reviewerId, int numberOfStars, String review) {
+    public Feedback(String id, String bikeId, String title, String reviewerId, int numberOfStars, String review) {
         this.id = id;
         this.bikeId = bikeId;
+        this.title = title;
         this.reviewerId = reviewerId;
         this.numberOfStars = numberOfStars;
         this.review = review;

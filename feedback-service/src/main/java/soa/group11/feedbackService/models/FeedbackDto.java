@@ -21,6 +21,8 @@ public class FeedbackDto {
     @NotNull
     private String bikeId;
     @NotNull
+    private String title;
+    @NotNull
     private String reviewerId;
     @Min(1)
     @Max(5)
@@ -28,9 +30,11 @@ public class FeedbackDto {
     private String review = "";
     private String reviewDate;
 
-    public FeedbackDto(String id, String bikeId, String reviewerId, int numberOfStars, String review, Date reviewDate) {
+    public FeedbackDto(String id, String bikeId, String title, String reviewerId, int numberOfStars, String review,
+            Date reviewDate) {
         this.id = id;
         this.bikeId = bikeId;
+        this.title = title;
         this.reviewerId = reviewerId;
         this.numberOfStars = numberOfStars;
         this.review = review;

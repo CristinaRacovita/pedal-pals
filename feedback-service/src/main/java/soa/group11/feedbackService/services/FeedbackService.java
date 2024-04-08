@@ -60,12 +60,12 @@ public class FeedbackService {
     }
 
     private FeedbackDto toFeedbackDto(Feedback feedback) {
-        return new FeedbackDto(feedback.getId(), feedback.getBikeId(), feedback.getReviewerId(),
-                feedback.getNumberOfStars(), feedback.getReview(), feedback.getReviewDate());
+        return new FeedbackDto(feedback.getId(), feedback.getBikeId(), feedback.getTitle(), feedback.getReviewerId(),
+                feedback.getNumberOfStars(), feedback.getReview(), feedback.getDate());
     }
 
     private Feedback toFeedback(FeedbackDto feedbackDto) {
-        return new Feedback(feedbackDto.getBikeId(), feedbackDto.getReviewerId(), feedbackDto.getNumberOfStars(),
+        return new Feedback(feedbackDto.getBikeId(), feedbackDto.getTitle(), feedbackDto.getReviewerId(), feedbackDto.getNumberOfStars(),
                 feedbackDto.getReview());
     }
 
