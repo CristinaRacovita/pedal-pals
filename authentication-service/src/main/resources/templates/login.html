@@ -16,11 +16,13 @@
                 <h1 class="title">PedalPals</h1>
                 <form class="form" th:object="${user}" id="form">
                     <label for="username">Username</label>
-                    <input required th:field="*{username}" type="text" name="username" placeholder="Your username.." id="username">
-    
+                    <input required th:field="*{username}" type="text" name="username" placeholder="Your username.."
+                        id="username">
+
                     <label class="password" for="password">Password</label>
-                    <input required  type="password" th:field="*{password}" name="password" placeholder="Your password..">
-    
+                    <input required type="password" th:field="*{password}" name="password"
+                        placeholder="Your password..">
+
                     <button type="submit" class="button">Log in</button>
                 </form>
 
@@ -46,7 +48,7 @@
 
     .login-form {
         font-family: 'Roboto';
-        padding:35px;
+        padding: 35px;
         padding-bottom: 70px;
         background-color: #f2eff4;
         border-radius: 20px;
@@ -100,5 +102,5 @@
 </style>
 
 <script>
-document.getElementById("form").action = "http://localhost:8082/bikes/1/" + document.getElementById("username").value;
+    document.getElementById("form").action = "http://localhost:8082/bikes/1/" + document.getElementById("username").value;
 </script>
