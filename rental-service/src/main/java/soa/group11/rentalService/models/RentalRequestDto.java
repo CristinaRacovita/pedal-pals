@@ -20,25 +20,35 @@ public class RentalRequestDto {
     @NotNull
     private String bikeId;
     private String status;
+    @NotNull
+    private String startDate;
+    @NotNull
+    private String endDate;
 
-    public RentalRequestDto(String id, String bikeOwnerId, String bikeRequesterId, String bikeId, String status) {
+    public RentalRequestDto(String id, String bikeOwnerId, String bikeRequesterId, String bikeId, String status,
+            String startDate, String endDate) {
         this.id = id;
         this.bikeOwnerId = bikeOwnerId;
         this.bikeRequesterId = bikeRequesterId;
         this.bikeId = bikeId;
         this.status = status;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
-    public RentalRequestDto(String bikeOwnerId, String bikeRequesterId, String bikeId, String status) {
+    public RentalRequestDto(String bikeOwnerId, String bikeRequesterId, String bikeId, String status, String startDate,
+            String endDate) {
         this.bikeOwnerId = bikeOwnerId;
         this.bikeRequesterId = bikeRequesterId;
         this.bikeId = bikeId;
         this.status = status;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     @Override
     public String toString() {
-        return "Requested sent by " + bikeRequesterId + " to " + bikeOwnerId + " for bike " + bikeId + " with status "
-                + status;
+        return "Request sent by " + bikeRequesterId + " to " + bikeOwnerId + " for bike " + bikeId + " with status "
+                + status + " for period " + startDate + " - " + endDate;
     }
 }
