@@ -7,14 +7,14 @@
     <div th:fragment="card" class="card">
         <img class="image" th:if="${bike.imageData != null}" th:src="'data:image/jpeg;base64,' + ${bike.imageData}" />
         <img class="image" th:if="${bike.imageData == null}" th:src="@{/race-bike.jpg}" />
-        
+
         <div th:text="${bike.name}" class="title"></div>
         <div class="availability-label">Availability:</div>
         <div class="availability-value">
             <span th:text="${bike.startRentingDate}"></span>
             <span>&nbsp;to&nbsp;</span>
             <span th:text="${bike.endRentingDate}"></span>
-        </div>        
+        </div>
     </div>
 </body>
 
