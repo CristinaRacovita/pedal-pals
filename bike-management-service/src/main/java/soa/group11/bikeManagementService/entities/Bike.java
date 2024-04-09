@@ -1,10 +1,8 @@
 package soa.group11.bikeManagementService.entities;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Getter;
@@ -17,13 +15,9 @@ public class Bike {
     @Id
     private String id;
 
-    private double weight;
-
     private double wheelSize;
 
     private int numberOfGears;
-
-    private String breakType;
 
     private String name;
 
@@ -39,17 +33,17 @@ public class Bike {
 
     private BikeImage bikeImage;
 
-    private BikeType bikeType;
+    private String type;
 
-    @DBRef
-    private List<Accessory> accessories;
+    private String suitability;
 
     public Bike() {
     }
 
-    public Bike(int userId, String brand, BikeType bikeType) {
+    public Bike(int userId, String brand, String type, String suitability) {
         this.userId = userId;
         this.brand = brand;
-        this.bikeType = bikeType;
+        this.suitability = suitability;
+        this.type = type;
     }
 }

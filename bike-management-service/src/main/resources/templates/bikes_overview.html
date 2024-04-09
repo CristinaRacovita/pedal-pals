@@ -136,13 +136,60 @@
         .nav div:hover {
             font-weight: bold;
         }
+
+        .filter-bar {
+            margin-top: 5px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            background-color: #ebf5fe;
+        }
+
+        input,
+        select {
+            padding: 12px 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            width: 150px;
+            background-color: white;
+            color: #2f3d4b;
+        }
+
+        input:focus-visible {
+            outline: none;
+        }
+
+        .button {
+            outline: none;
+            background-color: #34263d;
+            color: white;
+            border-radius: 10px;
+            width: fit-content;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 30px;
+            font-size: small;
+        }
+
+        .button:hover {
+            opacity: 70%;
+        }
     </style>
 </head>
 
 <body>
     <div th:replace="~{fragments/header :: header}">
     </div>
+
+    <div th:replace="~{fragments/filter_bar :: filter-bar}">
+    </div>
+
     <h2 class="title-page">Our Available Bikes</h2>
+
     <div class="bikes-content">
         <div class="grid-container">
             <div th:each="bike : ${bikes}" class="bike-card">
