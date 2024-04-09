@@ -1,9 +1,12 @@
-<div th:fragment="card" class="card">
-    <div class="title" th:text="${feedback.title}"></div>
-    <div class="review-field"
-        th:text="|Reviewer: ${feedback.reviewerId}|"></div>
-    <img class="rating-field" th:src="@{|/star${feedback.numberOfStars}.png|}"
-        alt="Number of stars">
-    <div class="review-field" th:text="${feedback.review}"></div>
-    <div class="review-field" th:text="${feedback.reviewDate}"></div>
+<div th:fragment="card" class="card" th:id="${notification.type}">
+    <div class="leftbox">
+        <img class="notification-logo" th:src="@{|/${notification.type}.png|}"
+            alt="Notification icon">
+    </div>
+    <div class="middlebox">
+        <div th:text="${notification.text}"></div>
+    </div>
+    <div class="rightbox">
+        <div class="date" th:text="${notification.date}"></div>
+    </div>
 </div>
