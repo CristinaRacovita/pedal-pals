@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <link href='https://fonts.googleapis.com/css?family=Roboto'
+            rel='stylesheet'>
+        <style>
+            .reviews-title {
+                display: flex;
+                justify-content: center;
+                margin-top: 50px;
+                margin-bottom: 20px;
+            }
+
+            .logo {
+                width: 100px;
+                height: 100px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="reviews-title"> 
+            <img class="logo" th:src="@{/pedal_pals.png}" alt="logo">
+            <h2 th:text="|  Notifications for ${userId}|"></h2>
+        </div>
+        <!-- <div th:each="feedback : ${feedbacks}" class="review-list">
+            <div th:replace="~{fragments/review_card :: card}"></div>
+        </div> -->
+    </body>
+</html>
