@@ -30,7 +30,7 @@ public class NotificationService {
 
         if (requestNotifications != null) {
             for (RequestNotification requestNotification : requestNotifications) {
-                if (requestNotification.getText().contains("cancelled")) {
+                if (requestNotification.getText().contains("has cancelled the request to rent bike")) {
                     notificationType = "cancelled_request";
                 } else {
                     notificationType = "sent_request";
@@ -42,7 +42,7 @@ public class NotificationService {
 
         if (approvalNotifications != null) {
             for (ApprovalNotification approvalNotification : approvalNotifications) {
-                if (approvalNotification.getText().contains("approved")) {
+                if (approvalNotification.getText().contains("has been approved with the following details")) {
                     notificationType = "approved_request";
                 } else {
                     notificationType = "declined_request";
@@ -54,10 +54,6 @@ public class NotificationService {
         }
 
         notifications.sort(Comparator.comparing(NotificationDto::getDate).reversed());
-
-        for(NotificationDto notificationDto: notifications){
-            System.out.println(notificationDto.getType());
-        }
 
         return notifications;
     }

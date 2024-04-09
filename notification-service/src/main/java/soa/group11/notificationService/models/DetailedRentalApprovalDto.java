@@ -26,7 +26,6 @@ public class DetailedRentalApprovalDto {
     public String toString() {
         if (approvalStatus == "approved") {
             return "Request for bike " + bikeId + " has been approved with the following details: " + details;
-
         } else {
             return "Request for bike " + bikeId + " has been declined with the following details: " + details;
         }
