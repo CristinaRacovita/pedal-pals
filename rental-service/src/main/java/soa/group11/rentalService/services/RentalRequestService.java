@@ -59,11 +59,13 @@ public class RentalRequestService {
     public RentalRequestDto toRentalRequestDto(RentalRequest rentalRequest) {
         return new RentalRequestDto(rentalRequest.getId(), rentalRequest.getBikeOwnerId(),
                 rentalRequest.getBikeRequesterId(),
-                rentalRequest.getBikeId(), rentalRequest.getStatus());
+                rentalRequest.getBikeId(), rentalRequest.getStatus(), rentalRequest.getStringStartDate(),
+                rentalRequest.getStringEndDate());
     }
 
     public RentalRequest toRentalRequest(RentalRequestDto rentalRequestDto) {
         return new RentalRequest(rentalRequestDto.getBikeOwnerId(), rentalRequestDto.getBikeRequesterId(),
-                rentalRequestDto.getBikeId(), rentalRequestDto.getStatus());
+                rentalRequestDto.getBikeId(), rentalRequestDto.getStatus(), rentalRequestDto.getStartDate(),
+                rentalRequestDto.getEndDate());
     }
 }

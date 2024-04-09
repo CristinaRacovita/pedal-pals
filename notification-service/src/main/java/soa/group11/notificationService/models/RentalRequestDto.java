@@ -10,24 +10,30 @@ public class RentalRequestDto {
     private String bikeRequesterId;
     private String bikeId;
     private String status;
+    private String startDate;
+    private String endDate;
 
     public RentalRequestDto() {
     }
 
-    public RentalRequestDto(String bikeOwnerId, String bikeRequesterId, String bikeId, String status) {
+    public RentalRequestDto(String bikeOwnerId, String bikeRequesterId, String bikeId, String status, String startDate,
+            String endDate) {
         this.bikeOwnerId = bikeOwnerId;
         this.bikeRequesterId = bikeRequesterId;
         this.bikeId = bikeId;
         this.status = status;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     @Override
     public String toString() {
-        if (status.equals("cancelled")) {
-            return "Requester " + bikeRequesterId + " cancels the request for bike " + bikeId + " owned by "
-                    + bikeOwnerId;
+        if (this.status.equals("cancelled")) {
+            return "User " + bikeRequesterId + " has cancelled the request to rent bike " + bikeId + " for period "
+                    + startDate + " - " + endDate;
         } else {
-            return "Bike owner " + bikeOwnerId + " received a request from " + bikeRequesterId + " for bike " + bikeId;
+            return "User " + bikeRequesterId + " has sent the request to rent bike " + bikeId + " for period "
+                    + startDate + " - " + endDate;
         }
     }
 }

@@ -15,7 +15,7 @@ public class BikeSubscriptionController {
     @Autowired
     private BikeSubscriptionService subscriptionService;
 
-    @GetMapping("/notification/{userId}")
+    @GetMapping("/subscription/{userId}")
     public List<BikeSubscription> getSubscriptionsByUserId(@PathVariable(value = "userId") int userId) {
         return subscriptionService.getSubscriptionsByUserId(userId);
     }

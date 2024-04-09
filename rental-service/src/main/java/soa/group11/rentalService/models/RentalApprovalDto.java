@@ -32,9 +32,4 @@ public class RentalApprovalDto {
         this.approvalStatus = approvalStatus;
         this.details = details;
     }
-
-    @Override
-    public String toString() {
-        return "Request " + requestId + " was " + approvalStatus + " with the follwing details: " + details;
-    }
 }

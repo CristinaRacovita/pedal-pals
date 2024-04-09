@@ -1,0 +1,12 @@
+<div th:fragment="card" class="card" th:id="${notification.type}">
+    <div class="leftbox">
+        <img class="notification-logo" th:src="@{|/${notification.type}.png|}"
+            alt="Notification icon">
+    </div>
+    <div class="middlebox">
+        <div th:text="${notification.text}"></div>
+    </div>
+    <div class="rightbox">
+        <div class="date" th:text="${notification.date}"></div>
+    </div>
+</div>
