@@ -28,7 +28,7 @@ public class RentalRequestDto {
 
     @Override
     public String toString() {
-        if (status.equals("cancelled")) {
+        if (this.status.equals("cancelled")) {
             return "User " + bikeRequesterId + " has cancelled the request to rent bike " + bikeId + " for period "
                     + startDate + " - " + endDate;
         } else {
