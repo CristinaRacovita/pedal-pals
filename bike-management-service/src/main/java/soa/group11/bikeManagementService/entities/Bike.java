@@ -1,5 +1,6 @@
 package soa.group11.bikeManagementService.entities;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -24,11 +25,19 @@ public class Bike {
 
     private String breakType;
 
+    private String name;
+
     private String brand;
 
     private String color;
 
     private int userId;
+
+    private Date startRentingDate;
+
+    private Date endRentingDate;
+
+    private BikeImage bikeImage;
 
     private BikeType bikeType;
 

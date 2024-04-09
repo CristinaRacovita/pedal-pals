@@ -6,7 +6,7 @@
     <style>
         .card {
             width: 300px;
-            height: 250px;
+            height: 280px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -25,6 +25,7 @@
 
         .image {
             width: 250px;
+            height: 180px;
             border-radius: 20px;
         }
 
@@ -38,7 +39,7 @@
         .title {
             display: flex;
             width: 100%;
-            margin-left: 60px; 
+            margin-left: 60px;
             margin-top: 10px;
             font-size: large;
             font-weight: bolder;
@@ -49,16 +50,48 @@
             font-size: medium;
             font-weight: 600;
         }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .bike-card {
+            display: flex;
+            justify-content: center;
+        }
+
+        .bikes-content {
+            display: flex;
+            justify-content: center;
+        }
+
+        .title-page {
+            text-align: center;
+            padding-top: 20px;
+            color: #2f3d4b;
+        }
     </style>
 </head>
 
 <body>
-    <!-- <h1>Bikes</h1>
-    <h2 th:text="${role}"></h2>
-    <div th:each="bike: ${bikes}">
-        <b th:text="${bike.brand}"></b> --- <small th:text="${bike.numberOfGears}"></small>
-    </div> -->
-    <div th:replace="~{fragments/bike_card :: card}"></div>
+    <h2 class="title-page">Our Available Bikes</h2>
+    <div class="bikes-content">
+        <div class="grid-container">
+            <div th:each="bike : ${bikes}" class="bike-card">
+                <div th:replace="~{fragments/bike_card :: card}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- <h2>Upload Image</h2>
+    <form th:action="@{/upload/661579d94d70f376a5a4ad4a}" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*">
+        <button type="submit">Upload</button>
+    </form> -->
 </body>
 
 </html>
