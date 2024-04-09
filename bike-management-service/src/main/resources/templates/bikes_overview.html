@@ -2,6 +2,7 @@
 
 <head>
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
 
     <style>
         html {
@@ -27,6 +28,7 @@
             color: #2f3d4b;
             margin: 50px;
             cursor: pointer;
+            text-decoration: none;
         }
 
         .card:hover {
@@ -82,61 +84,6 @@
             color: #2f3d4b;
         }
 
-        .header {
-            background-color: #f2eff4;
-            height: 60px;
-            border-radius: 0 0 15px 15px;
-            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        body {
-            margin: 0;
-        }
-
-        .logo-image {
-            width: 50px;
-        }
-
-        .app-name {
-            font-size: larger;
-            font-weight: bold;
-            margin-left: 5px;
-            color: #2f3d4b;
-        }
-
-        .image-container {
-            display: flex;
-            align-items: center;
-            padding: 3px;
-            cursor: pointer;
-            text-decoration: none;
-            margin-left: 10px;
-        }
-
-        .image-container:hover {
-            opacity: 70%;
-        }
-
-        .nav {
-            display: flex;
-            flex-direction: row;
-            margin-right: 10px;
-            align-items: center;
-        }
-
-        .nav div {
-            margin-right: 15px;
-            cursor: pointer;
-            color: #2f3d4b;
-            font-size: medium;
-        }
-
-        .nav div:hover {
-            font-weight: bold;
-        }
-
         .filter-bar {
             margin-top: 5px;
             display: inline-flex;
@@ -189,7 +136,6 @@
     </div>
 
     <h2 class="title-page">Our Available Bikes</h2>
-
     <div class="bikes-content">
         <div class="grid-container">
             <div th:each="bike : ${bikes}" class="bike-card">
@@ -198,7 +144,6 @@
             </div>
         </div>
     </div>
-
 
 
     <!-- <h2>Upload Image</h2>

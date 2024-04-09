@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import soa.group11.bikeManagementService.models.BikeCardDto;
+import soa.group11.bikeManagementService.models.BikeDetailsDto;
 import soa.group11.bikeManagementService.services.BikeService;
 
 @Controller
@@ -20,10 +22,11 @@ public class IndexController {
     @Autowired
     private BikeService bikeService;
 
-    @GetMapping(value = "/bikes")
-    public String getBikes(Model model) {
+    @GetMapping(value = "/{userId}/bikes")
+    public String getBikes(@PathVariable(value = "userId") int userId, Model model) {
         List<BikeCardDto> bikes = bikeService.getAllBikes();
         model.addAttribute("bikes", bikes);
+        model.addAttribute("userId", userId);
         return "bikes_overview";
     }
 
@@ -57,5 +60,13 @@ public class IndexController {
             
         }
         return "bikes_overview";
+    }
+
+    @GetMapping(value = "/{userId}/bike/{bikeId}")
+    public String getBikeDetails(@PathVariable(value = "userId") int userId, @PathVariable(value = "bikeId") String bikeId, Model model) {
+        BikeDetailsDto bike = bikeService.getBikeDetails(bikeId);
+        model.addAttribute("bike", bike);
+        model.addAttribute("userId", userId);
+        return "selected_bike";
     }
 }

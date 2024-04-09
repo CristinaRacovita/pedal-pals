@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -16,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 
 import soa.group11.bikeManagementService.entities.Bike;
 import soa.group11.bikeManagementService.models.BikeCardDto;
+import soa.group11.bikeManagementService.models.BikeDetailsDto;
 import soa.group11.bikeManagementService.models.BikeDto;
 import soa.group11.bikeManagementService.models.FeedbackDto;
 import soa.group11.bikeManagementService.repositories.BikeRepository;
@@ -33,6 +35,15 @@ public class BikeService {
                 .collect(Collectors.toList());
 
         return getBikesWithFeedback(bikeDtos);
+    }
+
+    public BikeDetailsDto getBikeDetails(String bikeId) {
+        Optional<Bike> bike = this.bikeRepository.findById(bikeId);
+        if (!bike.isPresent()) {
+            return null;
+        }
+
+        return toBikeDetails(bike.get());
     }
 
     public void addBike(BikeDto bikeDto) {
@@ -107,10 +118,20 @@ public class BikeService {
     private BikeCardDto toBikeCardDto(Bike bike) {
         Format formatter = new SimpleDateFormat("yyyy-MM-dd");
         return new BikeCardDto(
+                bike.getId(),
                 bike.getName(),
                 formatter.format(bike.getStartRentingDate()),
                 formatter.format(bike.getEndRentingDate()),
                 bike.getBikeImage() == null ? null : Base64.encodeBase64String(bike.getBikeImage().getData()));
+    }
+
+    private BikeDetailsDto toBikeDetails(Bike bike) {
+        Format formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return new BikeDetailsDto(bike.getId(), bike.getWheelSize(), bike.getNumberOfGears(), bike.getName(),
+                bike.getBrand(), bike.getColor(), bike.getUserId(), formatter.format(bike.getStartRentingDate()),
+                formatter.format(bike.getEndRentingDate()),
+                bike.getBikeImage() == null ? null : Base64.encodeBase64String(bike.getBikeImage().getData()),
+                bike.getType(), bike.getSuitability());
     }
 
     private BikeDto toBikeDto(Bike bike) {

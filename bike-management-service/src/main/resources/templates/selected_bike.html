@@ -1,0 +1,105 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+</head>
+
+<body>
+    <div th:replace="~{fragments/header :: header}">
+    </div>
+    <div class="selected-bike-container">
+        <h2 th:text="${bike.name}"></h2>
+        <img class="image" th:if="${bike.imageData != null}" th:src="'data:image/jpeg;base64,' + ${bike.imageData}" />
+        <img class="image" th:if="${bike.imageData == null}" th:src="@{/race-bike.jpg}" />
+
+
+
+        <div class="details">
+            <div class="label">Availability:</div>
+            <div class="value">
+                <span th:text="${bike.startRentingDate}"></span>
+                <span>&nbsp;to&nbsp;</span>
+                <span th:text="${bike.endRentingDate}"></span>
+            </div>
+
+            <div th:if="${bike.wheelSize != null}" class="label">Wheel Size:</div>
+            <div th:if="${bike.wheelSize != null}" th:text="${bike.wheelSize}"></div>
+
+            <div th:if="${bike.numberOfGears != null}" class="label">Gears:</div>
+            <div th:if="${bike.numberOfGears != null}" th:text="${bike.numberOfGears}"></div>
+
+            <div th:if="${bike.brand != null}" class="label">Brand:</div>
+            <div th:if="${bike.brand != null}" th:text="${bike.brand}"></div>
+
+            <div th:if="${bike.color != null}" class="label">Color:</div>
+            <div th:if="${bike.color != null}" th:text="${bike.color}"></div>
+
+            <div th:if="${bike.type != null}" class="label">Tyep:</div>
+            <div th:if="${bike.type != null}" th:text="${bike.type}"></div>
+
+            <div th:if="${bike.suitability != null}" class="label">Usage:</div>
+            <div th:if="${bike.suitability != null}" th:text="${bike.suitability}"></div>
+        </div>
+        <div class="buttons">
+            <button class="button">See Reviews</button>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+
+<style>
+    .button {
+        outline: none;
+        background-color: #34263d;
+        color: white;
+        border-radius: 10px;
+        width: fit-content;
+        padding: 12px 20px;
+        cursor: pointer;
+        font-weight: bold;
+        margin-top: 30px;
+        font-size: small;
+    }
+
+    .button:hover {
+        opacity: 70%;
+    }
+
+    .details {
+        margin-top: 20px;
+        padding: 15px;
+        width: 23%;
+        background-color: #ebf5fe;
+        border-radius: 15px;
+    }
+
+    .image {
+        width: 350px;
+        height: 230px;
+        border-radius: 20px;
+    }
+
+    .selected-bike-container {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        margin-top: 30px;
+        color: #2f3d4b;
+    }
+
+    .value,
+    .label {
+        color: #2f3d4b;
+    }
+
+    .label {
+        margin-top: 10px;
+        font-size: medium;
+        font-weight: 600;
+    }
+</style>

@@ -4,7 +4,7 @@
 </head>
 
 <body>
-    <div th:fragment="card" class="card">
+    <a th:fragment="card" class="card" th:href="@{'/' + ${userId} + '/bike/' + ${bike.id}}">
         <img class="image" th:if="${bike.imageData != null}" th:src="'data:image/jpeg;base64,' + ${bike.imageData}" />
         <img class="image" th:if="${bike.imageData == null}" th:src="@{/race-bike.jpg}" />
 
@@ -15,7 +15,7 @@
             <span>&nbsp;to&nbsp;</span>
             <span th:text="${bike.endRentingDate}"></span>
         </div>
-    </div>
+    </a>
 </body>
 
 </html>

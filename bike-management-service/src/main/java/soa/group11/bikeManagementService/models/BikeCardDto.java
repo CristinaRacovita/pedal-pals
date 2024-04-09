@@ -6,6 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BikeCardDto {
+    private String id;
+
     private String name;
 
     private String startRentingDate;
@@ -16,10 +18,11 @@ public class BikeCardDto {
 
     public BikeCardDto() {}
 
-    public BikeCardDto(String name, String startRentingDate, String endRentingDate, String imageData) {
+    public BikeCardDto(String id, String name, String startRentingDate, String endRentingDate, String imageData) {
         this.name = name;
         this.startRentingDate = startRentingDate;
         this.endRentingDate = endRentingDate;
         this.imageData = imageData;
+        this.id = id;
     }
 }
