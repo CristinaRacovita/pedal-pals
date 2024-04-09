@@ -1,5 +1,8 @@
 package soa.group11.feedbackService.models;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.validation.annotation.Validated;
 
 import jakarta.validation.constraints.Max;
@@ -18,17 +21,23 @@ public class FeedbackDto {
     @NotNull
     private String bikeId;
     @NotNull
+    private String title;
+    @NotNull
     private String reviewerId;
     @Min(1)
     @Max(5)
     private int numberOfStars;
     private String review = "";
+    private String reviewDate;
 
-    public FeedbackDto(String id, String bikeId, String reviewerId, int numberOfStars, String review) {
+    public FeedbackDto(String id, String bikeId, String title, String reviewerId, int numberOfStars, String review,
+            Date reviewDate) {
         this.id = id;
         this.bikeId = bikeId;
+        this.title = title;
         this.reviewerId = reviewerId;
         this.numberOfStars = numberOfStars;
         this.review = review;
+        this.reviewDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(reviewDate);
     }
 }

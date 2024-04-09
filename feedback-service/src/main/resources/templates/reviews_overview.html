@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <link href='https://fonts.googleapis.com/css?family=Roboto'
+            rel='stylesheet'>
+        <style>
+            .bike-id {
+                display: flex;
+                justify-content: center;
+                margin-top: 50px;
+                margin-bottom: 20px;
+            }
+
+            .logo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .review-list{
+                display: flex;
+                justify-content: center;
+                align-items: center;  
+            }  
+  
+            .card {
+                width: 720px;
+                height: fit-content;
+                display: flex;
+                flex-direction: column;
+                justify-content: left;
+                align-items: left;
+                background-color: #f2eff4;
+                border-radius: 20px;
+                box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+                color: #2f3d4b;
+                margin-top: 15px;
+                margin-bottom: 15px;
+                padding: 30px;
+            }
+    
+            .title {
+                display: flex;
+                width: 95%;
+                font-size: large;
+                font-weight: bolder;
+            }
+
+            .review-field {
+                display: flex;
+                text-align:justify;
+                width: 95%;
+                margin-top: 10px;
+            }
+
+            .rating-field {
+                margin-top: 10px;
+                width: 100px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="bike-id"> 
+            <img class="logo" th:src="@{/pedal_pals.png}" alt="logo">
+            <h2 th:text="|  Reviews of bike ${bikeId}|"></h2>
+        </div>
+        <div th:each="feedback : ${feedbacks}" class="review-list">
+            <div th:replace="~{fragments/review_card :: card}"></div>
+        </div>
+    </body>
+</html>
