@@ -26,20 +26,24 @@ public class RentalApprovalService {
                 .collect(Collectors.toList());
     }
 
-    public boolean addApprovalStatus(RentalApprovalDto rentalApprovalDto) {
+    public RentalRequest addApprovalStatus(RentalApprovalDto rentalApprovalDto) {
+        if (!rentalApprovalDto.getApprovalStatus().equals("approved")
+                && !rentalApprovalDto.getApprovalStatus().equals("declined")) {
+            return null;
+        }
+
         RentalRequest rentalRequest = rentalRequestRepository.findById(rentalApprovalDto.getRequestId()).orElse(null);
 
         if (rentalRequest == null) {
-            return false;
+            return null;
         }
 
-        if (rentalApprovalDto.getApprovalStatus().equals("approved")
-                || rentalApprovalDto.getApprovalStatus().equals("declined")) {
+        if (!rentalRequest.getStatus().equals("cancelled")) {
             rentalApprovalRepository.save(toRentalApproval(rentalApprovalDto));
-            return true;
+            return rentalRequest;
         }
 
-        return false;
+        return null;
     }
 
     public RentalApprovalDto toRentalApprovalDto(RentalApproval rentalApproval) {

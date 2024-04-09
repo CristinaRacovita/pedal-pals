@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import soa.group11.rentalService.entities.RentalRequest;
 import soa.group11.rentalService.models.RentalApprovalDto;
 import soa.group11.rentalService.producers.RentalApprovalProducer;
 import soa.group11.rentalService.services.RentalApprovalService;
@@ -32,12 +33,12 @@ public class RentalApprovalController {
 
     @PostMapping("/approve")
     public ResponseEntity handleRequest(@RequestBody @Valid RentalApprovalDto rentalApprovalDto) {
-        boolean success = rentalApprovalService.addApprovalStatus(rentalApprovalDto);
+        RentalRequest rentalRequest = rentalApprovalService.addApprovalStatus(rentalApprovalDto);
 
-        if (success == false)
+        if (rentalRequest == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-        rentalApprovalProducer.sendApprovalStatus(rentalApprovalDto);
+        rentalApprovalProducer.sendApprovalStatus(rentalApprovalDto, rentalRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

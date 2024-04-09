@@ -43,16 +43,22 @@ public class RentalRequestController {
     }
 
     @PostMapping("/request")
-    public void addRentalRequest(@RequestBody @Valid RentalRequestDto rentalRequestDto) {
-        rentalRequestService.addRentalRequest(rentalRequestDto);
-        rentalRequestProducer.sendRequest(rentalRequestDto);
+    public ResponseEntity addRentalRequest(@RequestBody @Valid RentalRequestDto rentalRequestDto) {
+        int comparison = rentalRequestDto.getStartDate().compareTo(rentalRequestDto.getEndDate());
+
+        if (comparison == -1){
+            rentalRequestService.addRentalRequest(rentalRequestDto);
+            rentalRequestProducer.sendRequest(rentalRequestDto);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PatchMapping("/request/{id}")
     public ResponseEntity<RentalRequestDto> cancelRequest(@PathVariable String id,
             @RequestBody RentalRequestDto rentalRequestDto) {
         if (!rentalRequestDto.getStatus().equals("cancelled")) {
-            System.out.println(rentalRequestDto.getStatus());
             return new ResponseEntity<RentalRequestDto>(HttpStatus.BAD_REQUEST);
         }
 
@@ -62,7 +68,7 @@ public class RentalRequestController {
             if (updatedRentalRequestDto == null) {
                 return new ResponseEntity<RentalRequestDto>(HttpStatus.BAD_REQUEST);
             }
-        
+
             rentalRequestProducer.sendRequest(updatedRentalRequestDto);
             return ResponseEntity.ok(updatedRentalRequestDto);
 
