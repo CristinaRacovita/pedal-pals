@@ -1,5 +1,6 @@
 package soa.group11.feedbackService.services;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,8 +27,12 @@ public class FeedbackService {
     }
 
     public List<FeedbackDto> getFeedbackByBikeIds(List<String> bikeId) {
-        return feedbackRepository.findByBikeIdIn(bikeId).stream().map(feedback -> toFeedbackDto(feedback))
+        List<FeedbackDto> feedbacks =  feedbackRepository.findByBikeIdIn(bikeId).stream().map(feedback -> toFeedbackDto(feedback))
                 .collect(Collectors.toList());
+
+        feedbacks.sort(Comparator.comparing(FeedbackDto::getReviewDate).reversed());
+
+        return feedbacks;
     }
 
     public boolean deleteFeedback(String id) {
