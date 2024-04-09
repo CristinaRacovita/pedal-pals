@@ -16,6 +16,10 @@ public class ApprovalNotification {
     private String text;
     private String notificationDate;
 
+    public ApprovalNotification() {
+
+    }
+
     public ApprovalNotification(String requesterId, String text) {
         this.requesterId = requesterId;
         this.text = text;

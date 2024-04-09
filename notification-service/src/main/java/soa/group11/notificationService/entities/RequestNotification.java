@@ -16,6 +16,10 @@ public class RequestNotification {
     private String text;
     private String notificationDate;
 
+    public RequestNotification() {
+
+    }
+
     public RequestNotification(String ownerId, String text) {
         this.ownerId = ownerId;
         this.text = text;
@@ -27,5 +31,4 @@ public class RequestNotification {
         this.text = text;
         this.notificationDate = notificationDate;
     }
-
 }
