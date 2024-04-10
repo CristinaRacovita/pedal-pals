@@ -18,29 +18,31 @@
         <img class="image" th:if="${bike.imageData == null}" th:src="@{/race-bike.jpg}" />
 
         <form class="details" id="form">
-            <div th:if="${bike.wheelSize != null || isOverview == 0}">
+            <div th:if="${bike.startRentingDate != null || isOverview == 0}">
                 <div class="label">From:</div>
-                <input id="startRentingDate" type="date" th:if="${bike.wheelSize != null || isOverview == 0}"
+                <input id="startRentingDate" type="date" th:if="${bike.startRentingDate != null || isOverview == 0}"
                     th:value="${bike.startRentingDate}" th:disabled="${isOverview == 1}" />
 
             </div>
 
-            <div th:if="${bike.wheelSize != null || isOverview == 0}">
+            <div th:if="${bike.endRentingDate != null || isOverview == 0}">
                 <div class="label">To:</div>
-                <input id="endRentingDate" type="date" th:if="${bike.wheelSize != null || isOverview == 0}"
+                <input id="endRentingDate" type="date" th:if="${bike.endRentingDate != null || isOverview == 0}"
                     th:value="${bike.endRentingDate}" th:disabled="${isOverview == 1}" />
 
             </div>
 
             <div>
-                <div th:if="${bike.wheelSize != null || isOverview == 0}" class="label">Wheel Size:</div>
-                <input id="wheelSize" type="number" th:if="${bike.wheelSize != null || isOverview == 0}" th:value="${bike.wheelSize}"
-                    th:disabled="${isOverview == 1}" />
+                <div th:if="${bike.wheelSize != null || isOverview == 0}" class="label">Wheel
+                    Size:</div>
+                <input id="wheelSize" type="number" th:if="${bike.wheelSize != null || isOverview == 0}"
+                    th:value="${bike.wheelSize}" th:disabled="${isOverview == 1}" />
 
             </div>
 
             <div>
-                <div th:if="${bike.numberOfGears != null || isOverview == 0}" class="label">Gears:</div>
+                <div th:if="${bike.numberOfGears != null || isOverview == 0}" class="label">
+                    Gears:</div>
                 <input id="numberOfGears" type="number" th:if="${bike.numberOfGears != null || isOverview == 0}"
                     th:value="${bike.numberOfGears}" th:disabled="${isOverview == 1}" />
 
@@ -68,9 +70,10 @@
             </div>
 
             <div>
-                <div th:if="${bike.suitability != null || isOverview == 0}" class="label">Usage:</div>
-                <input id="suitability" type="text" th:if="${bike.suitability != null || isOverview == 0}" th:value="${bike.suitability}"
-                    th:disabled="${isOverview == 1}" />
+                <div th:if="${bike.suitability != null || isOverview == 0}" class="label">Usage:
+                </div>
+                <input id="suitability" type="text" th:if="${bike.suitability != null || isOverview == 0}"
+                    th:value="${bike.suitability}" th:disabled="${isOverview == 1}" />
             </div>
 
         </form>
@@ -79,8 +82,7 @@
         </div>
         <div class="buttons">
             <button class="button">See Reviews</button>
-            <button class="button left" th:if="${isOverview == 0}" th:onclick="saveBike()"
-            >Save Changes</button>
+            <button class="button left" th:if="${isOverview == 0}" th:onclick="saveBike()">Save Changes</button>
         </div>
 
     </div>
