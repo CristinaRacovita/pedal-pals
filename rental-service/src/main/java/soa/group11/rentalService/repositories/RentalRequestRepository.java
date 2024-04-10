@@ -21,4 +21,7 @@ public interface RentalRequestRepository extends MongoRepository<RentalRequest, 
 
     @Query(value = "{ 'bikeOwnerId' : ?0 }")
     List<RentalRequest> findAllByBikeOwnerId(String bikeOwnerId);
+
+    @Query(value = "{ 'bikeRequesterId' : ?0 }")
+    List<RentalRequest> findAllByBikeRequesterId(String bikeRequesterId);
 }
