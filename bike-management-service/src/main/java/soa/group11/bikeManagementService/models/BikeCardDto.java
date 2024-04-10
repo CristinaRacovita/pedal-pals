@@ -16,7 +16,8 @@ public class BikeCardDto {
 
     private String imageData;
 
-    public BikeCardDto() {}
+    public BikeCardDto() {
+    }
 
     public BikeCardDto(String id, String name, String startRentingDate, String endRentingDate, String imageData) {
         this.name = name;

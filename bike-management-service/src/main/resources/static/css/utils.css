@@ -1,0 +1,82 @@
+.success-message {
+    color: green;
+    display: none;
+}
+
+.buttons {
+    padding-bottom: 20px;
+}
+
+.left {
+    margin-left: 10px;
+}
+
+.button {
+    outline: none;
+    background-color: #34263d;
+    color: white;
+    border-radius: 10px;
+    width: fit-content;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 30px;
+    font-size: small;
+}
+
+.button:hover {
+    opacity: 70%;
+}
+
+.details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: #ebf5fe;
+    border-radius: 15px;
+    width: 23%;
+    margin-top: 20px;
+    padding: 15px;
+}
+
+.image {
+    width: 350px;
+    height: 230px;
+    border-radius: 20px;
+}
+
+.selected-bike-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    margin-top: 30px;
+    color: #2f3d4b;
+}
+
+.value,
+.label {
+    color: #2f3d4b;
+}
+
+.label {
+    margin-top: 10px;
+    font-size: medium;
+    font-weight: 600;
+}
+
+input,
+select {
+    padding: 12px 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 150px;
+    background-color: white;
+    color: #2f3d4b;
+}
+
+input:focus-visible {
+    outline: none;
+}

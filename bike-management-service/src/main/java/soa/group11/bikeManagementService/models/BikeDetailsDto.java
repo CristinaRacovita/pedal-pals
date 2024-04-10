@@ -30,7 +30,8 @@ public class BikeDetailsDto {
 
     private String suitability;
 
-    public BikeDetailsDto() {}
+    public BikeDetailsDto() {
+    }
 
     public BikeDetailsDto(String id, double wheelSize, int numberOfGears, String name, String brand, String color,
             int userId, String startRentingDate, String endRentingDate, String imageData, String type,
@@ -61,7 +62,4 @@ public class BikeDetailsDto {
         this.suitability = suitability;
     }
 
-    
-
-    
 }

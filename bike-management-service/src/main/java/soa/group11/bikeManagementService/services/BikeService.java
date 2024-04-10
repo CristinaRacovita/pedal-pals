@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +21,7 @@ import soa.group11.bikeManagementService.models.BikeCardDto;
 import soa.group11.bikeManagementService.models.BikeDetailsDto;
 import soa.group11.bikeManagementService.models.BikeDto;
 import soa.group11.bikeManagementService.models.FeedbackDto;
+import soa.group11.bikeManagementService.models.NewBikeDto;
 import soa.group11.bikeManagementService.repositories.BikeRepository;
 import soa.group11.bikeManagementService.repositories.CustomBikeRepository;
 
@@ -48,13 +48,13 @@ public class BikeService {
         return toBikeDetails(bike.get());
     }
 
-    public void addBike(BikeDto bikeDto) {
+    public String addBike(NewBikeDto bikeDto) {
         Bike bike = toBike(bikeDto);
         if (bike == null) {
-            return;
+            return "";
         }
 
-        bikeRepository.save(bike);
+        return bikeRepository.save(bike).getId();
     }
 
     public void updateBike(BikeDetailsDto bike) {
@@ -79,6 +79,10 @@ public class BikeService {
     public List<BikeCardDto> getAllBikes() {
         return bikeRepository.findAll().stream().map(bike -> toBikeCardDto(bike))
                 .collect(Collectors.toList());
+    }
+
+    public void deleteBike(String bikeId) {
+        bikeRepository.deleteById(bikeId);
     }
 
     public List<BikeCardDto> filterBikes(int wheelSize,
@@ -165,13 +169,11 @@ public class BikeService {
                 bike.getType(), bike.getSuitability());
     }
 
-    private BikeDto toBikeDto(Bike bike) {
-        return new BikeDto(bike.getId(), bike.getUserId(), bike.getBrand(),
-                bike.getSuitability().equals("CITY"));
+    private Bike toBike(NewBikeDto bike) {
+        return new Bike(bike.getWheelSize(), bike.getNumberOfGears(), bike.getName(), bike.getBrand(), bike.getColor(),
+                bike.getUserId(),
+                toDate(bike.getStartRentingDate()), toDate(bike.getEndRentingDate()), bike.getType(),
+                bike.getSuitability());
     }
 
-    private Bike toBike(BikeDto bike) {
-        return new Bike(bike.getUserId(), bike.getBrand(),
-                null, bike.getIsTownBike() ? "CITY" : "MOUNTAIN");
-    }
 }

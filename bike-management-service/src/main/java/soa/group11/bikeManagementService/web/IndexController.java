@@ -32,7 +32,7 @@ public class IndexController {
 
     @GetMapping("/{userId}/filter")
     public String filter(@PathVariable(value = "userId") int userId,
-        @RequestParam(name = "wheelSize", required = false) String wheelSize,
+            @RequestParam(name = "wheelSize", required = false) String wheelSize,
             @RequestParam(name = "numberOfGears", required = false) String numberOfGears,
             @RequestParam(name = "startRentingDate", required = false) String startRentingDate,
             @RequestParam(name = "endRentingDate", required = false) String endRentingDate,
@@ -59,7 +59,7 @@ public class IndexController {
             model.addAttribute("bikes", bikes);
             model.addAttribute("userId", userId);
         } catch (ParseException ex) {
-            
+
         }
         return "bikes_overview";
     }
@@ -82,5 +82,13 @@ public class IndexController {
         model.addAttribute("bikes", bikes);
         model.addAttribute("userId", userId);
         return "my_bikes";
+    }
+
+    @GetMapping(value = "/bike/{userId}")
+    public String getAddBikePage(@PathVariable(value = "userId") int userId, Model model) {
+        // List<BikeCardDto> bikes = bikeService.getBikesByUserId(userId);
+        // model.addAttribute("bikes", bikes);
+        // model.addAttribute("userId", userId);
+        return "add_bike";
     }
 }

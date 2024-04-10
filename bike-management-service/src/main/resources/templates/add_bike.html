@@ -1,0 +1,124 @@
+<html>
+
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/bike_list.css">
+    <link rel="stylesheet" type="text/css" href="/css/bike_card.css">
+    <link rel="stylesheet" type="text/css" href="/css/utils.css">
+
+    <script th:src="@{/scripts/bike.js}"></script>
+
+</head>
+<div th:replace="~{fragments/header :: header}">
+</div>
+
+<h1 class="title-page">Add New Bike</h1>
+<div class="bike-content">
+    <form class="form">
+        <div>
+
+            <div>
+                <div class="label">Start Date:</div>
+                <input id="startRentingDate" type="date" />
+            </div>
+
+            <div>
+                <div class="label">Wheel Size:</div>
+                <input id="wheelSize" type="number" placeholder="21" />
+            </div>
+
+
+
+            <div>
+                <input id="name" type="text" th:placeholder="Name" />
+            </div>
+
+            <div>
+                <input id="brand" type="text" th:placeholder="Brand" />
+            </div>
+
+            <div>
+                <div class="label">Bike Photo:</div>
+                <input id="image" type="file" name="file" accept="image/*">
+            </div>
+
+            <div>
+                <button type='button' class="button" th:onclick="addBike()">Upload</button>
+            </div>
+
+        </div>
+
+        <div class="second">
+            <div>
+                <div class="label">End Date:</div>
+                <input id="endRentingDate" type="date" />
+            </div>
+
+
+            <div>
+                <div class="label">Gears:</div>
+                <input id="numberOfGears" type="number" placeholder="3" />
+            </div>
+
+
+            <div>
+                <input id="color" type="text" th:placeholder="Color" />
+            </div>
+
+
+            <div>
+                <input id="type" type="text" th:placeholder="Type" />
+            </div>
+
+            <div>
+                <input id="suitability" type="text" th:placeholder="Usage" />
+            </div>
+
+        </div>
+    </form>
+
+    <div id="success-message" class="success-message">
+        Your bike was successfully added!
+    </div>
+</div>
+
+</html>
+
+<style>
+    input {
+        width: 200px;
+    }
+
+    .title-page {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        color: #2f3d4b;
+
+    }
+
+    .form {
+        display: flex;
+        justify-content: center;
+    }
+
+    .bike-content {
+        background-color: #ebf5fe;
+        margin-left: 400px;
+        margin-right: 400px;
+        padding-bottom: 30px;
+        padding-top: 30px;
+        border-radius: 15px;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    }
+
+    .second {
+        margin-left: 20px;
+    }
+
+    .success-message {
+        text-align: center;
+        width: 100%;
+    }
+</style>

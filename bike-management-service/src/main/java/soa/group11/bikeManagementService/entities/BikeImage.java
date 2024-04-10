@@ -13,6 +13,6 @@ public class BikeImage {
     private byte[] data;
     private String contentType;
 
-    public BikeImage() {}
+    public BikeImage() {
+    }
 }
-

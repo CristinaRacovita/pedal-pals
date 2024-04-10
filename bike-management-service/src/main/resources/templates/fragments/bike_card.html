@@ -4,7 +4,8 @@
 </head>
 
 <body>
-    <a th:fragment="card(isOverview)" class="card" th:href="@{'/' + ${userId} + '/bike/' + ${bike.id} + '/' + ${isOverview}}">
+    <a th:fragment="card(isOverview)" class="card"
+        th:href="@{'/' + ${userId} + '/bike/' + ${bike.id} + '/' + ${isOverview}}">
         <img class="image" th:if="${bike.imageData != null}" th:src="'data:image/jpeg;base64,' + ${bike.imageData}" />
         <img class="image" th:if="${bike.imageData == null}" th:src="@{/race-bike.jpg}" />
 
