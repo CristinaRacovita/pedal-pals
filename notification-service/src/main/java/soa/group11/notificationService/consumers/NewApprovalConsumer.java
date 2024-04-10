@@ -8,14 +8,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import soa.group11.notificationService.entities.ApprovalNotification;
+import soa.group11.notificationService.entities.Notification;
 import soa.group11.notificationService.models.DetailedRentalApprovalDto;
-import soa.group11.notificationService.repositories.ApprovalNotificationRepository;
+import soa.group11.notificationService.repositories.NotificationRepository;
 
 @Component
 public class NewApprovalConsumer {
     @Autowired
-    private ApprovalNotificationRepository approvalNotificationRepository;
+    private NotificationRepository notificationRepository;
 
     @JmsListener(destination = "${queue.approval}")
     public void receiveRequest(String approvalJson) {
@@ -27,8 +27,19 @@ public class NewApprovalConsumer {
                     DetailedRentalApprovalDto.class);
 
             System.out.println(detailedRentalApproval.toString());
-            approvalNotificationRepository.save(new ApprovalNotification(detailedRentalApproval.getRequesterId(),
-                    detailedRentalApproval.toString()));
+            String notificationType;
+            String endRentalDate;
+
+            if (detailedRentalApproval.toString().contains("has been approved with the following details")) {
+                notificationType = "approved_request";
+                endRentalDate = detailedRentalApproval.getEndDate();
+            } else {
+                notificationType = "declined_request";
+                endRentalDate = null;
+            }
+
+            notificationRepository.save(new Notification(detailedRentalApproval.getRequesterId(), notificationType,
+                    detailedRentalApproval.toString(), endRentalDate));
         } catch (JsonProcessingException e) {
             System.out.println(e.getMessage());
         }

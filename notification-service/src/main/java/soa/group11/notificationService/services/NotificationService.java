@@ -1,59 +1,54 @@
 package soa.group11.notificationService.services;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import soa.group11.notificationService.entities.ApprovalNotification;
-import soa.group11.notificationService.entities.RequestNotification;
-import soa.group11.notificationService.models.NotificationDto;
-import soa.group11.notificationService.repositories.ApprovalNotificationRepository;
-import soa.group11.notificationService.repositories.RequestNotificationRepository;
+import soa.group11.notificationService.entities.Notification;
+import soa.group11.notificationService.repositories.NotificationRepository;
 
 @Service
 public class NotificationService {
     @Autowired
-    RequestNotificationRepository requestNotificationRepository;
-    @Autowired
-    ApprovalNotificationRepository approvalNotificationRepository;
+    NotificationRepository notificationRepository;
 
-    public List<NotificationDto> getNotifications(String userId) {
-        List<NotificationDto> notifications = new ArrayList<>();
+    public List<Notification> getNotifications(String userId) {
+        List<Notification> notifications = notificationRepository.findByNotifiedUserId(userId);
 
-        List<RequestNotification> requestNotifications = requestNotificationRepository.findByOwnerId(userId);
-        List<ApprovalNotification> approvalNotifications = approvalNotificationRepository.findByRequesterId(userId);
+        String currentDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date());
+        List<Notification> dueNotifications = notificationRepository.findDueNotificationsLike(userId,
+                "approved_request", currentDateTime);
 
-        String notificationType;
+        if (!dueNotifications.isEmpty()) {
+            for (Notification notification : dueNotifications) {
+                String notificationText = notification.getText();
+                String bikeId = notificationText.substring(15, notificationText.indexOf(" has been "));
+                String feedbackNotificationText = "The rental period for bike " + bikeId + " has ended on "
+                        + notification.getCheckDate() + ". Please add a feedback.";
 
-        if (requestNotifications != null) {
-            for (RequestNotification requestNotification : requestNotifications) {
-                if (requestNotification.getText().contains("has cancelled the request to rent bike")) {
-                    notificationType = "cancelled_request";
-                } else {
-                    notificationType = "sent_request";
+                Notification feedNotification = new Notification(userId, "feedback", feedbackNotificationText, null);
+
+                boolean alreadyStored = false;
+                for (Notification existingNotification : notifications) {
+                    if (existingNotification.getText().equals(notification.getText())) {
+                        alreadyStored = true;
+                    }
+
                 }
-                notifications.add(new NotificationDto(notificationType, requestNotification.getText(),
-                        requestNotification.getNotificationDate()));
+
+                if (!alreadyStored) {
+                    notificationRepository.save(feedNotification);
+                }
+
+                notifications.add(feedNotification);
             }
         }
 
-        if (approvalNotifications != null) {
-            for (ApprovalNotification approvalNotification : approvalNotifications) {
-                if (approvalNotification.getText().contains("has been approved with the following details")) {
-                    notificationType = "approved_request";
-                } else {
-                    notificationType = "declined_request";
-                }
-
-                notifications.add(new NotificationDto(notificationType, approvalNotification.getText(),
-                        approvalNotification.getNotificationDate()));
-            }
-        }
-
-        notifications.sort(Comparator.comparing(NotificationDto::getDate).reversed());
+        notifications.sort(Comparator.comparing(Notification::getNotificationDate).reversed());
 
         return notifications;
     }

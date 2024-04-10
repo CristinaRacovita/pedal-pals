@@ -9,18 +9,33 @@ import lombok.Getter;
 @Getter
 @Setter
 public class BikeSubscription {
-    private int userId;
+    private String userId;
+    private int wheelSize;
     private int numberOfGears;
+    private String startDate;
+    private String endDate;
     private String brand;
-    private Boolean isTownBike;
+    private String type;
+    private String usage;
 
     public BikeSubscription() {
     }
 
-    public BikeSubscription(int userId, int numberOfGears, String brand, Boolean isTownBike) {
-        this.brand = brand;
-        this.numberOfGears = numberOfGears;
+    public BikeSubscription(String userId, int wheelSize, int numberOfGears, String startDate, String endDate,
+            String brand, String type, String usage) {
         this.userId = userId;
-        this.isTownBike = isTownBike;
+        this.wheelSize = wheelSize;
+        this.numberOfGears = numberOfGears;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.brand = brand;
+        this.type = type;
+        this.usage = usage;
+    }
+
+    @Override
+    public String toString() {
+        return type + " " + brand + " bike with " + wheelSize + " inch wheels and " + numberOfGears + " gears for "
+                + usage.toLowerCase() + " is available between " + startDate + " - " + endDate;
     }
 }
