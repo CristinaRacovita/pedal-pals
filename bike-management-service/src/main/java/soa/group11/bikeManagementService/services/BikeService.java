@@ -146,7 +146,15 @@ public class BikeService {
         return bikeDtos;
     }
 
+    public BikeCardDto getBikeById(String bikeId){
+        return toBikeCardDto(bikeRepository.findById(bikeId).orElse(null));
+    }
+
     private BikeCardDto toBikeCardDto(Bike bike) {
+        if (bike == null){
+            return null;
+        }
+
         Format formatter = new SimpleDateFormat("yyyy-MM-dd");
         return new BikeCardDto(
                 bike.getId(),
