@@ -46,7 +46,7 @@ public class RentalRequestController {
     public ResponseEntity<HttpStatus> addRentalRequest(@RequestBody @Valid RentalRequestDto rentalRequestDto) {
         int comparison = rentalRequestDto.getStartDate().compareTo(rentalRequestDto.getEndDate());
 
-        if (comparison == -1){
+        if (comparison < 0) {
             rentalRequestService.addRentalRequest(rentalRequestDto);
             rentalRequestProducer.sendRequest(rentalRequestDto);
             return new ResponseEntity<HttpStatus>(HttpStatus.OK);

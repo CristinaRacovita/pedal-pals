@@ -33,7 +33,8 @@ public class BikeDetailsDto {
     public BikeDetailsDto() {}
 
     public BikeDetailsDto(String id, double wheelSize, int numberOfGears, String name, String brand, String color,
-            int userId, String startRentingDate, String endRentingDate, String imageData, String type, String suitability) {
+            int userId, String startRentingDate, String endRentingDate, String imageData, String type,
+            String suitability) {
         this.id = id;
         this.wheelSize = wheelSize;
         this.numberOfGears = numberOfGears;

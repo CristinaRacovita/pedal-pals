@@ -12,6 +12,7 @@ import soa.group11.notificationService.entities.BikeSubscription;
 public interface BikeSubscriptionRepository extends MongoRepository<BikeSubscription, String> {
     List<BikeSubscription> findByUserId(int userId);
 
-    @Query(value = "{'brand': ?0, 'numberOfGears': ?1}")
-    List<BikeSubscription> getSubscriptionsLike(String brand, int numberOfGears);
+    @Query(value = "{'wheelSize': ?0, 'numberOfGears': ?1, 'brand': ?4, 'type': ?5, 'usage': ?6, 'startDate' : {$lte: ?2}, 'endDate' : {$gte: ?3}}")
+    List<BikeSubscription> getSubscriptionsLike(int wheelSize, int numberOfGears, String startDate,
+            String endDate, String brand, String type, String usage);
 }
