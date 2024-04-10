@@ -1,11 +1,20 @@
 package soa.group11.bikeManagementService.web;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import soa.group11.bikeManagementService.models.BikeCardDto;
+import soa.group11.bikeManagementService.models.BikeDetailsDto;
 import soa.group11.bikeManagementService.services.BikeService;
 
 @Controller
@@ -13,11 +22,51 @@ public class IndexController {
     @Autowired
     private BikeService bikeService;
 
-    @GetMapping(value = "/bikes/{userId}/{role}")
-    public String getBikesForUser(Model model, @PathVariable(value = "userId") int userId,
-            @PathVariable(value = "role") String role) {
-        model.addAttribute("bikes", bikeService.getBikesByUserId(userId));
-        model.addAttribute("role", role);
+    @GetMapping(value = "/{userId}/bikes")
+    public String getBikes(@PathVariable(value = "userId") int userId, Model model) {
+        List<BikeCardDto> bikes = bikeService.getAllBikes();
+        model.addAttribute("bikes", bikes);
+        model.addAttribute("userId", userId);
         return "bikes_overview";
+    }
+
+    @GetMapping("/filter")
+    public String filter(@RequestParam(name = "wheelSize", required = false) String wheelSize,
+            @RequestParam(name = "numberOfGears", required = false) String numberOfGears,
+            @RequestParam(name = "startRentingDate", required = false) String startRentingDate,
+            @RequestParam(name = "endRentingDate", required = false) String endRentingDate,
+            @RequestParam(name = "brand", required = false) String brand,
+            @RequestParam(name = "type", required = false) String type,
+            @RequestParam(name = "suitability", required = false) String suitability,
+            Model model) {
+
+        try {
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+            int wheelSizeInt = wheelSize == "" ? -1 : Integer.parseInt(wheelSize);
+            int numberOfGearsInt = numberOfGears == "" ? -1 : Integer.parseInt(numberOfGears);
+            Date convertedStartRentingDate = startRentingDate == "" ? null : formatter.parse(startRentingDate);
+            Date convertedEndRentingDate = endRentingDate == "" ? null : formatter.parse(endRentingDate);
+
+            List<BikeCardDto> bikes = this.bikeService.filterBikes(wheelSizeInt,
+                    numberOfGearsInt,
+                    convertedStartRentingDate,
+                    convertedEndRentingDate,
+                    brand == "" ? null : brand,
+                    type == "" ? null : type,
+                    suitability == "" ? null : suitability);
+            model.addAttribute("bikes", bikes);
+        } catch (ParseException ex) {
+            
+        }
+        return "bikes_overview";
+    }
+
+    @GetMapping(value = "/{userId}/bike/{bikeId}")
+    public String getBikeDetails(@PathVariable(value = "userId") int userId, @PathVariable(value = "bikeId") String bikeId, Model model) {
+        BikeDetailsDto bike = bikeService.getBikeDetails(bikeId);
+        model.addAttribute("bike", bike);
+        model.addAttribute("userId", userId);
+        return "selected_bike";
     }
 }

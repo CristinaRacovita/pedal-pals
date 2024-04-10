@@ -1,11 +1,156 @@
 <html>
 
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+
+    <style>
+        html {
+            overflow: scroll;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 0;
+            background: transparent;
+        }
+
+        .card {
+            width: 300px;
+            height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f2eff4;
+            border-radius: 20px;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            color: #2f3d4b;
+            margin: 50px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .card:hover {
+            opacity: 70%;
+        }
+
+        .image {
+            width: 250px;
+            height: 180px;
+            border-radius: 20px;
+        }
+
+        .availability-value,
+        .availability-label {
+            display: flex;
+            width: 100%;
+            margin-left: 60px;
+        }
+
+        .title {
+            display: flex;
+            width: 100%;
+            margin-left: 60px;
+            margin-top: 10px;
+            font-size: large;
+            font-weight: bolder;
+        }
+
+        .availability-label {
+            margin-top: 10px;
+            font-size: medium;
+            font-weight: 600;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .bike-card {
+            display: flex;
+            justify-content: center;
+        }
+
+        .bikes-content {
+            display: flex;
+            justify-content: center;
+        }
+
+        .title-page {
+            text-align: center;
+            padding-top: 20px;
+            color: #2f3d4b;
+        }
+
+        .filter-bar {
+            margin-top: 5px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            background-color: #ebf5fe;
+        }
+
+        input,
+        select {
+            padding: 12px 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            width: 150px;
+            background-color: white;
+            color: #2f3d4b;
+        }
+
+        input:focus-visible {
+            outline: none;
+        }
+
+        .button {
+            outline: none;
+            background-color: #34263d;
+            color: white;
+            border-radius: 10px;
+            width: fit-content;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 30px;
+            font-size: small;
+        }
+
+        .button:hover {
+            opacity: 70%;
+        }
+    </style>
+</head>
+
 <body>
-    <h1>Bikes</h1>
-    <h2 th:text="${role}"></h2>
-    <div th:each="bike: ${bikes}">
-        <b th:text="${bike.brand}"></b> --- <small th:text="${bike.numberOfGears}"></small>
+    <div th:replace="~{fragments/header :: header}">
     </div>
+
+    <div th:replace="~{fragments/filter_bar :: filter-bar}">
+    </div>
+
+    <h2 class="title-page">Our Available Bikes</h2>
+    <div class="bikes-content">
+        <div class="grid-container">
+            <div th:each="bike : ${bikes}" class="bike-card">
+                <div th:replace="~{fragments/bike_card :: card}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <h2>Upload Image</h2>
+    <form th:action="@{/upload/661579d94d70f376a5a4ad4a}" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*">
+        <button type="submit">Upload</button>
+    </form> -->
 </body>
 
 </html>

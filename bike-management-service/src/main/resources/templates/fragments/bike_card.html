@@ -4,12 +4,18 @@
 </head>
 
 <body>
-    <div th:fragment="card" class="card">
-        <img class="image" th:src="@{/race-bike.jpg}" />
-        <div class="title">Race Bike to Rent</div>
+    <a th:fragment="card" class="card" th:href="@{'/' + ${userId} + '/bike/' + ${bike.id}}">
+        <img class="image" th:if="${bike.imageData != null}" th:src="'data:image/jpeg;base64,' + ${bike.imageData}" />
+        <img class="image" th:if="${bike.imageData == null}" th:src="@{/race-bike.jpg}" />
+
+        <div th:text="${bike.name}" class="title"></div>
         <div class="availability-label">Availability:</div>
-        <div class="availability-value">5 Jun to 26 July</div>
-    </div>
+        <div class="availability-value">
+            <span th:text="${bike.startRentingDate}"></span>
+            <span>&nbsp;to&nbsp;</span>
+            <span th:text="${bike.endRentingDate}"></span>
+        </div>
+    </a>
 </body>
 
 </html>
