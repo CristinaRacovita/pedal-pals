@@ -23,7 +23,7 @@ public class RentalApprovalProducer {
     public void sendApprovalStatus(RentalApprovalDto rentalApprovalDto, RentalRequest rentalRequest) {
         DetailedRentalApprovalDto detailedRentalApprovalDto = new DetailedRentalApprovalDto(
                 rentalRequest.getBikeRequesterId(), rentalRequest.getBikeId(), rentalApprovalDto.getApprovalStatus(),
-                rentalApprovalDto.getDetails());
+                rentalApprovalDto.getDetails(), rentalRequest.getStringStartDate(), rentalRequest.getStringEndDate());
 
         try {
             ObjectMapper objectMapper = new ObjectMapper();

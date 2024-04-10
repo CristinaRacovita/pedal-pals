@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import soa.group11.bikeManagementService.models.BikeDto;
+import soa.group11.bikeManagementService.models.BikeSubscriptionDto;
 import soa.group11.bikeManagementService.producers.NewSubscriptionProducer;
 
 @RestController
@@ -16,7 +16,7 @@ public class BikeSubscriptionController {
     private NewSubscriptionProducer newSubscriptionProducer;
 
     @PostMapping("/bike-subscription")
-    public void createNewBikeSubscription(@RequestBody BikeDto bike) {
-        newSubscriptionProducer.sendMessage(bike);
+    public void createNewBikeSubscription(@RequestBody BikeSubscriptionDto bikeSubscriptionDto) {
+        newSubscriptionProducer.sendMessage(bikeSubscriptionDto);
     }
 }

@@ -10,16 +10,20 @@ public class DetailedRentalApprovalDto {
     private String bikeId;
     private String approvalStatus;
     private String details;
+    private String startDate;
+    private String endDate;
 
     public DetailedRentalApprovalDto() {
 
     }
 
-    public DetailedRentalApprovalDto(String requesterId, String bikeId, String approvalStatus, String details) {
+    public DetailedRentalApprovalDto(String requesterId, String bikeId, String approvalStatus, String details, String startDate, String endDate) {
         this.requesterId = requesterId;
         this.bikeId = bikeId;
         this.approvalStatus = approvalStatus;
         this.details = details;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     @Override
