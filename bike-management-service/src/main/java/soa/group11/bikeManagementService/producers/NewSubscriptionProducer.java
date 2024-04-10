@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import soa.group11.bikeManagementService.models.BikeDto;
+import soa.group11.bikeManagementService.models.BikeSubscriptionDto;
 
 @Component
 public class NewSubscriptionProducer {
@@ -18,7 +18,7 @@ public class NewSubscriptionProducer {
     @Value("${queue.new-subscription}")
     private String newSubscriptionQueue;
 
-    public void sendMessage(BikeDto bike) {
+    public void sendMessage(BikeSubscriptionDto bike) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             String bikeJson = mapper.writeValueAsString(bike);
