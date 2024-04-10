@@ -1,47 +1,86 @@
 <html>
 
 <head>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="/css/header.css">
+
+    <script th:src="@{/scripts/header.js}"></script>
+    <script th:src="@{/scripts/bike.js}"></script>
+
 </head>
 
 <body>
     <div th:replace="~{fragments/header :: header}">
     </div>
-    <div class="selected-bike-container">
+    <div class="selected-bike-container" name="bike-card" th:id="${bike.id}">
         <h2 th:text="${bike.name}"></h2>
         <img class="image" th:if="${bike.imageData != null}" th:src="'data:image/jpeg;base64,' + ${bike.imageData}" />
         <img class="image" th:if="${bike.imageData == null}" th:src="@{/race-bike.jpg}" />
 
+        <form class="details" id="form">
+            <div th:if="${bike.wheelSize != null || isOverview == 0}">
+                <div class="label">From:</div>
+                <input id="startRentingDate" type="date" th:if="${bike.wheelSize != null || isOverview == 0}"
+                    th:value="${bike.startRentingDate}" th:disabled="${isOverview == 1}" />
 
-
-        <div class="details">
-            <div class="label">Availability:</div>
-            <div class="value">
-                <span th:text="${bike.startRentingDate}"></span>
-                <span>&nbsp;to&nbsp;</span>
-                <span th:text="${bike.endRentingDate}"></span>
             </div>
 
-            <div th:if="${bike.wheelSize != null}" class="label">Wheel Size:</div>
-            <div th:if="${bike.wheelSize != null}" th:text="${bike.wheelSize}"></div>
+            <div th:if="${bike.wheelSize != null || isOverview == 0}">
+                <div class="label">To:</div>
+                <input id="endRentingDate" type="date" th:if="${bike.wheelSize != null || isOverview == 0}"
+                    th:value="${bike.endRentingDate}" th:disabled="${isOverview == 1}" />
 
-            <div th:if="${bike.numberOfGears != null}" class="label">Gears:</div>
-            <div th:if="${bike.numberOfGears != null}" th:text="${bike.numberOfGears}"></div>
+            </div>
 
-            <div th:if="${bike.brand != null}" class="label">Brand:</div>
-            <div th:if="${bike.brand != null}" th:text="${bike.brand}"></div>
+            <div>
+                <div th:if="${bike.wheelSize != null || isOverview == 0}" class="label">Wheel Size:</div>
+                <input id="wheelSize" type="number" th:if="${bike.wheelSize != null || isOverview == 0}" th:value="${bike.wheelSize}"
+                    th:disabled="${isOverview == 1}" />
 
-            <div th:if="${bike.color != null}" class="label">Color:</div>
-            <div th:if="${bike.color != null}" th:text="${bike.color}"></div>
+            </div>
 
-            <div th:if="${bike.type != null}" class="label">Tyep:</div>
-            <div th:if="${bike.type != null}" th:text="${bike.type}"></div>
+            <div>
+                <div th:if="${bike.numberOfGears != null || isOverview == 0}" class="label">Gears:</div>
+                <input id="numberOfGears" type="number" th:if="${bike.numberOfGears != null || isOverview == 0}"
+                    th:value="${bike.numberOfGears}" th:disabled="${isOverview == 1}" />
 
-            <div th:if="${bike.suitability != null}" class="label">Usage:</div>
-            <div th:if="${bike.suitability != null}" th:text="${bike.suitability}"></div>
+            </div>
+
+            <div>
+                <div th:if="${bike.brand != null || isOverview == 0}" class="label">Brand:</div>
+                <input id="brand" type="text" th:if="${bike.brand != null || isOverview == 0}" th:value="${bike.brand}"
+                    th:disabled="${isOverview == 1}" />
+
+            </div>
+
+            <div>
+                <div th:if="${bike.color != null || isOverview == 0}" class="label">Color:</div>
+                <input id="color" type="text" th:if="${bike.color != null || isOverview == 0}" th:value="${bike.color}"
+                    th:disabled="${isOverview == 1}" />
+
+            </div>
+
+            <div>
+                <div th:if="${bike.type != null || isOverview == 0}" class="label">Type:</div>
+                <input id="type" type="text" th:if="${bike.type != null || isOverview == 0}" th:value="${bike.type}"
+                    th:disabled="${isOverview == 1}" />
+
+            </div>
+
+            <div>
+                <div th:if="${bike.suitability != null || isOverview == 0}" class="label">Usage:</div>
+                <input id="suitability" type="text" th:if="${bike.suitability != null || isOverview == 0}" th:value="${bike.suitability}"
+                    th:disabled="${isOverview == 1}" />
+            </div>
+
+        </form>
+        <div id="success-message" th:if="${isOverview == 0}" class="success-message">
+            Your bike was successfully updated!
         </div>
         <div class="buttons">
             <button class="button">See Reviews</button>
+            <button class="button left" th:if="${isOverview == 0}" th:onclick="saveBike()"
+            >Save Changes</button>
         </div>
 
     </div>
@@ -50,7 +89,22 @@
 
 </html>
 
+
+
 <style>
+    .success-message {
+        color: green;
+        display: none;
+    }
+
+    .buttons {
+        padding-bottom: 20px;
+    }
+
+    .left {
+        margin-left: 10px;
+    }
+
     .button {
         outline: none;
         background-color: #34263d;
@@ -69,11 +123,13 @@
     }
 
     .details {
-        margin-top: 20px;
-        padding: 15px;
-        width: 23%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         background-color: #ebf5fe;
         border-radius: 15px;
+        width: 23%;
+        margin-top: 20px;
+        padding: 15px;
     }
 
     .image {
@@ -101,5 +157,21 @@
         margin-top: 10px;
         font-size: medium;
         font-weight: 600;
+    }
+
+    input,
+    select {
+        padding: 12px 10px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        width: 150px;
+        background-color: white;
+        color: #2f3d4b;
+    }
+
+    input:focus-visible {
+        outline: none;
     }
 </style>

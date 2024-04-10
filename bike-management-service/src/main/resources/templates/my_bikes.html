@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+        <link rel="stylesheet" type="text/css" href="/css/header.css">
+        <link rel="stylesheet" type="text/css" href="/css/bike_list.css">
+        <link rel="stylesheet" type="text/css" href="/css/bike_card.css">
+        <script th:src="@{/scripts/bike.js}"></script>
+
+    </head>
+    <div th:replace="~{fragments/header :: header}">
+    </div>
+
+    <h2 class="title-page">Your Bikes</h2>
+    <div class="bikes-content">
+        <div class="grid-container">
+            <div th:each="bike : ${bikes}" class="bike-card">
+                <div th:replace="~{fragments/bike_card :: card(0)}">
+                </div>
+            </div>
+        </div>
+    </div>
+</html>

@@ -2,9 +2,11 @@ package soa.group11.bikeManagementService.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import soa.group11.bikeManagementService.models.BikeDetailsDto;
 import soa.group11.bikeManagementService.models.BikeDto;
 import soa.group11.bikeManagementService.producers.NotificationProducer;
 import soa.group11.bikeManagementService.services.BikeService;
@@ -20,5 +22,10 @@ public class BikeController {
     public void addNewBike(@RequestBody BikeDto bike) {
         bikeService.addBike(bike);
         notificationProducer.sendMessage(bike);
+    }
+
+    @PutMapping("/bike")
+    public void updateBike(@RequestBody BikeDetailsDto bike) {
+        bikeService.updateBike(bike);
     }
 }

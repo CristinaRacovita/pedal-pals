@@ -7,7 +7,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.text.Format;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +32,11 @@ public class BikeService {
     @Autowired
     private CustomBikeRepository customBikeRepository;
 
-    public List<BikeDto> getBikesByUserId(int userId) {
-        List<BikeDto> bikeDtos = bikeRepository.findByUserId(userId).stream().map(bike -> toBikeDto(bike))
+    public List<BikeCardDto> getBikesByUserId(int userId) {
+        List<BikeCardDto> bikeDtos = bikeRepository.findByUserId(userId).stream().map(bike -> toBikeCardDto(bike))
                 .collect(Collectors.toList());
 
-        return getBikesWithFeedback(bikeDtos);
+        return bikeDtos;
     }
 
     public BikeDetailsDto getBikeDetails(String bikeId) {
@@ -53,6 +55,25 @@ public class BikeService {
         }
 
         bikeRepository.save(bike);
+    }
+
+    public void updateBike(BikeDetailsDto bike) {
+        Optional<Bike> currentBike = bikeRepository.findById(bike.getId());
+        if (!currentBike.isPresent()) {
+            return;
+        }
+
+        Bike bikeToUpdate = currentBike.get();
+
+        bikeToUpdate.setWheelSize(bike.getWheelSize());
+        bikeToUpdate.setNumberOfGears(bike.getNumberOfGears());
+        bikeToUpdate.setBrand(bike.getBrand());
+        bikeToUpdate.setEndRentingDate(toDate(bike.getEndRentingDate()));
+        bikeToUpdate.setStartRentingDate(toDate(bike.getStartRentingDate()));
+        bikeToUpdate.setType(bike.getType());
+        bikeToUpdate.setSuitability(bike.getSuitability());
+
+        bikeRepository.save(bikeToUpdate);
     }
 
     public List<BikeCardDto> getAllBikes() {
@@ -76,6 +97,16 @@ public class BikeService {
                 type,
                 suitability).stream().map(bike -> toBikeCardDto(bike))
                 .collect(Collectors.toList());
+
+    }
+
+    private Date toDate(String stringDate) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            return formatter.parse(stringDate);
+        } catch (ParseException e) {
+            return null;
+        }
 
     }
 

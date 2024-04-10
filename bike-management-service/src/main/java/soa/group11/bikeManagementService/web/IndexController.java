@@ -30,8 +30,9 @@ public class IndexController {
         return "bikes_overview";
     }
 
-    @GetMapping("/filter")
-    public String filter(@RequestParam(name = "wheelSize", required = false) String wheelSize,
+    @GetMapping("/{userId}/filter")
+    public String filter(@PathVariable(value = "userId") int userId,
+        @RequestParam(name = "wheelSize", required = false) String wheelSize,
             @RequestParam(name = "numberOfGears", required = false) String numberOfGears,
             @RequestParam(name = "startRentingDate", required = false) String startRentingDate,
             @RequestParam(name = "endRentingDate", required = false) String endRentingDate,
@@ -56,17 +57,30 @@ public class IndexController {
                     type == "" ? null : type,
                     suitability == "" ? null : suitability);
             model.addAttribute("bikes", bikes);
+            model.addAttribute("userId", userId);
         } catch (ParseException ex) {
             
         }
         return "bikes_overview";
     }
 
-    @GetMapping(value = "/{userId}/bike/{bikeId}")
-    public String getBikeDetails(@PathVariable(value = "userId") int userId, @PathVariable(value = "bikeId") String bikeId, Model model) {
+    @GetMapping(value = "/{userId}/bike/{bikeId}/{isOverview}")
+    public String getBikeDetails(@PathVariable(value = "userId") int userId,
+            @PathVariable(value = "bikeId") String bikeId, @PathVariable(value = "isOverview") int isOverview,
+            Model model) {
         BikeDetailsDto bike = bikeService.getBikeDetails(bikeId);
         model.addAttribute("bike", bike);
         model.addAttribute("userId", userId);
+        model.addAttribute("isOverview", isOverview);
+
         return "selected_bike";
+    }
+
+    @GetMapping(value = "/my-bikes/{userId}")
+    public String getBikesByUserId(@PathVariable(value = "userId") int userId, Model model) {
+        List<BikeCardDto> bikes = bikeService.getBikesByUserId(userId);
+        model.addAttribute("bikes", bikes);
+        model.addAttribute("userId", userId);
+        return "my_bikes";
     }
 }

@@ -46,4 +46,17 @@ public class Bike {
         this.suitability = suitability;
         this.type = type;
     }
+
+    public Bike(double wheelSize, int numberOfGears, String brand, String color, Date startRentingDate,
+            Date endRentingDate, String type, String suitability) {
+        this.wheelSize = wheelSize;
+        this.numberOfGears = numberOfGears;
+        this.brand = brand;
+        this.color = color;
+        this.startRentingDate = startRentingDate;
+        this.endRentingDate = endRentingDate;
+        this.type = type;
+        this.suitability = suitability;
+    }
+
 }

@@ -1,0 +1,20 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.bike-card {
+    display: flex;
+    justify-content: center;
+}
+
+.bikes-content {
+    display: flex;
+    justify-content: center;
+}
+
+.title-page {
+    text-align: center;
+    padding-top: 20px;
+    color: #2f3d4b;
+}

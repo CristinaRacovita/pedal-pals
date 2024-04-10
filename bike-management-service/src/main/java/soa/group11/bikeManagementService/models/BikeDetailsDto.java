@@ -1,7 +1,5 @@
 package soa.group11.bikeManagementService.models;
 
-import java.util.Date;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,6 +30,8 @@ public class BikeDetailsDto {
 
     private String suitability;
 
+    public BikeDetailsDto() {}
+
     public BikeDetailsDto(String id, double wheelSize, int numberOfGears, String name, String brand, String color,
             int userId, String startRentingDate, String endRentingDate, String imageData, String type, String suitability) {
         this.id = id;
@@ -47,6 +47,20 @@ public class BikeDetailsDto {
         this.type = type;
         this.suitability = suitability;
     }
+
+    public BikeDetailsDto(double wheelSize, int numberOfGears, String brand, String color, String startRentingDate,
+            String endRentingDate, String type, String suitability) {
+        this.wheelSize = wheelSize;
+        this.numberOfGears = numberOfGears;
+        this.brand = brand;
+        this.color = color;
+        this.startRentingDate = startRentingDate;
+        this.endRentingDate = endRentingDate;
+        this.type = type;
+        this.suitability = suitability;
+    }
+
+    
 
     
 }

@@ -5,11 +5,11 @@
 
 <body>
     <div th:fragment="filter-bar" class="filter-bar">
-        <form action="#" th:action="@{/filter}" method="get">
-            <input type="number" name="wheelSize" placeholder="Wheel Size">
-            <input type="number" name="numberOfGears" placeholder="Number Of Gears">
-            <input type="date" name="startRentingDate" placeholder="Start Renting Date">
-            <input type="date" name="endRentingDate" placeholder="End Renting Date">
+        <form action="#" th:action="@{ '/' + ${userId} + '/filter'}" method="get">
+            <input type="number" name="wheelSize" placeholder="Wheel Size"/>
+            <input type="number" name="numberOfGears" placeholder="Number Of Gears"/>
+            <input type="date" name="startRentingDate" placeholder="Start Renting Date"/>
+            <input type="date" name="endRentingDate" placeholder="End Renting Date"/>
             <select name="brand">
                 <option value="">All Brands</option>
                 <option value="category1">Union</option>
@@ -29,7 +29,7 @@
                 <option value="category2">Mountain</option>
             </select>
             <button type="submit" class="button">Filter</button>
-            <button type="submit" class="button">Add Notification</button>
+            <button class="button">Add Notification</button>
         </form>
    
     </div>

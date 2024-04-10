@@ -14,7 +14,8 @@
         </a>
 
         <div class="nav">
-            <div>My Bikes</div>
+            <a class="a-header" th:href="@{'/my-bikes/' + ${userId}}">My Bikes</a>
+            <div th:onclick="goToMyRentalBikes()">My Rental Bikes</div>
             <div>Notifications</div>
         </div>
 

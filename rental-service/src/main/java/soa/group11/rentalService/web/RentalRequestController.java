@@ -43,13 +43,13 @@ public class RentalRequestController {
     }
 
     @PostMapping("/request")
-    public ResponseEntity addRentalRequest(@RequestBody @Valid RentalRequestDto rentalRequestDto) {
+    public ResponseEntity<HttpStatus> addRentalRequest(@RequestBody @Valid RentalRequestDto rentalRequestDto) {
         int comparison = rentalRequestDto.getStartDate().compareTo(rentalRequestDto.getEndDate());
 
         if (comparison == -1){
             rentalRequestService.addRentalRequest(rentalRequestDto);
             rentalRequestProducer.sendRequest(rentalRequestDto);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<HttpStatus>(HttpStatus.OK);
         }
 
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

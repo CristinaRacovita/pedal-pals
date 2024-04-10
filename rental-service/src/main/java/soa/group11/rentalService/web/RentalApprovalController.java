@@ -32,13 +32,13 @@ public class RentalApprovalController {
     }
 
     @PostMapping("/approve")
-    public ResponseEntity handleRequest(@RequestBody @Valid RentalApprovalDto rentalApprovalDto) {
+    public ResponseEntity<HttpStatus> handleRequest(@RequestBody @Valid RentalApprovalDto rentalApprovalDto) {
         RentalRequest rentalRequest = rentalApprovalService.addApprovalStatus(rentalApprovalDto);
 
         if (rentalRequest == null)
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
 
         rentalApprovalProducer.sendApprovalStatus(rentalApprovalDto, rentalRequest);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<HttpStatus>(HttpStatus.OK);
     }
 }

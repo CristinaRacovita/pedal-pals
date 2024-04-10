@@ -52,15 +52,3 @@ body {
 .nav div:hover {
     font-weight: bold;
 }
-
-.a-header {
-    text-decoration: none;
-    margin-right: 15px;
-    cursor: pointer;
-    color: #2f3d4b;
-    font-size: medium;
-}
-
-.a-header:hover {
-    font-weight: bold;
-}
