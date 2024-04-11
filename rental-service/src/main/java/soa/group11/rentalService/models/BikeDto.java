@@ -18,5 +18,4 @@ public class BikeDto {
     private String personOfContact;
     private String requestStatus;
     private String approvalStatus;
-
 }

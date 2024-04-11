@@ -5,7 +5,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import soa.group11.rentalService.entities.RentalApproval;
 import soa.group11.rentalService.entities.RentalRequest;
 import soa.group11.rentalService.models.BikeDto;
-import soa.group11.rentalService.models.RentalApprovalDto;
 import soa.group11.rentalService.repositories.RentalApprovalRepository;
 import soa.group11.rentalService.repositories.RentalRequestRepository;
 
@@ -43,7 +41,7 @@ public class RentalsService {
             if (bike != null) {
                 bike.setStartRentingDate(rentalRequest.getStringStartDate());
                 bike.setEndRentingDate(rentalRequest.getStringEndDate());
-                
+
                 if (rentedOut == true) {
                     bike.setPersonOfContact(rentalRequest.getBikeRequesterId());
                 } else {
