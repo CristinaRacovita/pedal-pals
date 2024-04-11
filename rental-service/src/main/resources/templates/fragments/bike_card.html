@@ -1,0 +1,41 @@
+<html>
+
+    <head>
+    </head>
+
+    <body>
+        <a th:fragment="card(rented_out)" class="card"
+            th:id="|rented-${rented_out}|">
+            <img class="image" th:if="${bike.imageData != null}"
+                th:src="'data:image/jpeg;base64,' + ${bike.imageData}" />
+            <img class="image" th:if="${bike.imageData == null}"
+                th:src="@{/race-bike.jpg}" />
+
+            <div th:text="${bike.name}" class="title"></div>
+            <div class="characteristic-title">Availability:</div>
+            <div class="characteristic">
+                <span th:text="${bike.startRentingDate}"></span>
+                <span>&nbsp;to&nbsp;</span>
+                <span th:text="${bike.endRentingDate}"></span>
+            </div>
+
+            <div class="characteristic-title"
+                th:if="${rented_out == 0}">Owner</div>
+            <div class="characteristic-title"
+                th:if="${rented_out == 1}">Requester</div>
+
+            <div class="characteristic">
+                <span th:text="${bike.personOfContact}"></span>
+            </div>
+            <div class="characteristic-title">Request status:</div>
+            <div class="characteristic">
+                <span th:text="${bike.requestStatus}"></span>
+            </div>
+            <div class="characteristic-title">Approval status:</div>
+            <div class="characteristic">
+                <span th:text="${bike.approvalStatus}"></span>
+            </div>
+        </a>
+    </body>
+
+</html>

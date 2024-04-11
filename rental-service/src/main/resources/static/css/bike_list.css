@@ -1,0 +1,14 @@
+.bikes-list {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.column {
+    margin-right: 100px;
+}
+
+#column-centering {
+    display: flex;
+    justify-content: center;
+}

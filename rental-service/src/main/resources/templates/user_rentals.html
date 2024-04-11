@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <link href='https://fonts.googleapis.com/css?family=Roboto'
+            rel='stylesheet'>
+        <link rel="stylesheet" type="text/css" href="/css/header.css">
+        <link rel="stylesheet" type="text/css" href="/css/bike_list.css">
+        <link rel="stylesheet" type="text/css" href="/css/bike_card.css">
+    </head>
+    <body>
+        <div th:replace="~{fragments/header :: header}">
+        </div>
+        <div class="bikes-list">
+            <div class="column">
+                <h3 id="column-centering">Bikes Rented In</h3>
+                <div th:each="bike : ${bikes_rented_in}" id="column-centering">
+                    <div th:insert="~{fragments/bike_card :: card(0)}">
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 id="column-centering">Bikes Rented Out</h3>
+                <div th:each="bike : ${bikes_rented_out}" id="column-centering">
+                    <div th:insert="~{fragments/bike_card :: card(1)}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
