@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
+import soa.group11.rentalService.entities.RentalApproval;
 import soa.group11.rentalService.entities.RentalRequest;
+import soa.group11.rentalService.models.RentalApprovalDto;
 import soa.group11.rentalService.models.RentalRequestDto;
 import soa.group11.rentalService.repositories.RentalRequestRepository;
 
@@ -67,5 +69,11 @@ public class RentalRequestService {
         return new RentalRequest(rentalRequestDto.getBikeOwnerId(), rentalRequestDto.getBikeRequesterId(),
                 rentalRequestDto.getBikeId(), rentalRequestDto.getStatus(), rentalRequestDto.getStartDate(),
                 rentalRequestDto.getEndDate());
+    }
+
+    public RentalApprovalDto toRentalApprovalDto(RentalApproval rentalApproval) {
+        return new RentalApprovalDto(rentalApproval.getId(), rentalApproval.getRequestId(),
+                rentalApproval.getApprovalStatus(),
+                rentalApproval.getDetails());
     }
 }
