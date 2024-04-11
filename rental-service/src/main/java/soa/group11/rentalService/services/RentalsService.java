@@ -48,6 +48,7 @@ public class RentalsService {
                     bike.setPersonOfContact(rentalRequest.getBikeOwnerId());
                 }
                 bike.setRequestStatus(rentalRequest.getStatus());
+                bike.setRequestId(rentalRequest.getId());
 
                 for (RentalApproval approval : rentalApprovals) {
                     if (approval.getRequestId().equals(rentalRequest.getId())) {
