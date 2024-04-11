@@ -114,48 +114,33 @@ public class BikeService {
 
     }
 
-    private List<BikeDto> getBikesWithFeedback(List<BikeDto> bikeDtos) {
-        StringBuilder bikeIdsBuilder = new StringBuilder();
+    public Double getAverageScoreForBike(String bikeId) {
 
-        for (BikeDto bikeDto : bikeDtos) {
-            bikeIdsBuilder.append(bikeDto.getId()).append(",");
-        }
-
-        String bikeIds = bikeIdsBuilder.toString();
         try {
             RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<FeedbackDto[]> response = restTemplate.getForEntity(
-                    "http://localhost:8081/feedbacks/" + bikeIds, FeedbackDto[].class);
+            ResponseEntity<Double> response = restTemplate.getForEntity(
+                    "http://localhost:8081/feedback/" + bikeId, Double.class);
 
-            FeedbackDto[] feedbackDtos = response.getBody();
+            Double averageScore = response.getBody();
 
-            if (feedbackDtos == null) {
-                return bikeDtos;
+            if (averageScore == null) {
+                return 0.0;
             }
 
-            Map<String, List<FeedbackDto>> bikeIdToFeedbacks = Arrays.stream(feedbackDtos)
-                    .collect(Collectors.groupingBy(FeedbackDto::getBikeId));
-
-            for (BikeDto bikeDto : bikeDtos) {
-                List<FeedbackDto> bikeFeedbacks = bikeIdToFeedbacks.get(bikeDto.getId());
-                if (bikeFeedbacks != null) {
-                    bikeDto.getFeedbacks().addAll(bikeFeedbacks);
-                }
-            }
+            return averageScore;
 
         } catch (Exception e) {
             System.out.println("Feedbacks not found! --- " + e.getMessage());
+            return 0.0;
         }
-
-        return bikeDtos;
     }
 
-    public BikeCardDto getBikeById(String bikeId){
+    public BikeCardDto getBikeById(String bikeId) {
         return toBikeCardDto(bikeRepository.findById(bikeId).orElse(null));
     }
 
     private BikeCardDto toBikeCardDto(Bike bike) {
-        if (bike == null){
+        if (bike == null) {
             return null;
         }
 

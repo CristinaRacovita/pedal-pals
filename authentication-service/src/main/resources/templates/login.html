@@ -16,12 +16,15 @@
                 <h1 class="title">PedalPals</h1>
                 <form class="form" th:object="${user}" id="form">
                     <label for="username">Username</label>
-                    <input required th:field="*{username}" type="text" name="username" placeholder="Your username.." id="username">
-    
+                    <input required th:field="*{username}" type="text" name="username" placeholder="Your username.."
+                        id="username">
+
                     <label class="password" for="password">Password</label>
-                    <input required  type="password" th:field="*{password}" name="password" placeholder="Your password..">
-    
-                    <button type="submit" class="button">Log in</button>
+                    <input required type="password" th:field="*{password}" name="password"
+                        placeholder="Your password..">
+
+                    <button class="button" type="button" th:onclick="login()">Log in</button>
+                    <div id="error-message" class="error-message">Wrong Credentials :(</div>
                 </form>
 
             </div>
@@ -32,6 +35,14 @@
 </html>
 
 <style>
+    .error-message {
+        color: red;
+        display: none;
+        margin-top: 10px;
+        width: 100%;
+        text-align: center;
+    }
+
     .login-container {
         display: flex;
         justify-content: center;
@@ -46,7 +57,7 @@
 
     .login-form {
         font-family: 'Roboto';
-        padding:35px;
+        padding: 35px;
         padding-bottom: 70px;
         background-color: #f2eff4;
         border-radius: 20px;
@@ -100,5 +111,40 @@
 </style>
 
 <script>
-document.getElementById("form").action = "http://localhost:8082/bikes/1/" + document.getElementById("username").value;
+    function login() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/authentication');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+
+        var username = document.getElementsByName('username')[0].value;
+        var password = document.getElementsByName('password')[0].value;
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var userId = xhr.response;
+                if (userId == -1) {
+                    var errorMessage = document.getElementById('error-message');
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+
+                window.location.href = "http://localhost:8082/" + userId  + "/bikes";
+
+            } else {
+                console.error('Error uploading image:', xhr.statusText);
+            }
+        };
+
+        xhr.onerror = function () {
+            console.error('Login Failed');
+        };
+
+
+        var user = {
+            username: username,
+            password: password
+        };
+
+        xhr.send(JSON.stringify(user));
+    }
 </script>

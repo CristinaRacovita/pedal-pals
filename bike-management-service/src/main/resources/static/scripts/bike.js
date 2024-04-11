@@ -92,7 +92,6 @@ function addBike() {
 function uploadImage(bikeId) {
     var imageXhr = new XMLHttpRequest();
     imageXhr.open('POST', '/upload/' + bikeId);
-    // imageXhr.setRequestHeader('Content-Type', 'multipart/form-data'); // Set for file upload
 
     var formData = new FormData();
     formData.append('file', document.getElementById('image').files[0]);

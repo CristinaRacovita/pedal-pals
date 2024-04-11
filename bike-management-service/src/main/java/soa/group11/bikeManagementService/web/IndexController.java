@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import soa.group11.bikeManagementService.models.BikeCardDto;
 import soa.group11.bikeManagementService.models.BikeDetailsDto;
 import soa.group11.bikeManagementService.services.BikeService;
+import soa.group11.bikeManagementService.services.UserService;
 
 @Controller
 public class IndexController {
     @Autowired
     private BikeService bikeService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping(value = "/{userId}/bikes")
     public String getBikes(@PathVariable(value = "userId") int userId, Model model) {
@@ -69,9 +72,12 @@ public class IndexController {
             @PathVariable(value = "bikeId") String bikeId, @PathVariable(value = "isOverview") int isOverview,
             Model model) {
         BikeDetailsDto bike = bikeService.getBikeDetails(bikeId);
+        var averageScore = bikeService.getAverageScoreForBike(bikeId);
+
         model.addAttribute("bike", bike);
         model.addAttribute("userId", userId);
         model.addAttribute("isOverview", isOverview);
+        model.addAttribute("averageScore", averageScore);
 
         return "selected_bike";
     }
@@ -79,16 +85,17 @@ public class IndexController {
     @GetMapping(value = "/my-bikes/{userId}")
     public String getBikesByUserId(@PathVariable(value = "userId") int userId, Model model) {
         List<BikeCardDto> bikes = bikeService.getBikesByUserId(userId);
+        String username = userService.getUsernameById(userId);
+
         model.addAttribute("bikes", bikes);
         model.addAttribute("userId", userId);
+        model.addAttribute("username", username);
+
         return "my_bikes";
     }
 
     @GetMapping(value = "/bike/{userId}")
     public String getAddBikePage(@PathVariable(value = "userId") int userId, Model model) {
-        // List<BikeCardDto> bikes = bikeService.getBikesByUserId(userId);
-        // model.addAttribute("bikes", bikes);
-        // model.addAttribute("userId", userId);
         return "add_bike";
     }
 }

@@ -35,6 +35,16 @@ public class FeedbackService {
         return feedbacks;
     }
 
+    public Double getAverageScoreForBike(String bikeId) {
+        Double sum = 0.0;
+        List<Feedback> feedback =  feedbackRepository.findByBikeId(bikeId);
+        for (Feedback feedbackDto : feedback) {
+            sum += feedbackDto.getNumberOfStars();
+        }
+
+        return sum/feedback.size();
+    }
+
     public boolean deleteFeedback(String id) {
         if (!this.feedbackRepository.existsById(id)) {
             return false;

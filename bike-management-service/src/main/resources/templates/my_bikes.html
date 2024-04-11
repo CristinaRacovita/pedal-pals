@@ -13,7 +13,7 @@
 <div th:replace="~{fragments/header :: header}">
 </div>
 
-<h2 class="title-page">Your Bikes</h2>
+<h2 class="title-page">Hello, <span th:text="${username}"></span>! These are your bikes :)</h2>
 <div class="bikes-content">
     <div class="grid-container">
         <div th:each="bike : ${bikes}" class="bike-card">

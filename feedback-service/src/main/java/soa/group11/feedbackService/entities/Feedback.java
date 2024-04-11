@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Document(collection = "feedbacks")
+@Document(collection = "feedback")
 public class Feedback {
     @Id
     private String id;
