@@ -7,6 +7,7 @@
 
     <script th:src="@{/scripts/header.js}"></script>
     <script th:src="@{/scripts/bike.js}"></script>
+    <script th:src="@{/scripts/feedback.js}"></script>
 
 </head>
 
@@ -89,7 +90,7 @@
             Your bike was successfully deleted!
         </div>
         <div class="buttons">
-            <button class="button">See Reviews</button>
+            <button class="button" th:onclick="goToFeedback()">See Reviews</button>
             <button class="button left" th:if="${isOverview == 0}" th:onclick="saveBike()">Save Changes</button>
             <button class="button left delete" th:if="${isOverview == 0}" th:onclick="deleteBike()">Delete</button>
         </div>

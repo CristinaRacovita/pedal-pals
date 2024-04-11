@@ -26,23 +26,28 @@ public class FeedbackService {
                 .collect(Collectors.toList());
     }
 
-    public List<FeedbackDto> getFeedbackByBikeIds(List<String> bikeId) {
-        List<FeedbackDto> feedbacks =  feedbackRepository.findByBikeIdIn(bikeId).stream().map(feedback -> toFeedbackDto(feedback))
+    public List<FeedbackDto> getFeedbackByBikeId(String bikeId) {
+        List<FeedbackDto> feedbackObjects = feedbackRepository.findByBikeId(bikeId).stream()
+                .map(feedback -> toFeedbackDto(feedback))
                 .collect(Collectors.toList());
 
-        feedbacks.sort(Comparator.comparing(FeedbackDto::getReviewDate).reversed());
+        feedbackObjects.sort(Comparator.comparing(FeedbackDto::getReviewDate).reversed());
 
-        return feedbacks;
+        return feedbackObjects;
     }
 
     public Double getAverageScoreForBike(String bikeId) {
         Double sum = 0.0;
-        List<Feedback> feedback =  feedbackRepository.findByBikeId(bikeId);
+        List<Feedback> feedback = feedbackRepository.findByBikeId(bikeId);
         for (Feedback feedbackDto : feedback) {
             sum += feedbackDto.getNumberOfStars();
         }
 
-        return sum/feedback.size();
+        if (sum == 0.0) {
+            return 0.0;
+        }
+
+        return sum / feedback.size();
     }
 
     public boolean deleteFeedback(String id) {
@@ -80,7 +85,8 @@ public class FeedbackService {
     }
 
     private Feedback toFeedback(FeedbackDto feedbackDto) {
-        return new Feedback(feedbackDto.getBikeId(), feedbackDto.getTitle(), feedbackDto.getReviewerId(), feedbackDto.getNumberOfStars(),
+        return new Feedback(feedbackDto.getBikeId(), feedbackDto.getTitle(), feedbackDto.getReviewerId(),
+                feedbackDto.getNumberOfStars(),
                 feedbackDto.getReview());
     }
 

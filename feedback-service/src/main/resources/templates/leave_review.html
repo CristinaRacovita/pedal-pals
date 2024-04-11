@@ -1,0 +1,78 @@
+<html>
+
+<head>
+
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/utils.css">
+    <script th:src="@{/scripts/header.js}"></script>
+    <script th:src="@{/scripts/review.js}"></script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+</head>
+
+<body>
+    <div th:replace="~{fragments/header :: header}">
+    </div>
+
+
+    <h1 class="title-page">Add Review</h1>
+    <div class="review-content">
+        <form class="form">
+            <div>
+                <div>
+                    <div class="label">Title:</div>
+                    <input id="title" type="text" />
+                </div>
+
+                <div>
+                    <div class="label">Number Of Stars:</div>
+                    <input id="numberOfStars" type="number" th:placeholder="5" />
+                </div>
+
+                <div>
+                    <div class="label">Review:</div>
+                    <textarea  id="review" type="textarea" th:placeholder="Review" rows="5"> </textarea>
+                </div>
+
+                <div class="buttons">
+                    <button type='button' class="button" th:onclick="addReview()">Add Review</button>
+                </div>
+
+                <div id="success-message" class="success-message">
+                    Your review was successfully added!
+                </div>
+
+            </div>
+        </form>
+
+      
+    </div>
+</body>
+
+</html>
+
+<style>
+    input, textarea {
+        width: 200px;
+    }
+    .form {
+        padding: 60px;
+        background-color: #ebf5fe;
+        border-radius: 15px;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: center;
+    }
+
+    .title-page {
+        text-align: center;
+    }
+
+    .review-content {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+</style>

@@ -18,12 +18,12 @@ public class Feedback {
     private String id;
     private String title;
     private String bikeId;
-    private String reviewerId;
+    private int reviewerId;
     private int numberOfStars;
     private String review;
     private Date date;
 
-    public Feedback(String bikeId, String title, String reviewerId, int numberOfStars, String review) {
+    public Feedback(String bikeId, String title, int reviewerId, int numberOfStars, String review) {
         this.bikeId = bikeId;
         this.title = title;
         this.reviewerId = reviewerId;
@@ -32,7 +32,7 @@ public class Feedback {
         this.date = new Date();
     }
 
-    public Feedback(String id, String bikeId, String title, String reviewerId, int numberOfStars, String review) {
+    public Feedback(String id, String bikeId, String title, int reviewerId, int numberOfStars, String review) {
         this.id = id;
         this.bikeId = bikeId;
         this.title = title;

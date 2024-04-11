@@ -127,7 +127,7 @@ public class BikeService {
                 return 0.0;
             }
 
-            return averageScore;
+            return round(averageScore, 2);
 
         } catch (Exception e) {
             System.out.println("Feedbacks not found! --- " + e.getMessage());
@@ -137,6 +137,15 @@ public class BikeService {
 
     public BikeCardDto getBikeById(String bikeId) {
         return toBikeCardDto(bikeRepository.findById(bikeId).orElse(null));
+    }
+
+    public double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+    
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
 
     private BikeCardDto toBikeCardDto(Bike bike) {

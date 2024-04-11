@@ -1,75 +1,92 @@
 <html>
-    <head>
-        <link href='https://fonts.googleapis.com/css?family=Roboto'
-            rel='stylesheet'>
-        <style>
-            .bike-id {
-                display: flex;
-                justify-content: center;
-                margin-top: 50px;
-                margin-bottom: 20px;
-                color: #1A131E;
-            }
 
-            .logo {
-                width: 100px;
-                height: 100px;
-            }
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <script th:src="@{/scripts/header.js}"></script>
+    <script th:src="@{/scripts/utils.js}"></script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <style>
+        .bike-id {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            color: #1A131E;
+        }
 
-            .review-list{
-                display: flex;
-                justify-content: center;
-                align-items: center;  
-            }  
-  
-            .card {
-                width: 720px;
-                height: fit-content;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: left;
-                background-color: #f2eff4;
-                border-radius: 20px;
-                box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-                color: #2f3d4b;
-                margin-top: 15px;
-                margin-bottom: 15px;
-                padding: 30px;
-                padding-left: 60px;
-            }
-    
-            .title {
-                display: flex;
-                width: 95%;
-                font-size: large;
-                font-weight: bolder;
-                color: #5F7B97;
-            }
+        .logo {
+            width: 100px;
+            height: 100px;
+        }
 
-            .review-field {
-                display: flex;
-                text-align:justify;
-                width: 95%;
-                margin-top: 10px;
-                color: #1A131E;
-            }
+        .review-list {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-            .rating-field {
-                margin-top: 10px;
-                width: 100px;
-                color: #1A131E;
-            }
-        </style>
-    </head>
+        .card {
+            width: 720px;
+            height: fit-content;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: left;
+            background-color: #f2eff4;
+            border-radius: 20px;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            color: #2f3d4b;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            padding: 30px;
+            padding-left: 60px;
+        }
 
-    <body>
-        <div class="bike-id"> 
-            <img class="logo" th:src="@{/pedal_pals.png}" alt="logo">
-            <h2 th:text="|  Reviews of bike ${bikeId}|"></h2>
-        </div>
-        <div th:each="feedback : ${feedbacks}" class="review-list">
-            <div th:replace="~{fragments/review_card :: card}"></div>
-        </div>
-    </body>
+        .title {
+            display: flex;
+            width: 95%;
+            font-size: large;
+            font-weight: bolder;
+            color: #5F7B97;
+        }
+
+        .review-field {
+            display: flex;
+            text-align: justify;
+            width: 95%;
+            margin-top: 10px;
+            color: #1A131E;
+        }
+
+        .rating-field {
+            margin-top: 10px;
+            width: 100px;
+            color: #1A131E;
+        }
+
+        .title-page {
+            text-align: center;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="~{fragments/header :: header}">
+    </div>
+    <div class="bike-id">
+        <img class="logo" th:src="@{/pedal_pals.png}" alt="logo">
+        <h2 th:text="|  Reviews of bike ${bikeId}|"></h2>
+    </div>
+    <div th:if="${#lists.isEmpty(feedbacks)}">
+        <h3 class="title-page">
+            There are no reviews for thie bike :( 
+        </h3>
+    </div>
+
+    <div th:each="feedback : ${feedbacks}" class="review-list">
+        <div th:replace="~{fragments/review_card :: card}"></div>
+    </div>
+</body>
+
 </html>

@@ -23,14 +23,14 @@ public class FeedbackDto {
     @NotNull
     private String title;
     @NotNull
-    private String reviewerId;
+    private int reviewerId;
     @Min(1)
     @Max(5)
     private int numberOfStars;
     private String review = "";
     private String reviewDate;
 
-    public FeedbackDto(String id, String bikeId, String title, String reviewerId, int numberOfStars, String review,
+    public FeedbackDto(String id, String bikeId, String title, int reviewerId, int numberOfStars, String review,
             Date reviewDate) {
         this.id = id;
         this.bikeId = bikeId;

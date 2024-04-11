@@ -16,16 +16,26 @@ public class IndexController {
     @Autowired
     private FeedbackService feedbackService;
 
-    @GetMapping("/feedbacks/{bikeId}")
-    public String getFeedbacksByBikeIds(Model model, @PathVariable List<String> bikeId) {
-        List<FeedbackDto> feedbacks = feedbackService.getFeedbackByBikeIds(bikeId);
+    @GetMapping("{userId}/rating/{bikeId}")
+    public String getFeedbacksByBikeId(Model model, @PathVariable String bikeId, @PathVariable String userId) {
+        List<FeedbackDto> feedbacks = feedbackService.getFeedbackByBikeId(bikeId);
 
         if (feedbacks.isEmpty()) {
-            return "404 Not Found";
+            return "reviews_overview";
         }
 
-        model.addAttribute("bikeId", bikeId.getFirst());
+        model.addAttribute("bikeId", bikeId);
         model.addAttribute("feedbacks", feedbacks);
+        model.addAttribute("userId", userId);
+
         return "reviews_overview";
+    }
+
+    @GetMapping("/rating/{userId}/{bikeId}")
+    public String getReviewForm(Model model, @PathVariable int userId, @PathVariable String bikeId) {
+        model.addAttribute("userId", userId);
+        model.addAttribute("bikeId", bikeId);
+
+        return "leave_review";
     }
 }

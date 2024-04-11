@@ -8,13 +8,13 @@
 </head>
 
 <body>
-    <div th:fragment="header" name="header" th:id="${userId}" class="header">
-        <a class="image-container" th:href="@{'/' + ${userId} + '/bikes'}">
+    <div th:fragment="header" class="header">
+        <a class="image-container" th:href="@{'http://localhost:8082/' + ${userId} + '/bikes'}">
             <img class="logo-image" th:src="@{/PedalPals.png}" /> <span class="app-name">Pedal Pals</span>
         </a>
 
         <div class="nav">
-            <a class="a-header" th:href="@{'/my-bikes/' + ${userId}}">My Bikes</a>
+            <a class="a-header" th:href="@{'http://localhost:8082/my-bikes/' + ${userId}}">My Bikes</a>
             <div th:onclick="goToMyRentalBikes()">My Rental Bikes</div>
             <div>Notifications</div>
         </div>

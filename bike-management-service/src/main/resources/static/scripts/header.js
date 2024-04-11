@@ -1,3 +1,4 @@
 function goToMyRentalBikes() {
-    window.location.href = "http://localhost:8083/1/my-bikes";
+    var userId = document.getElementsByName('header')[0].id;
+    window.location.href = "http://localhost:8083/" + userId + "/my-bikes";
 }
