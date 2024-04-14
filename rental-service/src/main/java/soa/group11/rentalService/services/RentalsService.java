@@ -3,7 +3,9 @@ package soa.group11.rentalService.services;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,7 @@ public class RentalsService {
 
         List<RentalApproval> rentalApprovals = rentalApprovalRepository.findAll();
 
-        if (rentedOut == true) {
+        if (rentedOut) {
             rentalRequests = rentalRequestRepository.findAllByBikeOwnerId(userId);
         } else {
             rentalRequests = rentalRequestRepository.findAllByBikeRequesterId(userId);
@@ -42,7 +44,7 @@ public class RentalsService {
                 bike.setStartRentingDate(rentalRequest.getStringStartDate());
                 bike.setEndRentingDate(rentalRequest.getStringEndDate());
 
-                if (rentedOut == true) {
+                if (rentedOut) {
                     bike.setPersonOfContact(rentalRequest.getBikeRequesterId());
                 } else {
                     bike.setPersonOfContact(rentalRequest.getBikeOwnerId());
@@ -55,6 +57,21 @@ public class RentalsService {
                         bike.setApprovalStatus(approval.getApprovalStatus());
                     }
                 }
+
+                if (!rentedOut) {
+                    String currentDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date());
+
+                    try {
+                        if (currentDateTime.compareTo(bike.getEndRentingDate()) >= 0
+                                && bike.getApprovalStatus().equals("approved")
+                                && bike.getRequestStatus().equals("sent")) {
+                            bike.setRentalPeriodOver(true);
+                        }
+                    } catch (NullPointerException e) {
+                        // do not do anything
+                    }
+                }
+
                 bikeRentals.add(bike);
             }
         }
