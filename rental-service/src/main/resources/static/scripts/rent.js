@@ -23,3 +23,8 @@ function approve(sentRequestId, sentApprovalStatus) {
         console.error('Request failed');
     };
 }
+
+
+function addFeedback(userId, bikeId) {
+    window.location.href = "http://localhost:8081/rating/" + userId + "/" + bikeId;
+}
