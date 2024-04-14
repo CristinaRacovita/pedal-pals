@@ -32,7 +32,7 @@ public class IndexController {
     }
 
     @GetMapping("/rating/{userId}/{bikeId}")
-    public String getReviewForm(Model model, @PathVariable int userId, @PathVariable String bikeId) {
+    public String getReviewForm(Model model, @PathVariable String userId, @PathVariable String bikeId) {
         model.addAttribute("userId", userId);
         model.addAttribute("bikeId", bikeId);
 

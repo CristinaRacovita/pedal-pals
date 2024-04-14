@@ -94,7 +94,7 @@ public class IndexController {
         return "my_bikes";
     }
 
-    @GetMapping(value = "/bike/{userId}")
+    @GetMapping(value = "/bikes/{userId}")
     public String getAddBikePage(@PathVariable(value = "userId") int userId, Model model) {
         return "add_bike";
     }
