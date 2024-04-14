@@ -11,6 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BikeDto {
     private String id;
+    private String requestId;
     private String imageData;
     private String name;
     private String startRentingDate;
@@ -18,4 +19,5 @@ public class BikeDto {
     private String personOfContact;
     private String requestStatus;
     private String approvalStatus;
+    private boolean rentalPeriodOver;
 }

@@ -35,6 +35,36 @@
             <div class="characteristic">
                 <span th:text="${bike.approvalStatus}"></span>
             </div>
+
+            <div class="characteristic"
+                th:if="${bike.approvalStatus == null and rented_out == 0}">
+                <span>unknown</span>
+            </div>
+
+            <div class="characteristic"
+                th:if="${bike.rentalPeriodOver == True and rented_out == 0}">
+                
+                <button th:data-bikeid="${bike.id}"
+                    th:data-userid="${userId}" type='button'
+                    class="button"
+                    th:onclick="addFeedback(this.getAttribute('data-userid'), this.getAttribute('data-bikeid'))">Add feedback</button>
+            </div>
+
+            <div class="characteristic"
+                th:if="${bike.approvalStatus == null and rented_out == 1}">
+                <textarea class="text-area" rows="4" th:id="${bike.requestId}"
+                    cols="33">Enter details here</textarea>
+            </div>
+            <div class="characteristic"
+                th:if="${bike.approvalStatus == null and rented_out == 1}">
+                <button th:data-rqid="${bike.requestId}"
+                    th:data-approved="approved" type='button' class="button"
+                    th:onclick="approve(this.getAttribute('data-rqid'), this.getAttribute('data-approved'))">Approve</button>
+                <button th:data-rqid="${bike.requestId}"
+                    th:data-approved="declined" type='button'
+                    class="button"
+                    th:onclick="approve(this.getAttribute('data-rqid'), this.getAttribute('data-approved'))">Decline</button>
+            </div>
         </a>
     </body>
 
