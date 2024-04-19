@@ -9,7 +9,7 @@ import lombok.Getter;
 @Getter
 @Setter
 public class BikeSubscription {
-    private String userId;
+    private int userId;
     private int wheelSize;
     private int numberOfGears;
     private String startDate;
@@ -20,8 +20,8 @@ public class BikeSubscription {
 
     public BikeSubscription() {
     }
-
-    public BikeSubscription(String userId, int wheelSize, int numberOfGears, String startDate, String endDate,
+    
+    public BikeSubscription(int userId, int wheelSize, int numberOfGears, String startDate, String endDate,
             String brand, String type, String usage) {
         this.userId = userId;
         this.wheelSize = wheelSize;

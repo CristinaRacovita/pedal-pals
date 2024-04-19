@@ -13,10 +13,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class RentalRequestDto {
     private String id;
-    @NotNull
-    private String bikeOwnerId;
-    @NotNull
-    private String bikeRequesterId;
+    private int bikeOwnerId;
+    private int bikeRequesterId;
     @NotNull
     private String bikeId;
     private String status;
@@ -25,7 +23,7 @@ public class RentalRequestDto {
     @NotNull
     private String endDate;
 
-    public RentalRequestDto(String id, String bikeOwnerId, String bikeRequesterId, String bikeId, String status,
+    public RentalRequestDto(String id, int bikeOwnerId, int bikeRequesterId, String bikeId, String status,
             String startDate, String endDate) {
         this.id = id;
         this.bikeOwnerId = bikeOwnerId;
@@ -36,7 +34,7 @@ public class RentalRequestDto {
         this.endDate = endDate;
     }
 
-    public RentalRequestDto(String bikeOwnerId, String bikeRequesterId, String bikeId, String status, String startDate,
+    public RentalRequestDto(int bikeOwnerId, int bikeRequesterId, String bikeId, String status, String startDate,
             String endDate) {
         this.bikeOwnerId = bikeOwnerId;
         this.bikeRequesterId = bikeRequesterId;
@@ -45,7 +43,7 @@ public class RentalRequestDto {
         this.startDate = startDate;
         this.endDate = endDate;
     }
-
+    
     @Override
     public String toString() {
         return "Request sent by " + bikeRequesterId + " to " + bikeOwnerId + " for bike " + bikeId + " with status "

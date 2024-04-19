@@ -1,9 +1,7 @@
 package soa.group11.bikeManagementService.services;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.text.Format;
@@ -19,8 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import soa.group11.bikeManagementService.entities.Bike;
 import soa.group11.bikeManagementService.models.BikeCardDto;
 import soa.group11.bikeManagementService.models.BikeDetailsDto;
-import soa.group11.bikeManagementService.models.BikeDto;
-import soa.group11.bikeManagementService.models.FeedbackDto;
+
 import soa.group11.bikeManagementService.models.NewBikeDto;
 import soa.group11.bikeManagementService.repositories.BikeRepository;
 import soa.group11.bikeManagementService.repositories.CustomBikeRepository;
@@ -160,6 +157,21 @@ public class BikeService {
                 formatter.format(bike.getStartRentingDate()),
                 formatter.format(bike.getEndRentingDate()),
                 bike.getBikeImage() == null ? null : Base64.encodeBase64String(bike.getBikeImage().getData()));
+    }
+
+    public boolean getRentalAvailability(String bikeId, String startRentingDate, String endRentingDate) {
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<Boolean> response = restTemplate.getForEntity(
+                    "http://localhost:8083/approvals/available/" + bikeId + "?startDate=" + startRentingDate + "&endDate=" + endRentingDate, boolean.class);
+            boolean availableForRent = response.getBody();
+            return availableForRent;
+
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Bike not found...");
+            return false;
+        }
     }
 
     private BikeDetailsDto toBikeDetails(Bike bike) {

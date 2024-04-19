@@ -16,7 +16,7 @@ public class NotificationService {
     @Autowired
     NotificationRepository notificationRepository;
 
-    public List<Notification> getNotifications(String userId) {
+    public List<Notification> getNotifications(int userId) {
         List<Notification> notifications = notificationRepository.findByNotifiedUserId(userId);
 
         String currentDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date());

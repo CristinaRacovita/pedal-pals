@@ -18,16 +18,13 @@ public class RentalRequestService {
     @Autowired
     private RentalRequestRepository rentalRequestRepository;
 
-    public List<RentalRequestDto> getRequests(String bikeId, String requesterId) {
+    public List<RentalRequestDto> getRequests(String bikeId, int requesterId) {
         List<RentalRequest> rentalRequests;
 
-        if (bikeId != null && requesterId != null) {
+        if (bikeId != null) {
             rentalRequests = rentalRequestRepository.findAllByBikeIdAndBikeRequesterId(bikeId, requesterId);
-        } else if (bikeId == null) {
-            rentalRequests = requesterId == null ? rentalRequestRepository.findAll()
-                    : rentalRequestRepository.findAllByRequesterId(requesterId);
         } else {
-            rentalRequests = rentalRequestRepository.findAllByBikeId(bikeId);
+            rentalRequests = rentalRequestRepository.findAllByRequesterId(requesterId);
         }
 
         return rentalRequests.stream().map(rentalRequest -> toRentalRequestDto(rentalRequest))

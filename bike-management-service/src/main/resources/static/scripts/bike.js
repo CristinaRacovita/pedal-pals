@@ -133,3 +133,31 @@ function deleteBike() {
 
     xhr.send(null);
 }
+
+function sendRentalRequest(startDate, endDate, ownerId) {
+    var request = {
+        bikeRequesterId: document.getElementsByName('header')[0].id,
+        bikeId: document.getElementsByName('bike-card')[0].id,
+        bikeOwnerId: ownerId,
+        startDate: startDate,
+        endDate: endDate
+    };
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost:8083/request');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    var jsonData = JSON.stringify(request);
+    xhr.send(jsonData);
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            console.log("It worked!")
+        } else {
+            console.error('Error renting bike data:', xhr.statusText);
+        }
+    };
+
+    xhr.onerror = function () {
+        console.error('Request failed');
+    };
+}

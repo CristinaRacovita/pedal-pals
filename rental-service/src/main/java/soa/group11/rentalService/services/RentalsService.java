@@ -25,7 +25,7 @@ public class RentalsService {
     @Autowired
     private RentalApprovalRepository rentalApprovalRepository;
 
-    public List<BikeDto> getBikeRentals(String userId, boolean rentedOut) {
+    public List<BikeDto> getBikeRentals(int userId, boolean rentedOut) {
         List<BikeDto> bikeRentals = new ArrayList<>();
         List<RentalRequest> rentalRequests = new ArrayList<>();
 

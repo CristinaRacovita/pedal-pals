@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +32,7 @@ public class RentalRequestController {
     @GetMapping("/requests")
     public ResponseEntity<List<RentalRequestDto>> getRequests(
             @RequestParam(value = "bikeId", required = false) String bikeId,
-            @RequestParam(value = "requesterId", required = false) String requesterId) {
+            @RequestParam(value = "requesterId", required = false) int requesterId) {
 
         List<RentalRequestDto> requests = rentalRequestService.getRequests(bikeId, requesterId);
 
@@ -42,6 +43,7 @@ public class RentalRequestController {
         return new ResponseEntity<>(requests, HttpStatus.OK);
     }
 
+    @CrossOrigin
     @PostMapping("/request")
     public ResponseEntity<HttpStatus> addRentalRequest(@RequestBody @Valid RentalRequestDto rentalRequestDto) {
         int comparison = rentalRequestDto.getStartDate().compareTo(rentalRequestDto.getEndDate());

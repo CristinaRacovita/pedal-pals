@@ -45,6 +45,27 @@ public class RentalApprovalService {
         return null;
     }
 
+    public boolean getRentalAvailability(String bikeId, String startDate, String endDate) {
+        List<RentalRequest> rentalRequests = rentalRequestRepository.findAllByBikeId(bikeId);
+
+        for (RentalRequest rentalRequest : rentalRequests) {
+            if (rentalRequest.getStatus().equals("sent")
+                    && startDate.compareTo(rentalRequest.getStringEndDate().split(" ")[0]) <= 0
+                    && endDate.compareTo(rentalRequest.getStringStartDate().split(" ")[0]) >= 0) {
+                List<RentalApproval> rentalApprovals = rentalApprovalRepository
+                        .findAllByRequestId(rentalRequest.getId());
+
+                for (RentalApproval rentalApproval : rentalApprovals) {
+                    if (rentalApproval.getApprovalStatus().equals("approved")) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
     public RentalApprovalDto toRentalApprovalDto(RentalApproval rentalApproval) {
         return new RentalApprovalDto(rentalApproval.getId(), rentalApproval.getRequestId(),
                 rentalApproval.getApprovalStatus(),

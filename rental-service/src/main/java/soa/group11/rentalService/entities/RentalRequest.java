@@ -17,14 +17,14 @@ import lombok.NoArgsConstructor;
 public class RentalRequest {
     @Id
     private String id;
-    private String bikeOwnerId;
-    private String bikeRequesterId;
+    private int bikeOwnerId;
+    private int bikeRequesterId;
     private String bikeId;
     private String status;
     private Date startDate;
     private Date endDate;
 
-    public RentalRequest(String bikeOwnerId, String bikeRequesterId, String bikeId, String status, String startDate,
+    public RentalRequest(int bikeOwnerId, int bikeRequesterId, String bikeId, String status, String startDate,
             String endDate) {
         this.bikeOwnerId = bikeOwnerId;
         this.bikeRequesterId = bikeRequesterId;
@@ -34,7 +34,7 @@ public class RentalRequest {
         this.endDate = formatDate(endDate);
     }
 
-    public RentalRequest(String id, String bikeOwnerId, String bikeRequesterId, String bikeId, String status,
+    public RentalRequest(String id, int bikeOwnerId, int bikeRequesterId, String bikeId, String status,
             String startDate, String endDate) {
         this.id = id;
         this.bikeOwnerId = bikeOwnerId;
@@ -46,6 +46,10 @@ public class RentalRequest {
     }
 
     private Date formatDate(String date) {
+        if (date.length() == 10) {
+            date += " 02:00";
+        }
+
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date formattedDate;
 
@@ -66,4 +70,3 @@ public class RentalRequest {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(this.endDate);
     }
 }
-

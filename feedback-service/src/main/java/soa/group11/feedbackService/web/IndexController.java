@@ -17,7 +17,7 @@ public class IndexController {
     private FeedbackService feedbackService;
 
     @GetMapping("{userId}/rating/{bikeId}")
-    public String getFeedbacksByBikeId(Model model, @PathVariable String bikeId, @PathVariable String userId) {
+    public String getFeedbacksByBikeId(Model model, @PathVariable String bikeId, @PathVariable int userId) {
         List<FeedbackDto> feedbacks = feedbackService.getFeedbackByBikeId(bikeId);
 
         if (feedbacks.isEmpty()) {
@@ -32,7 +32,7 @@ public class IndexController {
     }
 
     @GetMapping("/rating/{userId}/{bikeId}")
-    public String getReviewForm(Model model, @PathVariable String userId, @PathVariable String bikeId) {
+    public String getReviewForm(Model model, @PathVariable int userId, @PathVariable String bikeId) {
         model.addAttribute("userId", userId);
         model.addAttribute("bikeId", bikeId);
 

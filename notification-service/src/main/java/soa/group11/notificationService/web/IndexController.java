@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import soa.group11.notificationService.services.NotificationService;
 
 @Controller
-public class NotificationsController {
+public class IndexController {
     @Autowired
     private NotificationService notificationService;
 
     @GetMapping("/notifications/{userId}")
-    public String getNotificationsByUserId(Model model, @PathVariable(value = "userId") String userId) {
+    public String getNotificationsByUserId(Model model, @PathVariable(value = "userId") int userId) {
         model.addAttribute("userId", userId);
         model.addAttribute("notifications", notificationService.getNotifications(userId));
 

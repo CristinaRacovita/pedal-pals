@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 @Setter
 public class RentalRequestDto {
-    private String bikeOwnerId;
-    private String bikeRequesterId;
+    private int bikeOwnerId;
+    private int bikeRequesterId;
     private String bikeId;
     private String status;
     private String startDate;
@@ -16,7 +16,7 @@ public class RentalRequestDto {
     public RentalRequestDto() {
     }
 
-    public RentalRequestDto(String bikeOwnerId, String bikeRequesterId, String bikeId, String status, String startDate,
+    public RentalRequestDto(int bikeOwnerId, int bikeRequesterId, String bikeId, String status, String startDate,
             String endDate) {
         this.bikeOwnerId = bikeOwnerId;
         this.bikeRequesterId = bikeRequesterId;
@@ -25,7 +25,7 @@ public class RentalRequestDto {
         this.startDate = startDate;
         this.endDate = endDate;
     }
-
+    
     @Override
     public String toString() {
         if (this.status.equals("cancelled")) {

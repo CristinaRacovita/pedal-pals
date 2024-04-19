@@ -16,7 +16,7 @@ public class BikeDto {
     private String name;
     private String startRentingDate;
     private String endRentingDate;
-    private String personOfContact;
+    private int personOfContact;
     private String requestStatus;
     private String approvalStatus;
     private boolean rentalPeriodOver;

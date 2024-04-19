@@ -7,8 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
@@ -40,5 +42,11 @@ public class RentalApprovalController {
 
         rentalApprovalProducer.sendApprovalStatus(rentalApprovalDto, rentalRequest);
         return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+    }
+
+    @GetMapping("/approvals/available/{bikeId}")
+    public boolean getRentalAvailability(@PathVariable String bikeId, @RequestParam(name = "startDate") String startDate,
+            @RequestParam(name = "endDate") String endDate) {
+        return rentalApprovalService.getRentalAvailability(bikeId, startDate, endDate);
     }
 }

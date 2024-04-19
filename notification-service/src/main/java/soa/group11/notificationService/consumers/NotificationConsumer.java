@@ -36,7 +36,7 @@ public class NotificationConsumer {
                     newBike.getType(), newBike.getUsage());
 
             for (BikeSubscription subscription : subscriptions) {
-                String notifiedUserId = subscription.getUserId();
+                int notifiedUserId = subscription.getUserId();
 
                 List<Notification> storedBikeNotifications = bikeNotificationRepository
                         .findNotificationsLike(notifiedUserId, "bike_notification", newBike.toString());

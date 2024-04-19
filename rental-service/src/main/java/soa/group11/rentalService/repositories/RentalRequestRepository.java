@@ -11,17 +11,17 @@ import soa.group11.rentalService.entities.RentalRequest;
 @Repository
 public interface RentalRequestRepository extends MongoRepository<RentalRequest, String> {
     @Query(value = "{ 'requesterId' : ?0 }")
-    List<RentalRequest> findAllByRequesterId(String requesterId);
+    List<RentalRequest> findAllByRequesterId(int requesterId);
 
     @Query(value = "{ 'bikeId' : ?0 }")
     List<RentalRequest> findAllByBikeId(String bikeId);
 
     @Query(value = "{ 'bikeId' : ?0, 'bikeRequesterId' : ?1 }")
-    List<RentalRequest> findAllByBikeIdAndBikeRequesterId(String bikeId, String bikeRequesterId);
+    List<RentalRequest> findAllByBikeIdAndBikeRequesterId(String bikeId, int bikeRequesterId);
 
     @Query(value = "{ 'bikeOwnerId' : ?0 }")
-    List<RentalRequest> findAllByBikeOwnerId(String bikeOwnerId);
+    List<RentalRequest> findAllByBikeOwnerId(int bikeOwnerId);
 
     @Query(value = "{ 'bikeRequesterId' : ?0 }")
-    List<RentalRequest> findAllByBikeRequesterId(String bikeRequesterId);
+    List<RentalRequest> findAllByBikeRequesterId(int bikeRequesterId);
 }

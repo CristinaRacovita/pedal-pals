@@ -10,11 +10,11 @@ import soa.group11.notificationService.entities.Notification;
 
 @Repository
 public interface NotificationRepository extends MongoRepository<Notification, String> {
-    List<Notification> findByNotifiedUserId(String notifiedUserId);
+    List<Notification> findByNotifiedUserId(int notifiedUserId);
 
     @Query(value = "{'notifiedUserId': ?0, 'type': ?1, 'text': ?2}")
-    List<Notification> findNotificationsLike(String notifiedUserId, String type, String text);
+    List<Notification> findNotificationsLike(int notifiedUserId, String type, String text);
 
     @Query(value = "{'notifiedUserId': ?0, 'type': ?1, 'checkDate' : {$lte: ?2}}")
-    List<Notification> findDueNotificationsLike(String notifiedUserId, String type, String checkDate);
+    List<Notification> findDueNotificationsLike(int notifiedUserId, String type, String checkDate);
 }

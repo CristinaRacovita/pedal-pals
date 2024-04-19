@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Notification {
-    private String notifiedUserId;
+    private int notifiedUserId;
     private String type;
     private String text;
     private String checkDate;
@@ -22,7 +22,7 @@ public class Notification {
 
     }
 
-    public Notification(String notifiedUserId, String type, String text, String checkDate) {
+    public Notification(int notifiedUserId, String type, String text, String checkDate) {
         this.notifiedUserId = notifiedUserId;
         this.type = type;
         this.text = text;
@@ -30,7 +30,7 @@ public class Notification {
         this.notificationDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date());
     }
 
-    public Notification(String notifiedUserId, String type, String text, String notificationDate, String checkDate) {
+    public Notification(int notifiedUserId, String type, String text, String notificationDate, String checkDate) {
         this.notifiedUserId = notifiedUserId;
         this.type = type;
         this.text = text;

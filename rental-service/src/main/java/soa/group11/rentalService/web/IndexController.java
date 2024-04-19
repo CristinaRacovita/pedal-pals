@@ -14,7 +14,7 @@ public class IndexController {
     private RentalsService rentalsService;
 
     @GetMapping(value = "/{userId}/my-rentals")
-    public String getBikes(@PathVariable(value = "userId") String userId, Model model) {
+    public String getBikes(@PathVariable(value = "userId") int userId, Model model) {
         model.addAttribute("bikes_rented_in", rentalsService.getBikeRentals(userId, false));
         model.addAttribute("bikes_rented_out", rentalsService.getBikeRentals(userId, true));
         model.addAttribute("userId", userId);
