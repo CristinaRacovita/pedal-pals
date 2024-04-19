@@ -5,9 +5,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
-import java.text.Format;
-import java.text.SimpleDateFormat;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -24,11 +21,9 @@ public class NotificationProducer {
 
     public void sendMessage(NewBikeDto bike) {
         try {
-            Format formatter = new SimpleDateFormat("yyyy-MM-dd");
-
             BikeSubscriptionDto bikeSubscriptionDto = new BikeSubscriptionDto(bike.getUserId(),
                     bike.getWheelSize(), bike.getNumberOfGears(),
-                    formatter.format(bike.getStartRentingDate()), formatter.format(bike.getEndRentingDate()),
+                    bike.getStartRentingDate(), bike.getEndRentingDate(),
                     bike.getBrand(), bike.getType(), bike.getSuitability());
 
             ObjectMapper mapper = new ObjectMapper();

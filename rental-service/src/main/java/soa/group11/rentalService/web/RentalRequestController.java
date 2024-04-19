@@ -3,6 +3,7 @@ package soa.group11.rentalService.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -23,6 +24,8 @@ import soa.group11.rentalService.services.RentalRequestService;
 @Validated
 @RestController
 public class RentalRequestController {
+    private static final String CANCELLED = "cancelled";
+
     @Autowired
     private RentalRequestService rentalRequestService;
 
@@ -57,10 +60,10 @@ public class RentalRequestController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @PatchMapping("/request/{id}")
+    @PatchMapping("/requests/{id}")
     public ResponseEntity<RentalRequestDto> cancelRequest(@PathVariable String id,
             @RequestBody RentalRequestDto rentalRequestDto) {
-        if (!rentalRequestDto.getStatus().equals("cancelled")) {
+        if (!rentalRequestDto.getStatus().equals(CANCELLED)) {
             return new ResponseEntity<RentalRequestDto>(HttpStatus.BAD_REQUEST);
         }
 
@@ -74,7 +77,7 @@ public class RentalRequestController {
             rentalRequestProducer.sendRequest(updatedRentalRequestDto);
             return ResponseEntity.ok(updatedRentalRequestDto);
 
-        } catch (Exception e) {
+        } catch (NotFoundException e) {
             System.out.println(e.getMessage());
             return new ResponseEntity<RentalRequestDto>(HttpStatus.NOT_FOUND);
         }

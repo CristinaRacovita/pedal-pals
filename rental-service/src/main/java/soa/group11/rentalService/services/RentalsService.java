@@ -39,41 +39,42 @@ public class RentalsService {
 
         for (RentalRequest rentalRequest : rentalRequests) {
             BikeDto bike = getBikeByBikeId(rentalRequest.getBikeId());
-
-            if (bike != null) {
-                bike.setStartRentingDate(rentalRequest.getStringStartDate());
-                bike.setEndRentingDate(rentalRequest.getStringEndDate());
-
-                if (rentedOut) {
-                    bike.setPersonOfContact(rentalRequest.getBikeRequesterId());
-                } else {
-                    bike.setPersonOfContact(rentalRequest.getBikeOwnerId());
-                }
-                bike.setRequestStatus(rentalRequest.getStatus());
-                bike.setRequestId(rentalRequest.getId());
-
-                for (RentalApproval approval : rentalApprovals) {
-                    if (approval.getRequestId().equals(rentalRequest.getId())) {
-                        bike.setApprovalStatus(approval.getApprovalStatus());
-                    }
-                }
-
-                if (!rentedOut) {
-                    String currentDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date());
-
-                    try {
-                        if (currentDateTime.compareTo(bike.getEndRentingDate()) >= 0
-                                && bike.getApprovalStatus().equals("approved")
-                                && bike.getRequestStatus().equals("sent")) {
-                            bike.setRentalPeriodOver(true);
-                        }
-                    } catch (NullPointerException e) {
-                        // do not do anything
-                    }
-                }
-
-                bikeRentals.add(bike);
+            if (bike == null) {
+                continue;
             }
+
+            bike.setStartRentingDate(rentalRequest.getStringStartDate());
+            bike.setEndRentingDate(rentalRequest.getStringEndDate());
+
+            if (rentedOut) {
+                bike.setPersonOfContact(rentalRequest.getBikeRequesterId());
+            } else {
+                bike.setPersonOfContact(rentalRequest.getBikeOwnerId());
+            }
+
+            bike.setRequestStatus(rentalRequest.getStatus());
+            bike.setRequestId(rentalRequest.getId());
+
+            for (RentalApproval approval : rentalApprovals) {
+                if (approval.getRequestId().equals(rentalRequest.getId())) {
+                    bike.setApprovalStatus(approval.getApprovalStatus());
+                }
+            }
+
+            if (!rentedOut) {
+                String currentDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date());
+
+                try {
+                    if (currentDateTime.compareTo(bike.getEndRentingDate()) >= 0
+                            && bike.getApprovalStatus().equals("approved")
+                            && bike.getRequestStatus().equals("sent")) {
+                        bike.setRentalPeriodOver(true);
+                    }
+                } catch (NullPointerException e) { }
+            }
+
+            bikeRentals.add(bike);
+
         }
         return bikeRentals;
     }

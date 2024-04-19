@@ -15,7 +15,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/username/{userId}")
+    @GetMapping("/users/username/{userId}")
     public String getUsernameById(@PathVariable("userId") int userId) {
         return userService.getUsernameById(userId);
     }
@@ -23,5 +23,10 @@ public class UserController {
     @PostMapping("/authentication")
     public int login(@RequestBody UserDto userDto) {
         return userService.checkCredentials(userDto);
+    }
+
+    @GetMapping("/users/phone/{userId}")
+    public String getPhoneById(@PathVariable("userId") int userId) {
+        return userService.getPhoneById(userId);
     }
 }

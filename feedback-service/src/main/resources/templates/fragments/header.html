@@ -5,18 +5,20 @@
     <title>header</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 
+    <script th:src="@{/scripts/header.js}"></script>
+    <script th:src="@{/scripts/bike.js}"></script>
 </head>
 
 <body>
-    <div th:fragment="header" class="header">
-        <a class="image-container" th:href="@{'http://localhost:8082/' + ${userId} + '/bikes'}">
+    <div th:fragment="header" name="header" class="header">
+        <a class="image-container" href="http://localhost:8082/bikes/all">
             <img class="logo-image" th:src="@{/PedalPals.png}" /> <span class="app-name">Pedal Pals</span>
         </a>
 
         <div class="nav">
-            <a class="a-header" th:href="@{'http://localhost:8082/my-bikes/' + ${userId}}">My Bikes</a>
+            <div class="a-header" th:onclick="goToMyBikes()">My Bikes</div>
             <div th:onclick="goToMyRentalBikes()">My Rental Bikes</div>
-            <div>Notifications</div>
+            <div th:onclick="goToNotifications()">Notifications</div>
         </div>
 
     </div>

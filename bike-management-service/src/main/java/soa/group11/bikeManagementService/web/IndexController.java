@@ -25,16 +25,15 @@ public class IndexController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "/{userId}/bikes")
-    public String getBikes(@PathVariable(value = "userId") int userId, Model model) {
+    @GetMapping(value = "/bikes/all")
+    public String getBikes(Model model) {
         List<BikeCardDto> bikes = bikeService.getAllBikes();
         model.addAttribute("bikes", bikes);
-        model.addAttribute("userId", userId);
         return "bikes_overview";
     }
 
-    @GetMapping("/{userId}/filter")
-    public String filter(@PathVariable(value = "userId") int userId,
+    @GetMapping("/bikes/filter")
+    public String filter(
             @RequestParam(name = "wheelSize", required = false) String wheelSize,
             @RequestParam(name = "numberOfGears", required = false) String numberOfGears,
             @RequestParam(name = "startRentingDate", required = false) String startRentingDate,
@@ -60,31 +59,30 @@ public class IndexController {
                     type == "" ? null : type,
                     suitability == "" ? null : suitability);
             model.addAttribute("bikes", bikes);
-            model.addAttribute("userId", userId);
         } catch (ParseException ex) {
 
         }
         return "bikes_overview";
     }
 
-    @GetMapping(value = "/{userId}/bike/{bikeId}/{isOverview}")
-    public String getBikeDetails(@PathVariable(value = "userId") int userId,
-            @PathVariable(value = "bikeId") String bikeId, @PathVariable(value = "isOverview") int isOverview,
+    @GetMapping(value = "/bikes/{bikeId}/{isOverview}")
+    public String getBikeDetails(@PathVariable(value = "bikeId") String bikeId, @PathVariable(value = "isOverview") int isOverview,
             Model model) {
         BikeDetailsDto bike = bikeService.getBikeDetails(bikeId);
         var averageScore = bikeService.getAverageScoreForBike(bikeId);
+        var phone = userService.getPhoneById(bike.getUserId());
         boolean availableForRent = bikeService.getRentalAvailability(bikeId, bike.getStartRentingDate(), bike.getEndRentingDate());
 
         model.addAttribute("bike", bike);
-        model.addAttribute("userId", userId);
         model.addAttribute("isOverview", isOverview);
         model.addAttribute("averageScore", averageScore);
+        model.addAttribute("phone", phone);
         model.addAttribute("availableForRent", availableForRent);
 
         return "selected_bike";
     }
 
-    @GetMapping(value = "/my-bikes/{userId}")
+    @GetMapping(value = "/bikes/user/{userId}")
     public String getBikesByUserId(@PathVariable(value = "userId") int userId, Model model) {
         List<BikeCardDto> bikes = bikeService.getBikesByUserId(userId);
         String username = userService.getUsernameById(userId);
@@ -96,8 +94,8 @@ public class IndexController {
         return "my_bikes";
     }
 
-    @GetMapping(value = "/bikes/{userId}")
-    public String getAddBikePage(@PathVariable(value = "userId") int userId, Model model) {
+    @GetMapping(value = "/new-bike")
+    public String getAddBikePage(Model model) {
         return "add_bike";
     }
 }

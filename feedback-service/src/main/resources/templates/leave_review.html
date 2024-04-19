@@ -22,38 +22,33 @@
                     <div class="label">Title:</div>
                     <input id="title" type="text" />
                 </div>
-
                 <div>
                     <div class="label">Number Of Stars:</div>
                     <input id="numberOfStars" type="number" th:placeholder="5" />
                 </div>
-
                 <div>
                     <div class="label">Review:</div>
-                    <textarea  id="review" type="textarea" th:placeholder="Review" rows="5"> </textarea>
+                    <textarea id="review" type="textarea" th:placeholder="Review" rows="5"> </textarea>
                 </div>
-
                 <div class="buttons">
                     <button type='button' class="button" th:onclick="addReview()">Add Review</button>
                 </div>
-
                 <div id="success-message" class="success-message">
                     Your review was successfully added!
                 </div>
-
             </div>
         </form>
-
-      
     </div>
 </body>
 
 </html>
 
 <style>
-    input, textarea {
+    input,
+    textarea {
         width: 200px;
     }
+
     .form {
         padding: 60px;
         background-color: #ebf5fe;

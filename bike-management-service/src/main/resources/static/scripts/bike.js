@@ -1,5 +1,4 @@
-function saveBike() {
-    var bikeId = document.getElementsByName('bike-card')[0].id;
+function saveBike(bikeId) {
     var wheelSize = document.getElementById('wheelSize').value;
     var startRentingDate = document.getElementById('startRentingDate').value;
     var endRentingDate = document.getElementById('endRentingDate').value;
@@ -22,7 +21,7 @@ function saveBike() {
     };
 
     var xhr = new XMLHttpRequest();
-    xhr.open('PUT', '/bike');
+    xhr.open('PUT', '/bikes');
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.onload = function () {
@@ -65,11 +64,11 @@ function addBike() {
         type: type,
         suitability: suitability,
         name: name,
-        userId: +window.location.href.substring(window.location.href.lastIndexOf('/') + 1)
+        userId: +getUserId()
     };
 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/bike');
+    xhr.open('POST', '/bikes');
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.onload = function () {
@@ -91,7 +90,7 @@ function addBike() {
 
 function uploadImage(bikeId) {
     var imageXhr = new XMLHttpRequest();
-    imageXhr.open('POST', '/upload/' + bikeId);
+    imageXhr.open('POST', '/bike-images/' + bikeId);
 
     var formData = new FormData();
     formData.append('file', document.getElementById('image').files[0]);
@@ -112,11 +111,9 @@ function uploadImage(bikeId) {
     imageXhr.send(formData);
 }
 
-function deleteBike() {
-    var bikeId = document.getElementsByName('bike-card')[0].id;
-
+function deleteBike(bikeId) {
     var xhr = new XMLHttpRequest();
-    xhr.open('DELETE', '/bike/' + bikeId);
+    xhr.open('DELETE', '/bikes/' + bikeId);
 
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -133,6 +130,27 @@ function deleteBike() {
 
     xhr.send(null);
 }
+
+function goToBikeDetails(isOverview, bikeId) {
+    window.location.href = "/bikes/" + bikeId + "/" + isOverview;
+}
+
+function getUserId() {
+    const name = 'userId';
+    var keyName = name + "=";
+    var cookies = document.cookie.split(';');
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        while (cookie.charAt(0) === ' ') {
+            cookie = cookie.substring(1, cookie.length);
+        }
+        if (cookie.indexOf(keyName) === 0) {
+            return cookie.substring(keyName.length, cookie.length);
+        }
+    }
+    return null;
+}
+
 
 function sendRentalRequest(startDate, endDate, ownerId) {
     var request = {

@@ -16,31 +16,31 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
-import soa.group11.feedbackService.models.FeedbackDto;
-import soa.group11.feedbackService.services.FeedbackService;
+import soa.group11.feedbackService.models.ReviewDto;
+import soa.group11.feedbackService.services.ReviewService;
 
 @RestController
 @Validated
-public class FeedbackController {
+public class ReviewController {
     @Autowired
-    private FeedbackService feedbackService;
+    private ReviewService feedbackService;
 
     @ResponseBody
-    @GetMapping("/feedbacks")
-    public List<FeedbackDto> getFeedbacks() {
-        return feedbackService.getAllFeedback();
+    @GetMapping("/reviews")
+    public List<ReviewDto> getFeedbacks() {
+        return feedbackService.getReviews();
     }
 
     @ResponseBody
-    @PostMapping("/feedback")
-    public void addFeedback(@Valid @RequestBody FeedbackDto feedbackDto) {
-        feedbackService.addFeedback(feedbackDto);
+    @PostMapping("/reviews")
+    public void addFeedback(@Valid @RequestBody ReviewDto feedbackDto) {
+        feedbackService.addReview(feedbackDto);
     }
 
     @ResponseBody
-    @DeleteMapping("/feedback/{id}")
+    @DeleteMapping("/reviews/{id}")
     public ResponseEntity<Void> deleteFeedback(@PathVariable String id) {
-        if (feedbackService.deleteFeedback(id)) {
+        if (feedbackService.deleteReview(id)) {
             return ResponseEntity.noContent().build();
         }
 
@@ -48,19 +48,19 @@ public class FeedbackController {
     }
 
     @ResponseBody
-    @PutMapping("/feedback/{id}")
-    public ResponseEntity<FeedbackDto> updateFeedback(@PathVariable String id,
-            @RequestBody @Valid FeedbackDto feedbackDto) {
+    @PutMapping("/reviews/{id}")
+    public ResponseEntity<ReviewDto> updateFeedback(@PathVariable String id,
+            @RequestBody @Valid ReviewDto feedbackDto) {
         try {
-            FeedbackDto updatedFeedbackDto = feedbackService.updateFeedback(id, feedbackDto);
+            ReviewDto updatedFeedbackDto = feedbackService.updateReview(id, feedbackDto);
             return ResponseEntity.ok(updatedFeedbackDto);
         } catch (Exception e) {
-            return new ResponseEntity<FeedbackDto>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<ReviewDto>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @GetMapping("/feedback/{bikeId}")
-    public Double updateFeedback(@PathVariable String bikeId) {
-        return feedbackService.getAverageScoreForBike(bikeId);
+    @GetMapping("/reviews/average/{bikeId}")
+    public Double getAverageReview(@PathVariable String bikeId) {
+        return feedbackService.getAverageReviewForBike(bikeId);
     }
 }

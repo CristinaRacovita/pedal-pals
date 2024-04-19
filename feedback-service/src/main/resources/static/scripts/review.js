@@ -3,7 +3,7 @@ function addReview() {
     var numberOfStars = document.getElementById('numberOfStars').value;
     var review = document.getElementById('review').value;
 
-    var feedback = {
+    var review = {
         numberOfStars: numberOfStars,
         title: title,
         date: new Date(),
@@ -13,7 +13,7 @@ function addReview() {
     };
 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/feedback');
+    xhr.open('POST', '/review');
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.onload = function () {
@@ -29,7 +29,7 @@ function addReview() {
         console.error('Request failed');
     };
 
-    var jsonData = JSON.stringify(feedback);
+    var jsonData = JSON.stringify(review);
 
     xhr.send(jsonData);
 }

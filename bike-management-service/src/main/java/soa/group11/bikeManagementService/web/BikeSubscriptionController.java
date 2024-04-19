@@ -15,7 +15,7 @@ public class BikeSubscriptionController {
     @Autowired
     private NewSubscriptionProducer newSubscriptionProducer;
 
-    @PostMapping("/bike-subscription")
+    @PostMapping("/bike-subscriptions")
     public void createNewBikeSubscription(@RequestBody BikeSubscriptionDto bikeSubscriptionDto) {
         newSubscriptionProducer.sendMessage(bikeSubscriptionDto);
     }

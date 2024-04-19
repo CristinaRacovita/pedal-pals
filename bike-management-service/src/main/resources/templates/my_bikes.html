@@ -8,6 +8,7 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 
     <script th:src="@{/scripts/bike.js}"></script>
+    <script th:src="@{/scripts/header.js}"></script>
 
 </head>
 <div th:replace="~{fragments/header :: header}">
@@ -23,7 +24,7 @@
     </div>
 </div>
 
-<a th:href="@{'/bike/' + ${userId}}">
+<a th:href="@{/new-bike}">
     <img class="plus" th:src="@{/plus.png}" />
 </a>
 

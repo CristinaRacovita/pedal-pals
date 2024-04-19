@@ -14,7 +14,7 @@ public class BikeImageController {
     @Autowired
     public BikeImageService bikeImageService;
 
-    @PostMapping("/upload/{bikeId}")
+    @PostMapping("/bike-images/{bikeId}")
     public String handleFileUpload(@RequestPart("file") MultipartFile file,
             @PathVariable(value = "bikeId") String bikeId) {
         return bikeImageService.uploadImage(file, bikeId);

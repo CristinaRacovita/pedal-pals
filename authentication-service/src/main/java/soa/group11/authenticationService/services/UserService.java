@@ -2,11 +2,7 @@ package soa.group11.authenticationService.services;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.stereotype.Service;
 
 import soa.group11.authenticationService.models.UserDto;
@@ -15,13 +11,17 @@ import soa.group11.authenticationService.models.UserDto;
 public class UserService {
     Map<Integer, UserDto> myUsers = new HashMap<Integer, UserDto>() {
         {
-            put(1, new UserDto("cristinaracovita", "1234"));
-            put(2, new UserDto("bogdanbindila", "1234"));
+            put(1, new UserDto("cristinaracovita", "1234", "+40755932106"));
+            put(2, new UserDto("bogdanbindila", "1234", "+4076245212"));
         }
     };
 
     public String getUsernameById(int id) {
         return myUsers.get(id).getUsername();
+    }
+
+    public String getPhoneById(int id) {
+        return myUsers.get(id).getPhone();
     }
 
     public int checkCredentials(UserDto userDto) {

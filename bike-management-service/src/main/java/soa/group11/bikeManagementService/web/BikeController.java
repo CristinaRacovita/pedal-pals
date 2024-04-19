@@ -22,24 +22,24 @@ public class BikeController {
     @Autowired
     private NotificationProducer notificationProducer;
 
-    @PostMapping("/bike")
+    @PostMapping("/bikes")
     public String addNewBike(@RequestBody NewBikeDto bike) {
         notificationProducer.sendMessage(bike);
 
         return bikeService.addBike(bike);
     }
 
-    @PutMapping("/bike")
+    @PutMapping("/bikes")
     public void updateBike(@RequestBody BikeDetailsDto bike) {
         bikeService.updateBike(bike);
     }
 
-    @GetMapping("/bike/{bikeId}")
+    @GetMapping("/bikes/{bikeId}")
     public BikeCardDto getBike(@PathVariable(value = "bikeId") String bikeId){
         return bikeService.getBikeById(bikeId);
     }
     
-    @DeleteMapping("/bike/{bikeId}")
+    @DeleteMapping("/bikes/{bikeId}")
     public void updateBike(@PathVariable(value = "bikeId") String bikeId) {
         bikeService.deleteBike(bikeId);
     }

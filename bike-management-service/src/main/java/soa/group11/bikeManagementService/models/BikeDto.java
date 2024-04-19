@@ -14,7 +14,7 @@ public class BikeDto {
     private Boolean isTownBike = false;
     private int userId;
     private int numberOfGears;
-    private List<FeedbackDto> feedbacks = new ArrayList<>();
+    private List<ReviewDto> reviews = new ArrayList<>();
 
     public BikeDto() {
     }
