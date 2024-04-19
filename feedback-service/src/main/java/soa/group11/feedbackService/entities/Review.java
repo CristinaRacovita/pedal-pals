@@ -12,8 +12,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Document(collection = "feedback")
-public class Feedback {
+@Document(collection = "reviews")
+public class Review {
     @Id
     private String id;
     private String title;
@@ -23,7 +23,7 @@ public class Feedback {
     private String review;
     private Date date;
 
-    public Feedback(String bikeId, String title, int reviewerId, int numberOfStars, String review) {
+    public Review(String bikeId, String title, int reviewerId, int numberOfStars, String review) {
         this.bikeId = bikeId;
         this.title = title;
         this.reviewerId = reviewerId;
@@ -32,7 +32,7 @@ public class Feedback {
         this.date = new Date();
     }
 
-    public Feedback(String id, String bikeId, String title, int reviewerId, int numberOfStars, String review) {
+    public Review(String id, String bikeId, String title, int reviewerId, int numberOfStars, String review) {
         this.id = id;
         this.bikeId = bikeId;
         this.title = title;

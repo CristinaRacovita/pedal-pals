@@ -39,7 +39,7 @@ public class RentalRequestService {
         rentalRequestRepository.save(toRentalRequest(rentalRequestDto));
     }
 
-    public RentalRequestDto cancelRequest(String id, RentalRequestDto rentalRequestDto) throws Exception {
+    public RentalRequestDto cancelRequest(String id, RentalRequestDto rentalRequestDto) throws NotFoundException {
         rentalRequestDto.setId(id);
         RentalRequest rentalRequest = this.rentalRequestRepository.findById(id).orElse(null);
 

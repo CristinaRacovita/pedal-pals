@@ -66,4 +66,3 @@ public class RentalRequest {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(this.endDate);
     }
 }
-

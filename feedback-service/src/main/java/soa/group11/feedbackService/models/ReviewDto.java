@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 @Validated
 @NoArgsConstructor
-public class FeedbackDto {
+public class ReviewDto {
     private String id;
     @NotNull
     private String bikeId;
@@ -30,7 +30,7 @@ public class FeedbackDto {
     private String review = "";
     private String reviewDate;
 
-    public FeedbackDto(String id, String bikeId, String title, int reviewerId, int numberOfStars, String review,
+    public ReviewDto(String id, String bikeId, String title, int reviewerId, int numberOfStars, String review,
             Date reviewDate) {
         this.id = id;
         this.bikeId = bikeId;

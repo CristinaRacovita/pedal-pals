@@ -35,8 +35,9 @@ public class RentalApprovalController {
     public ResponseEntity<HttpStatus> handleRequest(@RequestBody @Valid RentalApprovalDto rentalApprovalDto) {
         RentalRequest rentalRequest = rentalApprovalService.addApprovalStatus(rentalApprovalDto);
 
-        if (rentalRequest == null)
+        if (rentalRequest == null) {
             return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
+        }
 
         rentalApprovalProducer.sendApprovalStatus(rentalApprovalDto, rentalRequest);
         return new ResponseEntity<HttpStatus>(HttpStatus.OK);

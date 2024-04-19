@@ -14,6 +14,10 @@ import soa.group11.rentalService.repositories.RentalRequestRepository;
 
 @Service
 public class RentalApprovalService {
+    private static final String DECLINED = "declined";
+    private static final String CANCELLED = "cancelled";
+    private static final String APPROVED = "approved";
+
     @Autowired
     private RentalApprovalRepository rentalApprovalRepository;
 
@@ -26,8 +30,8 @@ public class RentalApprovalService {
     }
 
     public RentalRequest addApprovalStatus(RentalApprovalDto rentalApprovalDto) {
-        if (!rentalApprovalDto.getApprovalStatus().equals("approved")
-                && !rentalApprovalDto.getApprovalStatus().equals("declined")) {
+        if (!rentalApprovalDto.getApprovalStatus().equals(APPROVED)
+                && !rentalApprovalDto.getApprovalStatus().equals(DECLINED)) {
             return null;
         }
 
@@ -37,7 +41,7 @@ public class RentalApprovalService {
             return null;
         }
 
-        if (!rentalRequest.getStatus().equals("cancelled")) {
+        if (!rentalRequest.getStatus().equals(CANCELLED)) {
             rentalApprovalRepository.save(toRentalApproval(rentalApprovalDto));
             return rentalRequest;
         }

@@ -10,7 +10,7 @@ public class UserService {
         try {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<String> response = restTemplate.getForEntity(
-                    "http://localhost:8080/username/" + userId, String.class);
+                    "http://localhost:8080/users/username/" + userId, String.class);
 
             String username = response.getBody();
 
