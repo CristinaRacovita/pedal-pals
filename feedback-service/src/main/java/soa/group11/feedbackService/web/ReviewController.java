@@ -32,13 +32,13 @@ public class ReviewController {
     }
 
     @ResponseBody
-    @PostMapping("/review")
+    @PostMapping("/reviews")
     public void addFeedback(@Valid @RequestBody ReviewDto feedbackDto) {
         feedbackService.addReview(feedbackDto);
     }
 
     @ResponseBody
-    @DeleteMapping("/review/{id}")
+    @DeleteMapping("/reviews/{id}")
     public ResponseEntity<Void> deleteFeedback(@PathVariable String id) {
         if (feedbackService.deleteReview(id)) {
             return ResponseEntity.noContent().build();
@@ -48,7 +48,7 @@ public class ReviewController {
     }
 
     @ResponseBody
-    @PutMapping("/review/{id}")
+    @PutMapping("/reviews/{id}")
     public ResponseEntity<ReviewDto> updateFeedback(@PathVariable String id,
             @RequestBody @Valid ReviewDto feedbackDto) {
         try {
@@ -59,8 +59,8 @@ public class ReviewController {
         }
     }
 
-    @GetMapping("/review/{bikeId}")
-    public Double updateFeedback(@PathVariable String bikeId) {
+    @GetMapping("/reviews/average/{bikeId}")
+    public Double getAverageReview(@PathVariable String bikeId) {
         return feedbackService.getAverageReviewForBike(bikeId);
     }
 }

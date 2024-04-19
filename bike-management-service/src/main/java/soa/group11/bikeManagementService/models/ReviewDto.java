@@ -7,14 +7,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class FeedbackDto {
+public class ReviewDto {
     private String id;
     private String bikeId;
     private String reviewerId;
     private int numberOfStars;
     private String review = "";
 
-    public FeedbackDto(String reviewerId, int numberOfStars, String review) {
+    public ReviewDto(String reviewerId, int numberOfStars, String review) {
         this.reviewerId = reviewerId;
         this.numberOfStars = numberOfStars;
         this.review = review;

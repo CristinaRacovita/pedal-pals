@@ -11,14 +11,14 @@
 
 <body>
     <div th:fragment="header" name="header" class="header">
-        <a class="image-container" href="/bikes/all">
+        <a class="image-container" href="http://localhost:8082/bikes/all">
             <img class="logo-image" th:src="@{/PedalPals.png}" /> <span class="app-name">Pedal Pals</span>
         </a>
 
         <div class="nav">
             <div class="a-header" th:onclick="goToMyBikes()">My Bikes</div>
             <div th:onclick="goToMyRentalBikes()">My Rental Bikes</div>
-            <div>Notifications</div>
+            <div th:onclick="goToNotifications()">Notifications</div>
         </div>
 
     </div>

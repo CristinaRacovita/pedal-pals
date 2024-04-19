@@ -20,5 +20,11 @@ function getUserId() {
 }
 
 function goToMyRentalBikes() {
-    window.location.href = "http://localhost:8083/rentals";
+    var userId = +getUserId();
+    window.location.href = "http://localhost:8083/rentals/" + userId;
+}
+
+function goToNotifications() {
+    var userId = +getUserId();
+    window.location.href = "http://localhost:8085/notifications/" + userId;
 }

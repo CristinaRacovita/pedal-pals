@@ -20,7 +20,7 @@ import soa.group11.bikeManagementService.entities.Bike;
 import soa.group11.bikeManagementService.models.BikeCardDto;
 import soa.group11.bikeManagementService.models.BikeDetailsDto;
 import soa.group11.bikeManagementService.models.BikeDto;
-import soa.group11.bikeManagementService.models.FeedbackDto;
+import soa.group11.bikeManagementService.models.ReviewDto;
 import soa.group11.bikeManagementService.models.NewBikeDto;
 import soa.group11.bikeManagementService.repositories.BikeRepository;
 import soa.group11.bikeManagementService.repositories.CustomBikeRepository;
@@ -119,7 +119,7 @@ public class BikeService {
         try {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<Double> response = restTemplate.getForEntity(
-                    "http://localhost:8081/feedback/" + bikeId, Double.class);
+                    "http://localhost:8081/reviews/average/" + bikeId, Double.class);
 
             Double averageScore = response.getBody();
 
@@ -130,7 +130,7 @@ public class BikeService {
             return round(averageScore, 2);
 
         } catch (Exception e) {
-            System.out.println("Feedbacks not found! --- " + e.getMessage());
+            System.out.println("Reviews not found! --- " + e.getMessage());
             return 0.0;
         }
     }

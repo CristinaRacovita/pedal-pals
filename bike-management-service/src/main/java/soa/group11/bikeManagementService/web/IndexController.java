@@ -70,10 +70,12 @@ public class IndexController {
             Model model) {
         BikeDetailsDto bike = bikeService.getBikeDetails(bikeId);
         var averageScore = bikeService.getAverageScoreForBike(bikeId);
+        var phone = userService.getPhoneById(bike.getUserId());
 
         model.addAttribute("bike", bike);
         model.addAttribute("isOverview", isOverview);
         model.addAttribute("averageScore", averageScore);
+        model.addAttribute("phone", phone);
 
         return "selected_bike";
     }

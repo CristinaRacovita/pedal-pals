@@ -30,7 +30,7 @@ public class IndexController {
         return "reviews_overview";
     }
 
-    @GetMapping("/review/{bikeId}")
+    @GetMapping("/new-review/{bikeId}")
     public String getReviewForm(Model model, @PathVariable String bikeId) {
         model.addAttribute("bikeId", bikeId);
 

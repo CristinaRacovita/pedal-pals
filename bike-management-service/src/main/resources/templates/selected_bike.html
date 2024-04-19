@@ -7,7 +7,7 @@
 
     <script th:src="@{/scripts/header.js}"></script>
     <script th:src="@{/scripts/bike.js}"></script>
-    <script th:src="@{/scripts/feedback.js}"></script>
+    <script th:src="@{/scripts/review.js}"></script>
 </head>
 
 <body>
@@ -17,6 +17,8 @@
         <h2 th:text="${bike.name}"></h2>
         <img class="image" th:if="${bike.imageData != null}" th:src="'data:image/jpeg;base64,' + ${bike.imageData}" />
         <img class="image" th:if="${bike.imageData == null}" th:src="@{/race-bike.jpg}" />
+
+        <div th:if="${isOverview == 1}" style="font-weight: bold;">Contact: <span style="font-weight: 100;" th:text="${phone}"></span></div>
 
         <form class="details" id="form">
             <div th:if="${bike.startRentingDate != null || isOverview == 0}">
@@ -73,7 +75,7 @@
             Your bike was successfully deleted!
         </div>
         <div class="buttons">
-            <button class="button" th:data-bikeId="${bike.id}" th:onclick="goToFeedback(this.getAttribute('data-bikeId'))">See Reviews</button>
+            <button class="button" th:data-bikeId="${bike.id}" th:onclick="goToReviews(this.getAttribute('data-bikeId'))">See Reviews</button>
             <button class="button left" th:if="${isOverview == 0}" th:data-bikeId="${bike.id}" th:onclick="saveBike(this.getAttribute('data-bikeId'))">Save Changes</button>
             <button class="button left delete" th:if="${isOverview == 0}" th:data-bikeId="${bike.id}" th:onclick="deleteBike(this.getAttribute('data-bikeId'))">Delete</button>
         </div>

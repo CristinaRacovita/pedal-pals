@@ -24,4 +24,9 @@ public class UserController {
     public int login(@RequestBody UserDto userDto) {
         return userService.checkCredentials(userDto);
     }
+
+    @GetMapping("/users/phone/{userId}")
+    public String getPhoneById(@PathVariable("userId") int userId) {
+        return userService.getPhoneById(userId);
+    }
 }
