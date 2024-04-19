@@ -71,13 +71,11 @@ public class IndexController {
         BikeDetailsDto bike = bikeService.getBikeDetails(bikeId);
         var averageScore = bikeService.getAverageScoreForBike(bikeId);
         var phone = userService.getPhoneById(bike.getUserId());
-        boolean availableForRent = bikeService.getRentalAvailability(bikeId, bike.getStartRentingDate(), bike.getEndRentingDate());
-
+        
         model.addAttribute("bike", bike);
         model.addAttribute("isOverview", isOverview);
         model.addAttribute("averageScore", averageScore);
         model.addAttribute("phone", phone);
-        model.addAttribute("availableForRent", availableForRent);
 
         return "selected_bike";
     }

@@ -25,6 +25,6 @@ function approve(sentRequestId, sentApprovalStatus) {
 }
 
 
-function addFeedback(userId, bikeId) {
-    window.location.href = "http://localhost:8081/rating/" + userId + "/" + bikeId;
+function addFeedback(bikeId) {
+    window.location.href = "http://localhost:8081/new-review/" + bikeId;
 }

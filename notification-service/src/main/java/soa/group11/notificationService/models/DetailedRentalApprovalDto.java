@@ -17,7 +17,7 @@ public class DetailedRentalApprovalDto {
 
     }
 
-    public DetailedRentalApprovalDto(int requesterId, String requesterId, String bikeId, String approvalStatus, String details,
+    public DetailedRentalApprovalDto(int requesterId, String bikeId, String approvalStatus, String details,
             String startDate, String endDate) {
         this.requesterId = requesterId;
         this.bikeId = bikeId;

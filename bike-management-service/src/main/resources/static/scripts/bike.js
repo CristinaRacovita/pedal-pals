@@ -64,7 +64,7 @@ function addBike() {
         type: type,
         suitability: suitability,
         name: name,
-        userId: +getUserId()
+        userId: +getUserId('userId')
     };
 
     var xhr = new XMLHttpRequest();
@@ -135,8 +135,7 @@ function goToBikeDetails(isOverview, bikeId) {
     window.location.href = "/bikes/" + bikeId + "/" + isOverview;
 }
 
-function getUserId() {
-    const name = 'userId';
+function getUserId(name) {
     var keyName = name + "=";
     var cookies = document.cookie.split(';');
     for (var i = 0; i < cookies.length; i++) {
@@ -152,10 +151,10 @@ function getUserId() {
 }
 
 
-function sendRentalRequest(startDate, endDate, ownerId) {
+function sendRentalRequest(startDate, endDate, ownerId, bikeId) {
     var request = {
-        bikeRequesterId: document.getElementsByName('header')[0].id,
-        bikeId: document.getElementsByName('bike-card')[0].id,
+        bikeRequesterId: getUserId('userId'),
+        bikeId: bikeId,
         bikeOwnerId: ownerId,
         startDate: startDate,
         endDate: endDate

@@ -43,4 +43,9 @@ public class BikeController {
     public void updateBike(@PathVariable(value = "bikeId") String bikeId) {
         bikeService.deleteBike(bikeId);
     }
+
+    @GetMapping("/bikes/{bikeId}/names")
+    public String getBikeAndOwnerNames(@PathVariable(value = "bikeId") String bikeId){
+        return bikeService.getBikeName(bikeId);
+    }
 }

@@ -77,10 +77,11 @@
         </div>
         <div class="buttons">
             <button class="button left"
-                th:if="${isOverview == 1 and bike.userId != userId and availableForRent == true}"
-                th:data-startDate="${bike.startRentingDate}" th:data-startEnd="${bike.endRentingDate}"
+                th:if="${isOverview == 1 and bike.userId != userId}"
+                th:data-startDate="${bike.startRentingDate}" th:data-startEnd="${bike.endRentingDate}" 
                 th:data-ownerId="${bike.userId}"
-                th:onclick="sendRentalRequest(this.getAttribute('data-startDate'), this.getAttribute('data-startEnd'), this.getAttribute('data-ownerId'))">Rent
+                th:data-bikeId="${bike.id}"
+                th:onclick="sendRentalRequest(this.getAttribute('data-startDate'), this.getAttribute('data-startEnd'), this.getAttribute('data-ownerId'), this.getAttribute('data-bikeId'))">Rent
                 bike</button>
             <button class="button" th:data-bikeId="${bike.id}"
                 th:onclick="goToReviews(this.getAttribute('data-bikeId'))">See Reviews</button>

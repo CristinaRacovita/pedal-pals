@@ -24,7 +24,7 @@ public class IndexController {
             return "reviews_overview";
         }
 
-        model.addAttribute("bikeId", bikeId);
+        model.addAttribute("bikeName", reviews.get(0).getBikeName());
         model.addAttribute("reviews", reviews);
 
         return "reviews_overview";

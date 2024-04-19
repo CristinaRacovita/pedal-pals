@@ -18,27 +18,32 @@ public class Review {
     private String id;
     private String title;
     private String bikeId;
-    private String reviwerName;
+    private String bikeName;
+    private String reviewerName;
     private int reviewerId;
     private int numberOfStars;
     private String review;
     private Date date;
 
-    public Review(String bikeId, String title, int reviewerId, String reviwerName, int numberOfStars, String review) {
+    public Review(String bikeId, String bikeName, String title, String reviewerName, int reviewerId, int numberOfStars,
+            String review) {
         this.bikeId = bikeId;
+        this.bikeName = bikeName;
         this.title = title;
-        this.reviwerName = reviwerName;
+        this.reviewerName = reviewerName;
         this.reviewerId = reviewerId;
         this.numberOfStars = numberOfStars;
         this.review = review;
         this.date = new Date();
     }
 
-    public Review(String id, String bikeId, String title, String reviwerName, int reviewerId, int numberOfStars, String review) {
+    public Review(String id, String bikeId, String bikeName, String title, String reviewerName, int reviewerId,
+            int numberOfStars, String review) {
         this.id = id;
+        this.bikeName = bikeName;
         this.bikeId = bikeId;
         this.title = title;
-        this.reviwerName = reviwerName;
+        this.reviewerName = reviewerName;
         this.reviewerId = reviewerId;
         this.numberOfStars = numberOfStars;
         this.review = review;
