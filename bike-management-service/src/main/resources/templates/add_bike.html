@@ -17,36 +17,27 @@
 <div class="bike-content">
     <form class="form">
         <div>
-
             <div>
                 <div class="label">Start Date:</div>
                 <input id="startRentingDate" type="date" />
             </div>
-
             <div>
                 <div class="label">Wheel Size:</div>
                 <input id="wheelSize" type="number" placeholder="21" />
             </div>
-
-
-
             <div>
                 <input id="name" type="text" th:placeholder="Name" />
             </div>
-
             <div>
                 <input id="brand" type="text" th:placeholder="Brand" />
             </div>
-
             <div>
                 <div class="label">Bike Photo:</div>
                 <input id="image" type="file" name="file" accept="image/*">
             </div>
-
             <div>
                 <button type='button' class="button" th:onclick="addBike()">Upload</button>
             </div>
-
         </div>
 
         <div class="second">
@@ -54,27 +45,19 @@
                 <div class="label">End Date:</div>
                 <input id="endRentingDate" type="date" />
             </div>
-
-
             <div>
                 <div class="label">Gears:</div>
                 <input id="numberOfGears" type="number" placeholder="3" />
             </div>
-
-
             <div>
                 <input id="color" type="text" th:placeholder="Color" />
             </div>
-
-
             <div>
                 <input id="type" type="text" th:placeholder="Type" />
             </div>
-
             <div>
                 <input id="suitability" type="text" th:placeholder="Usage" />
             </div>
-
         </div>
     </form>
 

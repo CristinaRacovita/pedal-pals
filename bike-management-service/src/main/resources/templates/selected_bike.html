@@ -13,7 +13,7 @@
 <body>
     <div th:replace="~{fragments/header :: header}">
     </div>
-    <div class="selected-bike-container" name="bike-card" th:id="${bike.id}">
+    <div class="selected-bike-container">
         <h2 th:text="${bike.name}"></h2>
         <img class="image" th:if="${bike.imageData != null}" th:src="'data:image/jpeg;base64,' + ${bike.imageData}" />
         <img class="image" th:if="${bike.imageData == null}" th:src="@{/race-bike.jpg}" />
@@ -23,64 +23,48 @@
                 <div class="label">From:</div>
                 <input id="startRentingDate" type="date" th:if="${bike.startRentingDate != null || isOverview == 0}"
                     th:value="${bike.startRentingDate}" th:disabled="${isOverview == 1}" />
-
             </div>
-
             <div th:if="${bike.endRentingDate != null || isOverview == 0}">
                 <div class="label">To:</div>
                 <input id="endRentingDate" type="date" th:if="${bike.endRentingDate != null || isOverview == 0}"
                     th:value="${bike.endRentingDate}" th:disabled="${isOverview == 1}" />
-
             </div>
-
             <div>
                 <div th:if="${bike.wheelSize != null || isOverview == 0}" class="label">Wheel
                     Size:</div>
                 <input id="wheelSize" type="number" th:if="${bike.wheelSize != null || isOverview == 0}"
                     th:value="${bike.wheelSize}" th:disabled="${isOverview == 1}" />
-
             </div>
-
             <div>
                 <div th:if="${bike.numberOfGears != null || isOverview == 0}" class="label">
                     Gears:</div>
                 <input id="numberOfGears" type="number" th:if="${bike.numberOfGears != null || isOverview == 0}"
                     th:value="${bike.numberOfGears}" th:disabled="${isOverview == 1}" />
-
             </div>
-
             <div>
                 <div th:if="${bike.brand != null || isOverview == 0}" class="label">Brand:</div>
                 <input id="brand" type="text" th:if="${bike.brand != null || isOverview == 0}" th:value="${bike.brand}"
                     th:disabled="${isOverview == 1}" />
-
             </div>
-
             <div>
                 <div th:if="${bike.color != null || isOverview == 0}" class="label">Color:</div>
                 <input id="color" type="text" th:if="${bike.color != null || isOverview == 0}" th:value="${bike.color}"
                     th:disabled="${isOverview == 1}" />
-
             </div>
-
             <div>
                 <div th:if="${bike.type != null || isOverview == 0}" class="label">Type:</div>
                 <input id="type" type="text" th:if="${bike.type != null || isOverview == 0}" th:value="${bike.type}"
                     th:disabled="${isOverview == 1}" />
-
             </div>
-
             <div>
                 <div th:if="${bike.suitability != null || isOverview == 0}" class="label">Usage:
                 </div>
                 <input id="suitability" type="text" th:if="${bike.suitability != null || isOverview == 0}"
                     th:value="${bike.suitability}" th:disabled="${isOverview == 1}" />
             </div>
-
             <div class="rating">
                 Rating <span th:text="${averageScore}"></span>
             </div>
-
         </form>
         <div id="success-message" th:if="${isOverview == 0}" class="success-message">
             Your bike was successfully updated!
@@ -89,9 +73,9 @@
             Your bike was successfully deleted!
         </div>
         <div class="buttons">
-            <button class="button" th:onclick="goToFeedback()">See Reviews</button>
-            <button class="button left" th:if="${isOverview == 0}" th:onclick="saveBike()">Save Changes</button>
-            <button class="button left delete" th:if="${isOverview == 0}" th:onclick="deleteBike()">Delete</button>
+            <button class="button" th:data-bikeId="${bike.id}" th:onclick="goToFeedback(this.getAttribute('data-bikeId'))">See Reviews</button>
+            <button class="button left" th:if="${isOverview == 0}" th:data-bikeId="${bike.id}" th:onclick="saveBike(this.getAttribute('data-bikeId'))">Save Changes</button>
+            <button class="button left delete" th:if="${isOverview == 0}" th:data-bikeId="${bike.id}" th:onclick="deleteBike(this.getAttribute('data-bikeId'))">Delete</button>
         </div>
 
     </div>

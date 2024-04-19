@@ -5,7 +5,7 @@
 
 <body>
     <div th:fragment="filter-bar" class="filter-bar">
-        <form action="#" th:action="@{ '/' + ${userId} + '/filter'}" method="get">
+        <form action="#" th:action="@{'/bikes/filter'}" method="get">
             <input type="number" name="wheelSize" placeholder="Wheel Size" />
             <input type="number" name="numberOfGears" placeholder="Number Of Gears" />
             <input type="date" name="startRentingDate" placeholder="Start Renting Date" />

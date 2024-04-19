@@ -5,7 +5,9 @@
 
 <body>
     <a th:fragment="card(isOverview)" class="card"
-        th:href="@{'/' + ${userId} + '/bike/' + ${bike.id} + '/' + ${isOverview}}">
+    th:data-isOverview="${isOverview}"
+    th:data-bikeId="${bike.id}"
+        th:onclick="goToBikeDetails(this.getAttribute('data-isOverview'), this.getAttribute('data-bikeId'))">
         <img class="image" th:if="${bike.imageData != null}" th:src="'data:image/jpeg;base64,' + ${bike.imageData}" />
         <img class="image" th:if="${bike.imageData == null}" th:src="@{/race-bike.jpg}" />
 
