@@ -15,3 +15,19 @@
 .button:hover {
     opacity: 70%;
 }
+
+.success-approval-decline {
+    color: green;
+    display: none;
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 60px;
+}
+
+.success-cancel {
+    color: green;
+    display: none;
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 60px;
+}

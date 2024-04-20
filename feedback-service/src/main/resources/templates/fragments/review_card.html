@@ -1,7 +1,7 @@
 <div th:fragment="card" class="card">
     <div class="title" th:text="${review.title}"></div>
     <div class="review-field"
-        th:text="|Reviewer: ${review.reviewerId}|"></div>
+        th:text="|Reviewer: ${review.reviewerName}|"></div>
     <img class="rating-field" th:src="@{|/star${review.numberOfStars}.png|}"
         alt="Number of stars">
     <div class="review-field" th:text="${review.review}"></div>

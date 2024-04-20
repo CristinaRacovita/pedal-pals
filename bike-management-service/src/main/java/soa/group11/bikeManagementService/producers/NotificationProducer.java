@@ -15,13 +15,13 @@ import soa.group11.bikeManagementService.models.NewBikeDto;
 public class NotificationProducer {
     @Autowired
     private JmsTemplate jmsTemplate;
-
+    
     @Value("${queue.notification}")
     private String notificationQueue;
 
     public void sendMessage(NewBikeDto bike) {
         try {
-            BikeSubscriptionDto bikeSubscriptionDto = new BikeSubscriptionDto(bike.getUserId(),
+            BikeSubscriptionDto bikeSubscriptionDto = new BikeSubscriptionDto(bike.getUserId(), bike.getColor(),
                     bike.getWheelSize(), bike.getNumberOfGears(),
                     bike.getStartRentingDate(), bike.getEndRentingDate(),
                     bike.getBrand(), bike.getType(), bike.getSuitability());

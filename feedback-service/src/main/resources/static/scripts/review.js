@@ -7,15 +7,16 @@ function addReview() {
         numberOfStars: numberOfStars,
         title: title,
         date: new Date(),
+        reviewerName: getUserData('userName'),
         review: review,
         bikeId: window.location.href.substring(window.location.href.lastIndexOf('/') + 1),
         reviewerId: +window.location.href.substring(window.location.href.lastIndexOf('/') + 2)
     };
 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/review');
+    xhr.open('POST', '/reviews');
     xhr.setRequestHeader('Content-Type', 'application/json');
-
+    
     xhr.onload = function () {
         if (xhr.status === 200) {
             var successMessage = document.getElementById('success-message');

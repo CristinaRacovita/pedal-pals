@@ -20,13 +20,16 @@ public class CustomBikeRepository {
         this.mongoOperations = mongoOperations;
     }
 
-    public List<Bike> findByFilterCriteria(Integer wheelSize, Integer numberOfGears,
+    public List<Bike> findByFilterCriteria(Integer wheelSize, String color, Integer numberOfGears,
             Date startRentingDate, Date endRentingDate,
             String brand, String type, String suitability) {
 
         Query query = new Query();
         if (wheelSize != -1) {
             query.addCriteria(Criteria.where("wheelSize").is(wheelSize));
+        }
+        if (color != "") {
+            query.addCriteria(Criteria.where("color").is(color));
         }
         if (numberOfGears != -1) {
             query.addCriteria(Criteria.where("numberOfGears").is(numberOfGears));

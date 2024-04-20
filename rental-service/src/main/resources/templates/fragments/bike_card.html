@@ -42,12 +42,24 @@
             </div>
 
             <div class="characteristic"
-                th:if="${bike.rentalPeriodOver == True and rented_out == 0}">
-                
+                th:if="${rented_out == 0}">
+
                 <button th:data-bikeid="${bike.id}"
-                    th:data-userid="${userId}" type='button'
+                    th:if="${bike.rentalPeriodOver == True}"
+                    type='button'
                     class="button"
-                    th:onclick="addFeedback(this.getAttribute('data-userid'), this.getAttribute('data-bikeid'))">Add feedback</button>
+                    th:onclick="addFeedback(this.getAttribute('data-bikeid'))">Add
+                    feedback</button>
+                <button
+                    th:if="${bike.requestStatus == 'sent' and bike.approvalStatus == null}"
+                    th:data-rqid="${bike.requestId}"
+                    type='button'
+                    class="button"
+                    th:onclick="cancelRequest(this.getAttribute('data-rqid'))">Cancel request</button>
+            </div>
+            <div th:id="|success-cancel ${bike.requestId}|"
+                class="success-cancel" th:if="${rented_out == 0}">
+                Request was canceled.
             </div>
 
             <div class="characteristic"
@@ -64,6 +76,10 @@
                     th:data-approved="declined" type='button'
                     class="button"
                     th:onclick="approve(this.getAttribute('data-rqid'), this.getAttribute('data-approved'))">Decline</button>
+            </div>
+            <div th:id="|success-approval-decline ${bike.requestId}|"
+                class="success-approval-decline" th:if="${rented_out == 1}">
+                Rental status has been updated.
             </div>
         </a>
     </body>

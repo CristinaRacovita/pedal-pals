@@ -6,7 +6,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import soa.group11.feedbackService.entities.Review;
 import soa.group11.feedbackService.models.ReviewDto;
@@ -72,18 +74,38 @@ public class ReviewService {
     }
 
     public void addReview(ReviewDto feedbackDto) {
-        reviewRepository.save(toReview(feedbackDto));
+        Review review = toReview(feedbackDto);
+        review.setBikeName(getBikeName(feedbackDto.getBikeId()));
+
+        reviewRepository.save(review);
+    }
+
+    private String getBikeName(String bikeId) {
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<String> response = restTemplate.getForEntity(
+                    "http://localhost:8082/bikes/" + bikeId + "/names", String.class);
+            var bikeName = response.getBody();
+            return bikeName;
+
+        } catch (Exception e) {
+            System.out.println("Bike not found...");
+        }
+
+        return "";
+
     }
 
     private ReviewDto toReviewDto(Review review) {
-        return new ReviewDto(review.getId(), review.getBikeId(), review.getTitle(), review.getReviewerId(),
+        return new ReviewDto(review.getId(), review.getBikeName(), review.getBikeId(), review.getReviewerName(),
+                review.getTitle(), review.getReviewerId(),
                 review.getNumberOfStars(), review.getReview(), review.getDate());
     }
 
     private Review toReview(ReviewDto feedbackDto) {
-        return new Review(feedbackDto.getBikeId(), feedbackDto.getTitle(), feedbackDto.getReviewerId(),
+        return new Review(feedbackDto.getBikeId(), feedbackDto.getBikeName(), feedbackDto.getTitle(),
+                feedbackDto.getReviewerName(), feedbackDto.getReviewerId(),
                 feedbackDto.getNumberOfStars(),
                 feedbackDto.getReview());
     }
-
 }

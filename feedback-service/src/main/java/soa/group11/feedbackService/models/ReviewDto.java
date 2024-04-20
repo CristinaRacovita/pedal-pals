@@ -18,10 +18,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ReviewDto {
     private String id;
+    private String bikeName;
     @NotNull
     private String bikeId;
-    @NotNull
-    private String reviwerName;
+    private String reviewerName;
     @NotNull
     private String title;
     @NotNull
@@ -32,11 +32,13 @@ public class ReviewDto {
     private String review = "";
     private String reviewDate;
 
-    public ReviewDto(String id, String bikeId, String reviwerName, String title, int reviewerId, int numberOfStars, String review,
+    public ReviewDto(String id, String bikeName, String bikeId, String reviewerName, String title, int reviewerId,
+            int numberOfStars, String review,
             Date reviewDate) {
         this.id = id;
+        this.bikeName = bikeName;
         this.bikeId = bikeId;
-        this.reviwerName = reviwerName;
+        this.reviewerName = reviewerName;
         this.title = title;
         this.reviewerId = reviewerId;
         this.numberOfStars = numberOfStars;

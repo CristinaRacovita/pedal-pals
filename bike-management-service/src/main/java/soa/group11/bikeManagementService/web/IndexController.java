@@ -35,6 +35,7 @@ public class IndexController {
     @GetMapping("/bikes/filter")
     public String filter(
             @RequestParam(name = "wheelSize", required = false) String wheelSize,
+            @RequestParam(name = "color", required = false) String color,
             @RequestParam(name = "numberOfGears", required = false) String numberOfGears,
             @RequestParam(name = "startRentingDate", required = false) String startRentingDate,
             @RequestParam(name = "endRentingDate", required = false) String endRentingDate,
@@ -45,13 +46,14 @@ public class IndexController {
 
         try {
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
+            String setColor = color == "" ? null : color;
             int wheelSizeInt = wheelSize == "" ? -1 : Integer.parseInt(wheelSize);
             int numberOfGearsInt = numberOfGears == "" ? -1 : Integer.parseInt(numberOfGears);
             Date convertedStartRentingDate = startRentingDate == "" ? null : formatter.parse(startRentingDate);
             Date convertedEndRentingDate = endRentingDate == "" ? null : formatter.parse(endRentingDate);
 
             List<BikeCardDto> bikes = this.bikeService.filterBikes(wheelSizeInt,
+                    setColor,
                     numberOfGearsInt,
                     convertedStartRentingDate,
                     convertedEndRentingDate,
@@ -66,18 +68,17 @@ public class IndexController {
     }
 
     @GetMapping(value = "/bikes/{bikeId}/{isOverview}")
-    public String getBikeDetails(@PathVariable(value = "bikeId") String bikeId, @PathVariable(value = "isOverview") int isOverview,
+    public String getBikeDetails(@PathVariable(value = "bikeId") String bikeId,
+            @PathVariable(value = "isOverview") int isOverview,
             Model model) {
         BikeDetailsDto bike = bikeService.getBikeDetails(bikeId);
         var averageScore = bikeService.getAverageScoreForBike(bikeId);
         var phone = userService.getPhoneById(bike.getUserId());
-        boolean availableForRent = bikeService.getRentalAvailability(bikeId, bike.getStartRentingDate(), bike.getEndRentingDate());
 
         model.addAttribute("bike", bike);
         model.addAttribute("isOverview", isOverview);
         model.addAttribute("averageScore", averageScore);
         model.addAttribute("phone", phone);
-        model.addAttribute("availableForRent", availableForRent);
 
         return "selected_bike";
     }

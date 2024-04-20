@@ -13,7 +13,10 @@ function approve(sentRequestId, sentApprovalStatus) {
 
     xhr.onload = function () {
         if (xhr.status === 200) {
+            console.log('success-approval-decline ' + sentRequestId);
             console.log("It worked!")
+            var successMessage = document.getElementById('success-approval-decline ' + sentRequestId);
+            successMessage.style.display = 'flex';
         } else {
             console.error('Error updating bike data:', xhr.statusText);
         }
@@ -25,6 +28,34 @@ function approve(sentRequestId, sentApprovalStatus) {
 }
 
 
-function addFeedback(userId, bikeId) {
-    window.location.href = "http://localhost:8081/rating/" + userId + "/" + bikeId;
+function addFeedback(bikeId) {
+    window.location.href = "http://localhost:8081/new-review/" + bikeId;
 }
+
+
+function cancelRequest(requestId) {
+    var request = {
+        status: "cancelled"
+    };
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('PATCH', '/requests/' + requestId);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    var jsonData = JSON.stringify(request);
+    xhr.send(jsonData);
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            console.log("It worked!")
+            var successMessage = document.getElementById('success-cancel ' + requestId);
+            successMessage.style.display = 'flex';
+        } else {
+            console.error('Error canceling request:', xhr.statusText);
+        }
+    };
+
+    xhr.onerror = function () {
+        console.error('Request failed');
+    };
+}
+

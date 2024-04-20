@@ -14,15 +14,17 @@ public class DetailedRentalApprovalDto {
     private String details;
     private String startDate;
     private String endDate;
+    private String bikeName;
 
-    public DetailedRentalApprovalDto(int requesterId, String requesterId, String bikeId, String approvalStatus, String details,
-            String startDate, String endDate) {
+    public DetailedRentalApprovalDto(int requesterId, String bikeId, String approvalStatus, String details,
+            String startDate, String endDate, String bikeName) {
         this.requesterId = requesterId;
         this.bikeId = bikeId;
         this.approvalStatus = approvalStatus;
         this.details = details;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.bikeName = bikeName;
     }
 
     @Override

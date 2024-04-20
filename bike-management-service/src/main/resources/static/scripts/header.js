@@ -1,10 +1,9 @@
 function goToMyBikes() {
-    var userId = +getUserId();
+    var userId = +getUserData('userId');
     window.location.href = "/bikes/user/" + userId;
 }
 
-function getUserId() {
-    const name = 'userId';
+function getUserData(name) {
     var keyName = name + "=";
     var cookies = document.cookie.split(';');
     for (var i = 0; i < cookies.length; i++) {
@@ -20,11 +19,11 @@ function getUserId() {
 }
 
 function goToMyRentalBikes() {
-    var userId = +getUserId();
+    var userId = +getUserData('userId');
     window.location.href = "http://localhost:8083/rentals/" + userId;
 }
 
 function goToNotifications() {
-    var userId = +getUserId();
+    var userId = +getUserData('userId');
     window.location.href = "http://localhost:8085/notifications/" + userId;
 }

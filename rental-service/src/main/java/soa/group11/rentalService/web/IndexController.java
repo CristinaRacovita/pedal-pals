@@ -18,7 +18,6 @@ public class IndexController {
         model.addAttribute("bikes_rented_in", rentalsService.getBikeRentals(userId, false));
         model.addAttribute("bikes_rented_out", rentalsService.getBikeRentals(userId, true));
 
-
         return "user_rentals";
     }
 }

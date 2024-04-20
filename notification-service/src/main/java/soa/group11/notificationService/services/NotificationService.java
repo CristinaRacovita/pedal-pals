@@ -26,15 +26,15 @@ public class NotificationService {
         if (!dueNotifications.isEmpty()) {
             for (Notification notification : dueNotifications) {
                 String notificationText = notification.getText();
-                String bikeId = notificationText.substring(15, notificationText.indexOf(" has been "));
-                String feedbackNotificationText = "The rental period for bike " + bikeId + " has ended on "
+                String bikeName = notificationText.substring(17, notificationText.indexOf(" has been "));
+                String feedbackNotificationText = "The rental period for bike " + bikeName + " has ended on "
                         + notification.getCheckDate() + ". Please add a feedback.";
 
                 Notification feedNotification = new Notification(userId, "feedback", feedbackNotificationText, null);
 
                 boolean alreadyStored = false;
                 for (Notification existingNotification : notifications) {
-                    if (existingNotification.getText().equals(notification.getText())) {
+                    if (existingNotification.getText().equals(feedbackNotificationText)) {
                         alreadyStored = true;
                     }
 
@@ -42,9 +42,8 @@ public class NotificationService {
 
                 if (!alreadyStored) {
                     notificationRepository.save(feedNotification);
+                    notifications.add(feedNotification);
                 }
-
-                notifications.add(feedNotification);
             }
         }
 

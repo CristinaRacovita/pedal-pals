@@ -35,7 +35,7 @@ public class RentalsService {
             rentalRequests = rentalRequestRepository.findAllByBikeOwnerId(userId);
         } else {
             rentalRequests = rentalRequestRepository.findAllByBikeRequesterId(userId);
-        }
+        } 
 
         for (RentalRequest rentalRequest : rentalRequests) {
             BikeDto bike = getBikeByBikeId(rentalRequest.getBikeId());
@@ -83,7 +83,7 @@ public class RentalsService {
         try {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<BikeDto> response = restTemplate.getForEntity(
-                    "http://localhost:8082/bike/" + bikeId, BikeDto.class);
+                    "http://localhost:8082/bikes/" + bikeId, BikeDto.class);
 
             BikeDto bikeDto = response.getBody();
             return bikeDto;

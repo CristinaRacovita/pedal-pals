@@ -64,7 +64,7 @@ function addBike() {
         type: type,
         suitability: suitability,
         name: name,
-        userId: +getUserId()
+        userId: +getUserData('userId')
     };
 
     var xhr = new XMLHttpRequest();
@@ -135,8 +135,7 @@ function goToBikeDetails(isOverview, bikeId) {
     window.location.href = "/bikes/" + bikeId + "/" + isOverview;
 }
 
-function getUserId() {
-    const name = 'userId';
+function getUserData(name) {
     var keyName = name + "=";
     var cookies = document.cookie.split(';');
     for (var i = 0; i < cookies.length; i++) {
@@ -152,10 +151,10 @@ function getUserId() {
 }
 
 
-function sendRentalRequest(startDate, endDate, ownerId) {
+function sendRentalRequest(startDate, endDate, ownerId, bikeId) {
     var request = {
-        bikeRequesterId: document.getElementsByName('header')[0].id,
-        bikeId: document.getElementsByName('bike-card')[0].id,
+        bikeRequesterId: getUserData('userId'),
+        bikeId: bikeId,
         bikeOwnerId: ownerId,
         startDate: startDate,
         endDate: endDate
@@ -170,8 +169,47 @@ function sendRentalRequest(startDate, endDate, ownerId) {
     xhr.onload = function () {
         if (xhr.status === 200) {
             console.log("It worked!")
+            var successMessage = document.getElementById('success-request');
+            successMessage.style.display = 'flex';
         } else {
             console.error('Error renting bike data:', xhr.statusText);
+        }
+    };
+
+    xhr.onerror = function () {
+        console.error('Request failed');
+    };
+}
+
+function addNotification() {
+    var subscription = {
+        userId: getUserData('userId'),
+        color: document.getElementById("colorFilter").value,
+        wheelSize: document.getElementById("wheelSizeFilter").value,
+        numberOfGears: document.getElementById("numberOfGearsFilter").value,
+        startDate: document.getElementById("startRentingDateFilter").value,
+        endDate: document.getElementById("endRentingDateFilter").value,
+        brand: document.getElementById("brandFilter").value,
+        type: document.getElementById("typeFilter").value,
+        usage: document.getElementById("suitabilityFilter").value
+    }
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/bike-subscriptions');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    var jsonData = JSON.stringify(subscription);
+    xhr.send(jsonData);
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            console.log("It worked!")
+            var successMessage = document.getElementById('success-notification');
+            successMessage.style.display = 'block';
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 1000);
+        } else {
+            console.error('Error adding the notification subscriptions:', xhr.statusText);
         }
     };
 

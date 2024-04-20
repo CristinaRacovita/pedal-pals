@@ -1,5 +1,6 @@
 package soa.group11.bikeManagementService.services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -62,6 +63,7 @@ public class BikeService {
         Bike bikeToUpdate = currentBike.get();
 
         bikeToUpdate.setWheelSize(bike.getWheelSize());
+        bikeToUpdate.setColor(bike.getColor());
         bikeToUpdate.setNumberOfGears(bike.getNumberOfGears());
         bikeToUpdate.setBrand(bike.getBrand());
         bikeToUpdate.setEndRentingDate(toDate(bike.getEndRentingDate()));
@@ -73,8 +75,23 @@ public class BikeService {
     }
 
     public List<BikeCardDto> getAllBikes() {
-        return bikeRepository.findAll().stream().map(bike -> toBikeCardDto(bike))
+        List<BikeCardDto> allBikes = bikeRepository.findAll().stream().map(bike -> toBikeCardDto(bike))
                 .collect(Collectors.toList());
+
+        List<BikeCardDto> bikesToRemove = new ArrayList<>();
+
+        for (BikeCardDto bikeCardDto : allBikes) {
+            boolean availableForRent = getRentalAvailability(bikeCardDto.getId(), bikeCardDto.getStartRentingDate(),
+                    bikeCardDto.getEndRentingDate());
+
+            if (!availableForRent) {
+                bikesToRemove.add(bikeCardDto);
+            }
+        }
+
+        allBikes.removeAll(bikesToRemove);
+
+        return allBikes;
     }
 
     public void deleteBike(String bikeId) {
@@ -82,6 +99,7 @@ public class BikeService {
     }
 
     public List<BikeCardDto> filterBikes(int wheelSize,
+            String color,
             int numberOfGears,
             Date startRentingDate,
             Date endRentingDate,
@@ -90,6 +108,7 @@ public class BikeService {
             String suitability) {
 
         return customBikeRepository.findByFilterCriteria(wheelSize,
+                color,
                 numberOfGears,
                 startRentingDate,
                 endRentingDate,
@@ -136,8 +155,9 @@ public class BikeService {
     }
 
     public double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
-    
+        if (places < 0)
+            throw new IllegalArgumentException();
+
         long factor = (long) Math.pow(10, places);
         value = value * factor;
         long tmp = Math.round(value);
@@ -162,12 +182,14 @@ public class BikeService {
         try {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<Boolean> response = restTemplate.getForEntity(
-                    "http://localhost:8083/approvals/available/" + bikeId + "?startDate=" + startRentingDate + "&endDate=" + endRentingDate, boolean.class);
+                    "http://localhost:8083/approvals/available/" + bikeId + "?startDate=" + startRentingDate
+                            + "&endDate=" + endRentingDate,
+                    boolean.class);
             var availableForRent = response.getBody();
-            if(availableForRent == null) {
+            if (availableForRent == null) {
                 return true;
             }
-            
+
             return availableForRent;
 
         } catch (Exception e) {
@@ -175,6 +197,17 @@ public class BikeService {
             System.out.println("Bike not found...");
             return false;
         }
+    }
+
+    public String getBikeName(String bikeId) {
+        Bike bike = bikeRepository.findById(bikeId).orElse(null);
+
+        if (bike == null) {
+            return "";
+        } else {
+            return bike.getName();
+        }
+
     }
 
     private BikeDetailsDto toBikeDetails(Bike bike) {

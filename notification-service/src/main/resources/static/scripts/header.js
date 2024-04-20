@@ -28,3 +28,7 @@ function goToNotifications() {
     var userId = +getUserId();
     window.location.href = "http://localhost:8085/notifications/" + userId;
 }
+
+function goToAllBikes() {
+    window.location.href = "http://localhost:8082/bikes/all";
+}
