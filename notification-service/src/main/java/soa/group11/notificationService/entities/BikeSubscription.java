@@ -10,6 +10,7 @@ import lombok.Getter;
 @Setter
 public class BikeSubscription {
     private int userId;
+    private String color;
     private int wheelSize;
     private int numberOfGears;
     private String startDate;
@@ -21,9 +22,10 @@ public class BikeSubscription {
     public BikeSubscription() {
     }
     
-    public BikeSubscription(int userId, int wheelSize, int numberOfGears, String startDate, String endDate,
+    public BikeSubscription(int userId, String color, int wheelSize, int numberOfGears, String startDate, String endDate,
             String brand, String type, String usage) {
         this.userId = userId;
+        this.color = color;
         this.wheelSize = wheelSize;
         this.numberOfGears = numberOfGears;
         this.startDate = startDate;
@@ -35,7 +37,7 @@ public class BikeSubscription {
 
     @Override
     public String toString() {
-        return type + " " + brand + " bike with " + wheelSize + " inch wheels and " + numberOfGears + " gears for "
-                + usage.toLowerCase() + " is available between " + startDate + " - " + endDate;
+        return type + " " + brand + " bike(s) with " + wheelSize + " inch wheels and " + numberOfGears + " gears for "
+                + usage.toLowerCase() + " - available between " + startDate + " - " + endDate;
     }
 }

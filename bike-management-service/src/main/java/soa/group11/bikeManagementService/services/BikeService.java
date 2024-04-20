@@ -63,6 +63,7 @@ public class BikeService {
         Bike bikeToUpdate = currentBike.get();
 
         bikeToUpdate.setWheelSize(bike.getWheelSize());
+        bikeToUpdate.setColor(bike.getColor());
         bikeToUpdate.setNumberOfGears(bike.getNumberOfGears());
         bikeToUpdate.setBrand(bike.getBrand());
         bikeToUpdate.setEndRentingDate(toDate(bike.getEndRentingDate()));
@@ -98,6 +99,7 @@ public class BikeService {
     }
 
     public List<BikeCardDto> filterBikes(int wheelSize,
+            String color,
             int numberOfGears,
             Date startRentingDate,
             Date endRentingDate,
@@ -106,6 +108,7 @@ public class BikeService {
             String suitability) {
 
         return customBikeRepository.findByFilterCriteria(wheelSize,
+                color,
                 numberOfGears,
                 startRentingDate,
                 endRentingDate,

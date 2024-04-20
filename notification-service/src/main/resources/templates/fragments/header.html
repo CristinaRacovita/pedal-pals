@@ -11,7 +11,7 @@
 
 <body>
     <div th:fragment="header" name="header" class="header">
-        <a class="image-container" href="/bikes/all">
+        <a class="image-container" th:onclick="goToAllBikes()">
             <img class="logo-image" th:src="@{/PedalPals.png}" /> <span class="app-name">Pedal Pals</span>
         </a>
 

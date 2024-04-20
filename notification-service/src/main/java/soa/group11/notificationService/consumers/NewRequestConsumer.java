@@ -25,7 +25,6 @@ public class NewRequestConsumer {
 
             RentalRequestDto rentalRequest = objectMapper.readValue(requestJson, RentalRequestDto.class);
 
-            System.out.println(rentalRequest.toString());
             String notificationType;
 
             if (rentalRequest.toString().contains("has cancelled the request to rent bike")) {

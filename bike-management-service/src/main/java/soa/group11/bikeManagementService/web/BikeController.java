@@ -31,21 +31,26 @@ public class BikeController {
 
     @PutMapping("/bikes")
     public void updateBike(@RequestBody BikeDetailsDto bike) {
+        notificationProducer.sendMessage(new NewBikeDto((int) bike.getWheelSize(), bike.getNumberOfGears(),
+                bike.getName(), bike.getBrand(), bike.getColor(), bike.getUserId(), bike.getStartRentingDate(),
+                bike.getEndRentingDate(), bike.getType(), bike.getSuitability()));
+
         bikeService.updateBike(bike);
+
     }
 
     @GetMapping("/bikes/{bikeId}")
-    public BikeCardDto getBike(@PathVariable(value = "bikeId") String bikeId){
+    public BikeCardDto getBike(@PathVariable(value = "bikeId") String bikeId) {
         return bikeService.getBikeById(bikeId);
     }
-    
+
     @DeleteMapping("/bikes/{bikeId}")
     public void updateBike(@PathVariable(value = "bikeId") String bikeId) {
         bikeService.deleteBike(bikeId);
     }
 
     @GetMapping("/bikes/{bikeId}/names")
-    public String getBikeAndOwnerNames(@PathVariable(value = "bikeId") String bikeId){
+    public String getBikeAndOwnerNames(@PathVariable(value = "bikeId") String bikeId) {
         return bikeService.getBikeName(bikeId);
     }
 }

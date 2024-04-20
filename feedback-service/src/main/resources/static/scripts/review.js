@@ -16,7 +16,7 @@ function addReview() {
     var xhr = new XMLHttpRequest();
     xhr.open('POST', '/reviews');
     xhr.setRequestHeader('Content-Type', 'application/json');
-
+    
     xhr.onload = function () {
         if (xhr.status === 200) {
             var successMessage = document.getElementById('success-message');

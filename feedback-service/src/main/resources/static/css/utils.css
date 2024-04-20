@@ -1,6 +1,7 @@
 .success-message {
     color: green;
     display: none;
+    padding-left: 25px;
 }
 
 .buttons {

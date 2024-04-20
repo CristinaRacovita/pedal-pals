@@ -3,6 +3,20 @@
     display: none;
 }
 
+.success-request {
+    color: green;
+    display: none;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.success-notification {
+    color: green;
+    display: none;
+}
+
 .buttons {
     padding-bottom: 20px;
 }

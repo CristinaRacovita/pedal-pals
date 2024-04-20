@@ -26,7 +26,6 @@ public class NewApprovalConsumer {
             DetailedRentalApprovalDto detailedRentalApproval = objectMapper.readValue(approvalJson,
                     DetailedRentalApprovalDto.class);
 
-            System.out.println(detailedRentalApproval.toString());
             String notificationType;
             String endRentalDate;
 

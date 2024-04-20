@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class BikeSubscriptionDto {
     private int userId;
+    private String color;
     private int wheelSize;
     private int numberOfGears;
     private String startDate;
@@ -18,9 +19,11 @@ public class BikeSubscriptionDto {
     public BikeSubscriptionDto() {
     }
 
-    public BikeSubscriptionDto(int userId, int wheelSize, int numberOfGears, String startDate, String endDate,
+    public BikeSubscriptionDto(int userId, String color, int wheelSize, int numberOfGears, String startDate,
+            String endDate,
             String brand, String type, String usage) {
         this.userId = userId;
+        this.color = color;
         this.wheelSize = wheelSize;
         this.numberOfGears = numberOfGears;
         this.startDate = startDate;

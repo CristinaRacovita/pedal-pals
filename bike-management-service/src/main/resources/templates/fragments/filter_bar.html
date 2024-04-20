@@ -6,30 +6,34 @@
 <body>
     <div th:fragment="filter-bar" class="filter-bar">
         <form action="#" th:action="@{'/bikes/filter'}" method="get">
-            <input type="number" name="wheelSize" placeholder="Wheel Size" />
-            <input type="number" name="numberOfGears" placeholder="Number Of Gears" />
-            <input type="date" name="startRentingDate" placeholder="Start Renting Date" />
-            <input type="date" name="endRentingDate" placeholder="End Renting Date" />
-            <select name="brand">
+            <input type="number" id="wheelSizeFilter" name="wheelSize" placeholder="Wheel Size" />
+            <input type="string" id="colorFilter" name="color" placeholder="Color" />
+            <input type="number" id="numberOfGearsFilter" name="numberOfGears" placeholder="Number Of Gears" />
+            <input type="date" id="startRentingDateFilter" name="startRentingDate" placeholder="Start Renting Date" />
+            <input type="date" id="endRentingDateFilter" name="endRentingDate" placeholder="End Renting Date" />
+            <select name="brand" id="brandFilter">
                 <option value="">All Brands</option>
                 <option value="Union">Union</option>
                 <option value="Gazelle">Gazelle</option>
                 <option value="Elops">Elops</option>
             </select>
 
-            <select name="type">
+            <select name="type" id="typeFilter">
                 <option value="">All Types</option>
                 <option value="Electric">Electric</option>
                 <option value="Regular">Regular</option>
             </select>
 
-            <select name="suitability">
+            <select name="suitability" id="suitabilityFilter">
                 <option value="">All Usages</option>
                 <option value="City">City</option>
                 <option value="Mountain">Mountain</option>
             </select>
             <button type="submit" class="button">Filter</button>
-            <button class="button">Add Notification</button>
+            <button type="button" th:onclick="addNotification()" class="button">Add Notification</button>    
+            <div id="success-notification" class="success-notification">
+                You will receive notifications for this type of bike.
+            </div>
         </form>
 
     </div>

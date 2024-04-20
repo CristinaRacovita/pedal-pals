@@ -1,5 +1,6 @@
 package soa.group11.notificationService.consumers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,9 @@ public class NotificationConsumer {
             BikeSubscription newBike = objectMapper.readValue(bikeJson, BikeSubscription.class);
 
             List<BikeSubscription> subscriptions = subscriptionRepository.getSubscriptionsLike(newBike.getWheelSize(),
-                    newBike.getNumberOfGears(), newBike.getStartDate(), newBike.getEndDate(), newBike.getBrand(),
-                    newBike.getType(), newBike.getUsage());
+                        newBike.getNumberOfGears(), newBike.getStartDate(), newBike.getEndDate(), newBike.getBrand(),
+                        newBike.getType(), newBike.getUsage(), newBike.getColor());
+
 
             for (BikeSubscription subscription : subscriptions) {
                 int notifiedUserId = subscription.getUserId();
@@ -44,7 +46,7 @@ public class NotificationConsumer {
                 if (storedBikeNotifications.isEmpty() || storedBikeNotifications == null) {
                     bikeNotificationRepository
                             .save(new Notification(notifiedUserId, "bike_notification", newBike.toString(), null));
-                    System.console().printf("User %s should be notified!!! \n", notifiedUserId);
+                    System.out.println("User " + notifiedUserId +  " should be notified!!! \n");
                 }
             }
 

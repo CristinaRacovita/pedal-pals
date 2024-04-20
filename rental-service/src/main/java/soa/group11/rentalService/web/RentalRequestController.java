@@ -63,6 +63,8 @@ public class RentalRequestController {
     @PatchMapping("/requests/{id}")
     public ResponseEntity<RentalRequestDto> cancelRequest(@PathVariable String id,
             @RequestBody RentalRequestDto rentalRequestDto) {
+
+        System.out.println("INSIDE!!");
         if (!rentalRequestDto.getStatus().equals(CANCELLED)) {
             return new ResponseEntity<RentalRequestDto>(HttpStatus.BAD_REQUEST);
         }

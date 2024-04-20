@@ -22,9 +22,11 @@ public class RentalRequestDto {
     private String startDate;
     @NotNull
     private String endDate;
+    private String bikeRequesterName;
+    private String bikeName;
 
     public RentalRequestDto(String id, int bikeOwnerId, int bikeRequesterId, String bikeId, String status,
-            String startDate, String endDate) {
+            String startDate, String endDate, String bikeRequesterName, String bikeName) {
         this.id = id;
         this.bikeOwnerId = bikeOwnerId;
         this.bikeRequesterId = bikeRequesterId;
@@ -32,16 +34,20 @@ public class RentalRequestDto {
         this.status = status;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.bikeRequesterName = bikeRequesterName;
+        this.bikeName = bikeName;
     }
 
     public RentalRequestDto(int bikeOwnerId, int bikeRequesterId, String bikeId, String status, String startDate,
-            String endDate) {
+            String endDate, String bikeRequesterName, String bikeName) {
         this.bikeOwnerId = bikeOwnerId;
         this.bikeRequesterId = bikeRequesterId;
         this.bikeId = bikeId;
         this.status = status;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.bikeRequesterName = bikeRequesterName;
+        this.bikeName = bikeName;
     }
     
     @Override
