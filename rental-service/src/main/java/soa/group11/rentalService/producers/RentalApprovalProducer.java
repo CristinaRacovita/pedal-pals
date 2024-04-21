@@ -31,7 +31,7 @@ public class RentalApprovalProducer {
         try {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<String> response = restTemplate.getForEntity(
-                    "http://localhost:8082/bikes/" + detailedRentalApprovalDto.getBikeId() + "/names", String.class);
+                    "http://bike-management.pedalpals:8082/bikes/" + detailedRentalApprovalDto.getBikeId() + "/names", String.class);
             detailedRentalApprovalDto.setBikeName(response.getBody());
         } catch (Exception e) {
             System.out.println("Bike not found...");

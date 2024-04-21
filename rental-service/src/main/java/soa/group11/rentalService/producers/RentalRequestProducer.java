@@ -26,7 +26,7 @@ public class RentalRequestProducer {
         try {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<String> response = restTemplate.getForEntity(
-                    "http://localhost:8082/bikes/" + rentalRequestDto.getBikeId() + "/names", String.class);
+                    "http://bike-management.pedalpals:8082/bikes/" + rentalRequestDto.getBikeId() + "/names", String.class);
             rentalRequestDto.setBikeName(response.getBody());
         } catch (Exception e) {
             System.out.println("Bike not found...");
@@ -35,7 +35,7 @@ public class RentalRequestProducer {
         try {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<String> response = restTemplate.getForEntity(
-                    "http://localhost:8080/users/username/" + rentalRequestDto.getBikeRequesterId(),
+                    "http://authentication.pedalpals:8080/users/username/" + rentalRequestDto.getBikeRequesterId(),
                     String.class);
             rentalRequestDto.setBikeRequesterName(response.getBody());
         } catch (Exception e) {

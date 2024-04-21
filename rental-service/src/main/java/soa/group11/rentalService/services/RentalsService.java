@@ -83,7 +83,7 @@ public class RentalsService {
         try {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<BikeDto> response = restTemplate.getForEntity(
-                    "http://localhost:8082/bikes/" + bikeId, BikeDto.class);
+                    "http://bike-management.pedalpals:8082/bikes/" + bikeId, BikeDto.class);
 
             BikeDto bikeDto = response.getBody();
             return bikeDto;

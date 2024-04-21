@@ -1,0 +1,10 @@
+use bike_reviews
+db.createCollection("reviews")
+use bikes 
+db.createCollection("bikes")
+use notifications
+db.createCollection("bike_subscriptions")
+db.createCollection("notifications")
+use rentals
+db.createCollection("approvals")
+db.createCollection("requests")

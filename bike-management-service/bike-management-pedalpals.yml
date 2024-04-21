@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bike-management
+  namespace: pedalpals
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bike-management
+  template:
+    metadata:
+      labels:
+        app: bike-management
+    spec:
+      containers:
+      - name: bike-management
+        image: bike-management-service
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8082
+        

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: pedalpals
+  name: active-mq
+  labels:
+    app: active-mq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: active-mq
+  template:
+    metadata:
+      labels:
+        app: active-mq
+    spec:
+      containers:
+        - image: apache/activemq-classic
+          name: active-mq

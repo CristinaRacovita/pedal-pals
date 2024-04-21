@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rental
+  namespace: pedalpals
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rental
+  template:
+    metadata:
+      labels:
+        app: rental
+    spec:
+      containers:
+      - name: rental
+        image: rental-service
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8083
+        

@@ -107,7 +107,7 @@
             </div>
             <div class="buttons">
                 <button class="button left"
-                    th:if="${isOverview == 1 and bike.userId != userId}"
+                    th:if="${isOverview == 1 and !#strings.equals(#strings.toString(bike.userId), userId)}"
                     th:data-startDate="${bike.startRentingDate}"
                     th:data-startEnd="${bike.endRentingDate}"
                     th:data-ownerId="${bike.userId}"

@@ -134,7 +134,7 @@ public class BikeService {
         try {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<Double> response = restTemplate.getForEntity(
-                    "http://localhost:8081/reviews/average/" + bikeId, Double.class);
+                    "http://review.pedalpals:8081/reviews/average/" + bikeId, Double.class);
 
             Double averageScore = response.getBody();
 
@@ -182,9 +182,10 @@ public class BikeService {
         try {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<Boolean> response = restTemplate.getForEntity(
-                    "http://localhost:8083/approvals/available/" + bikeId + "?startDate=" + startRentingDate
+                    "http://rental.pedalpals:8083/approvals/available/" + bikeId + "?startDate=" + startRentingDate
                             + "&endDate=" + endRentingDate,
                     boolean.class);
+                    
             var availableForRent = response.getBody();
             if (availableForRent == null) {
                 return true;
@@ -193,7 +194,6 @@ public class BikeService {
             return availableForRent;
 
         } catch (Exception e) {
-            System.out.println(e);
             System.out.println("Bike not found...");
             return false;
         }

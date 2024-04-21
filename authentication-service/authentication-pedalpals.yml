@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authentication
+  namespace: pedalpals
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authentication
+  template:
+    metadata:
+      labels:
+        app: authentication
+    spec:
+      containers:
+      - name: authentication
+        image: authentication-service
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+        
+
+
