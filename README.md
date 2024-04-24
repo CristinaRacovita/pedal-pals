@@ -2,7 +2,7 @@
 
 # Pedal Pals
 
-To run this application in a local Kubernetes cluster you need to have installed Docker and Minikube. To get the application up and running follow the steps below:
+To run this application in a local Kubernetes cluster you need to have installed Docker and Minikube. A description of this cluster is presented in the section 3.6 of our report. To get the application up and running follow the steps below:
 
 1. Start Docker
 
@@ -36,12 +36,6 @@ To run this application in a local Kubernetes cluster you need to have installed
 
 7. Now we can deploy each application service together with the corresponding Kubernetes service, such that the deployed application services have an exposed port. To do this, we move into the directory of each service and run the following commands:
 
-    1. in "authentication-service" run `kubectl apply -f authentication-pedalpals.yml` and `kubectl apply -f authentication-service-pedalpals.yml`
-    2. in "bike-management-service" run `kubectl apply -f bike-management-pedalpals.yml` and `kubectl apply -f bike-management-service-pedalpals.yml`
-    3. in "notification-service" execute `kubectl apply -f notification-pedalpals.yml` and `kubectl apply -f notification-service-pedalpals.yml`
-    4. in "rental-service" execute `kubectl apply -f rental-pedalpals.yml` and `kubectl apply -f rental-service-pedalpals.yml`
-    5. in "review-service" run `kubectl apply -f review-pedalpals.yml` and `kubectl apply -f review-service-pedalpals.yml`
-
     |Directory name|First command|Second command|
     | ------------- |:-------------:|:----------:|
     |authentication-service|`kubectl apply -f authentication-pedalpals.yml`|`kubectl apply -f authentication-service-pedalpals.yml`|
@@ -54,3 +48,4 @@ To run this application in a local Kubernetes cluster you need to have installed
 8. Go to "http://localhost:8080/login" and log in with the username cristinaracovita or bogdanbindila. The password for both accounts is 1234.
 
 9. Enjoy!
+
