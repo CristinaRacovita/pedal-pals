@@ -28,7 +28,7 @@ public class CustomBikeRepository {
         if (wheelSize != -1) {
             query.addCriteria(Criteria.where("wheelSize").is(wheelSize));
         }
-        if (color != "") {
+        if (color != null) {
             query.addCriteria(Criteria.where("color").is(color));
         }
         if (numberOfGears != -1) {
