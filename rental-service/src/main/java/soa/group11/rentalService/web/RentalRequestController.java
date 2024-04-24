@@ -60,17 +60,16 @@ public class RentalRequestController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @PatchMapping("/requests/{id}")
-    public ResponseEntity<RentalRequestDto> cancelRequest(@PathVariable String id,
+    @PatchMapping("/requests/{requestId}")
+    public ResponseEntity<RentalRequestDto> cancelRequest(@PathVariable String requestId,
             @RequestBody RentalRequestDto rentalRequestDto) {
 
-        System.out.println("INSIDE!!");
         if (!rentalRequestDto.getStatus().equals(CANCELLED)) {
             return new ResponseEntity<RentalRequestDto>(HttpStatus.BAD_REQUEST);
         }
 
         try {
-            RentalRequestDto updatedRentalRequestDto = rentalRequestService.cancelRequest(id, rentalRequestDto);
+            RentalRequestDto updatedRentalRequestDto = rentalRequestService.cancelRequest(requestId, rentalRequestDto);
 
             if (updatedRentalRequestDto == null) {
                 return new ResponseEntity<RentalRequestDto>(HttpStatus.BAD_REQUEST);

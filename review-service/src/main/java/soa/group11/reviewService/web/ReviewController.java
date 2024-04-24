@@ -38,9 +38,9 @@ public class ReviewController {
     }
 
     @ResponseBody
-    @DeleteMapping("/reviews/{id}")
-    public ResponseEntity<Void> deleteFeedback(@PathVariable String id) {
-        if (feedbackService.deleteReview(id)) {
+    @DeleteMapping("/reviews/{reviewId}")
+    public ResponseEntity<Void> deleteFeedback(@PathVariable String reviewId) {
+        if (feedbackService.deleteReview(reviewId)) {
             return ResponseEntity.noContent().build();
         }
 
@@ -48,11 +48,11 @@ public class ReviewController {
     }
 
     @ResponseBody
-    @PutMapping("/reviews/{id}")
-    public ResponseEntity<ReviewDto> updateFeedback(@PathVariable String id,
+    @PutMapping("/reviews/{reviewId}")
+    public ResponseEntity<ReviewDto> updateFeedback(@PathVariable String reviewId,
             @RequestBody @Valid ReviewDto feedbackDto) {
         try {
-            ReviewDto updatedFeedbackDto = feedbackService.updateReview(id, feedbackDto);
+            ReviewDto updatedFeedbackDto = feedbackService.updateReview(reviewId, feedbackDto);
             return ResponseEntity.ok(updatedFeedbackDto);
         } catch (Exception e) {
             return new ResponseEntity<ReviewDto>(HttpStatus.NOT_FOUND);
