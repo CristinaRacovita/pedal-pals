@@ -12,11 +12,13 @@ To run this application in a local Kubernetes cluster you need to have installed
 
 4. The next step is to create the Docker image for each service. These images should be available to Minikube, so to meet this requirement we run the command `& minikube -p minikube docker-env --shell powershell | Invoke-Expression` (this works for a Windows host) and from the same cmd we move into each directory and build the corresponding image with the next commands:
 
-    1. `docker build -t authentication-service .` 
-    2. `docker build -t bike-management-service .`
-    3. `docker build -t notification-service .'`
-    4. `docker build -t rental-service .`
-    5. `docker build -t review-service .'`
+    |Directory name|First command|
+    | ------------- |:-------------:|
+    |authentication-service|`docker build -t authentication-service .`|
+    |bike-management-service|`docker build -t bike-management-service .`|
+    |notification-service|`docker build -t notification-service .`|
+    |rental-service|`docker build -t rental-service .`|
+    |review-service|`docker build -t review-service .`|
 
 5. The MongoDB database can be deployed and configured by doing the next seven steps:
 
@@ -28,7 +30,7 @@ To run this application in a local Kubernetes cluster you need to have installed
     6. create the databases and their collections by running `kubectl exec --namespace pedalpals deployment/mongo -it -- /bin/bash` followed by the command `mongosh`
     7. the final step is to copy the commands from "mongo_init.txt" and paste them into the cmd (this will create the databases and their corresponding collections)
 
-6. To deploy the ActiveMQ broker follow the next steps 
+6. To deploy the ActiveMQ broker follow the next steps: 
 
     1. move into the "deployment-config/activemq"
     2. deploy the ActiveMQ with `kubectl apply -f activemq-pedalpals.yml`
@@ -43,7 +45,6 @@ To run this application in a local Kubernetes cluster you need to have installed
     |notification-service|`kubectl apply -f notification-pedalpals.yml`|`kubectl apply -f notification-service-pedalpals.yml`|
     |rental-service|`kubectl apply -f rental-pedalpals.yml`|`kubectl apply -f rental-service-pedalpals.yml`|
     |review-service|`kubectl apply -f review-pedalpals.yml`|`kubectl apply -f review-service-pedalpals.yml`|
-
 
 8. Go to "http://localhost:8080/login" and log in with the username cristinaracovita or bogdanbindila. The password for both accounts is 1234.
 
